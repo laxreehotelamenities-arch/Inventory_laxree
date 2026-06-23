@@ -178,3 +178,65 @@ Verification:
 - Lint: clean (0 errors, 0 warnings)
 - Dev server: running on port 3000, no runtime errors
 - Agent Browser: all 4 roles tested, all screens verified, NO ₹ and NO stock qty visible anywhere
+
+---
+Task ID: oos-message-cart-pdf
+Agent: main (Super Z)
+Task: 3 fixes:
+1. Out of stock message: "It will be available once order is confirmed (24-30 days)"
+2. Cart click not working — fix
+3. PDF download after cart submission
+
+Work Log:
+- Updated `getStockDisplay()` in src/lib/types.ts:
+  * Out of Stock sublabel: "Available in 24-30 days" → "It will be available once order is confirmed (24-30 days)"
+- Improved cart icon in src/components/layout/app-header.tsx:
+  * Bigger touch target (40x40, was 36x36)
+  * Visible background highlight when items in cart (bg-slate-100 hover:bg-slate-200)
+  * White ring around red count badge for better contrast
+  * Active state: bg-slate-900 text-white when on cart page
+  * Dynamic aria-label: "Open cart (1 items)" when items exist
+  * Always clickable from any screen state
+- Installed jsPDF (`bun add jspdf` — v4.2.1)
+- Created src/lib/pdf-generator.ts with `generateOrderPDF()` function:
+  * A4 portrait format, dark header bar with LaxRee logo box
+  * Order #ID + submission timestamp
+  * Requestor details (name, role, user ID)
+  * Items table with columns: #, Model No, Item Name, Colour, Qty, Stock Status
+  * Alternating row backgrounds for readability
+  * Color-coded status text (green/amber/red)
+  * Total row showing items count + total quantity
+  * Dispatch information section with new OOS message: "Out of stock items: It will be available once order is confirmed (24-30 days)"
+  * Signature placeholder lines
+  * Page numbers in footer on every page
+  * Auto page-break for long lists
+  * Filename: `LaxRee-Order-{orderId}.pdf`
+- Updated src/components/cart/cart-screen.tsx:
+  * Submit button text: "Submit Request List" → "Submit Request List & Download PDF"
+  * Helper text under submit button: "A PDF order request will be generated on submission"
+  * On submit: captures cart snapshot, generates order ID, shows confirmation screen, AUTO-downloads PDF after 500ms delay
+  * Confirmation screen shows: success message, order #ID, items count, expected dispatch, submission timestamp
+  * "Download PDF Again" button — regenerates PDF from snapshot
+  * "Continue Browsing" button — clears cart and returns to Quick Order
+  * Updated Out-of-stock summary text in cart summary card to match new message
+
+Stage Summary:
+- OOS message: "It will be available once order is confirmed (24-30 days)" — verified visually on catalog card (Golf Umbrella)
+- Cart click: Works from all screens (Quick Order, Catalog, Product Detail). Cart icon is now 40x40 with prominent badge.
+- PDF download: Auto-downloads on submission. Verified file generated (8.7KB, 1 page PDF with full professional layout).
+
+Files created/modified:
+- src/lib/pdf-generator.ts (NEW — jsPDF-based order PDF generator)
+- src/lib/types.ts (updated OOS sublabel)
+- src/components/layout/app-header.tsx (bigger + prominent cart icon)
+- src/components/cart/cart-screen.tsx (PDF generation + new submit flow + confirmation screen)
+- package.json (added jspdf dependency)
+
+Verified via Agent Browser:
+- Out of Stock product (Golf Umbrella): shows "It will be available once order is confirmed (24-30 days)" on card
+- Cart icon: visible with "1" red badge, clickable, navigates to Request List
+- Submit flow: 1 item (Accessory Tray LRWA-356 BLACK, qty 1) → click Submit → confirmation screen → PDF auto-downloaded to /home/z/Downloads/LaxRee-Order-LR-215288.pdf
+- PDF contents verified via Vision: header, requestor info, items table with status, totals, dispatch info (with new OOS message), signature placeholders, page numbers
+
+Lint: clean (0 errors, 0 warnings)
+Dev server: running on port 3000, no runtime errors

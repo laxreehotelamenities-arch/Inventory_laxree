@@ -94,7 +94,7 @@ export function getStockDisplay(product: Product, role: Role): {
   }
   return {
     label: 'Out of Stock',
-    sublabel: 'Available in 24-30 days',
+    sublabel: 'It will be available once order is confirmed (24-30 days)',
     color: 'red',
   };
 }

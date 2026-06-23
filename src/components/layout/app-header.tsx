@@ -75,22 +75,27 @@ export function AppHeader() {
         </nav>
 
         {/* Right side: cart + user */}
-        <div className="flex items-center gap-1.5">
-          {/* Cart */}
-          <Button
-            variant="ghost"
-            size="sm"
+        <div className="flex items-center gap-1">
+          {/* Cart — always visible, always clickable */}
+          <button
             onClick={() => setView('cart')}
-            className="relative h-9 w-9 p-0"
-            aria-label="Open cart"
+            className={cn(
+              'relative h-10 min-w-10 px-2.5 rounded-full flex items-center justify-center transition-all active:scale-95',
+              currentView === 'cart'
+                ? 'bg-slate-900 text-white'
+                : cartCount > 0
+                  ? 'bg-slate-100 text-slate-900 hover:bg-slate-200'
+                  : 'text-slate-600 hover:bg-slate-100'
+            )}
+            aria-label={`Open cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}
           >
             <ShoppingCart className="w-4.5 h-4.5" />
             {cartCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-bold flex items-center justify-center">
+              <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-bold flex items-center justify-center shadow-sm ring-2 ring-white">
                 {cartCount > 99 ? '99+' : cartCount}
               </span>
             )}
-          </Button>
+          </button>
 
           {/* User dropdown */}
           <DropdownMenu>
