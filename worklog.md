@@ -308,3 +308,121 @@ Verification (Agent Browser + Vision):
 - Quick Order → Room Amenities → MiniBar → LRMB-132: dropdown shows "Essential" inline, preview shows "Essential" badge
 - Page reload no longer causes blank screen
 - Lint: clean (0 errors, 0 warnings)
+
+---
+Task ID: admin-panel-and-security
+Agent: main (Super Z)
+Task: Build proper admin panel with inward/outward/fast-moving + remove demo credentials from login + provide secure username/password
+
+Work Log:
+- Extracted inward/outward logs from HTML file via scripts/extract_logs.py:
+  * 358 inward log entries (Apr 22 - Jun 18, 2026)
+  * 122 outward log entries (Apr 23 - Jun 18, 2026)
+  * 70 unique dispatched items (fast-moving analysis)
+  * 39 unique clients with dispatch quantities
+- Generated data files:
+  * src/data/inward-log.json (358 entries)
+  * src/data/olog.json (122 entries)
+  * src/data/fast-moving-items.json (70 items with dispatch stats)
+  * src/data/clients-summary.json (39 clients ranked by qty)
+  * src/data/vendors-summary.json (0 vendors — data was blank in source)
+
+- SECURITY FIX: Removed all demo credentials from login screen
+  * Removed the "Quick Demo Login" section with admin/employee/dealer/distributor chips
+  * Removed DEMO_CREDENTIALS array (now empty)
+  * Replaced with a "Secure Access" notice: "This is an internal application. Credentials are issued by the system administrator and must not be shared. All actions are logged."
+  * Updated users.json with new secure credentials (no longer matching the simple demo passwords)
+
+- NEW SECURE CREDENTIALS (provided to user via chat):
+  * Admin:     laxree.admin   / LaxRee@dmn2026
+  * Employee:  laxree.emp     / Emp@LaxRee26
+  * Dealer:    laxree.dealer  / Dealer#LR26
+  * Distributor: laxree.dist / Dist$LR2026
+
+- Built comprehensive Admin Panel with 4 sections:
+
+  1. DASHBOARD (existing, enhanced)
+     - 4 KPI cards: Total SKUs, In Stock, Low Stock, Out of Stock
+     - Stock Movements: Total units, Inward, Dispatched
+     - Stock by Tier breakdown
+     - Top Categories by Units
+     - Low Stock Alerts list
+
+  2. INWARD MANAGEMENT (new — src/components/admin/admin-inward.tsx)
+     - Stats: Total Inward (37,797), Transactions (358), Vendors, Last 7 Days
+     - "Record New Inward" form: Product dropdown (all 293 SKUs), Qty, Date, Vendor, Bill, Remark
+     - Form shows selected product summary card with +N units badge
+     - Submit triggers success state with green checkmark + auto-reset after 3s
+     - Inward History table (358 entries, searchable by model/item/vendor/bill)
+     - Shows date, model, item, vendor, qty columns
+     - "Showing 100 of 358" pagination hint
+
+  3. OUTWARD MANAGEMENT (new — src/components/admin/admin-outward.tsx)
+     - Stats: Total Dispatched (2,829), Transactions (122), Clients (39), Last 7 Days
+     - "Record New Outward" form: Product dropdown (with stock-qty badge per item), Qty, Date, Client (with autocomplete from 39 known clients), Challan, Bill, Remark
+     - Stock validation: prevents dispatch if qty > available stock
+     - Submit triggers success state with red checkmark + auto-reset
+     - Dispatch History table (122 entries, searchable)
+     - Top Clients by Dispatch Volume section (Hotel G G Regency 557, P HOSPITALITY 185, etc.)
+
+  4. FAST-MOVING ITEMS (new — src/components/admin/admin-fast-moving.tsx)
+     - Stats: Total Dispatched (2,829), Transactions (122), Avg/Item (40), Urgent Restock (6)
+     - Sort options: By Volume, By Frequency, Urgent Restock
+     - Ranked list with:
+       * Top 3 get gold/silver/bronze rank badges
+       * Model number, item name, category, colour
+       * Total dispatched, transactions count, current stock
+       * Visual dispatch-rate progress bar
+       * "URGENT RESTOCK" badge for items with stock ≤ 10 AND dispatched > 20
+     - Top fast-moving: LRWT-145 (Tea Kettle, 934 dispatched), LRWH-227 (Wooden Hanger, 249), LRRA-656 (Room Dustbin, 230), LRHD-276 (Hair Dryer, 203 — URGENT RESTOCK, only 3 left)
+
+- Updated AppHeader with admin-only nav items:
+  * Quick Order, Catalog (all roles)
+  * Dashboard, Inward, Outward, Fast-Moving (admin only)
+  * Menu items conditionally rendered based on cfg.canViewDashboard
+
+- Updated page.tsx to route the 4 new admin views:
+  * 'admin-inward' → AdminInwardScreen
+  * 'admin-outward' → AdminOutwardScreen
+  * 'admin-fast-moving' → AdminFastMovingScreen
+  * All gated by `currentUser.role === 'admin'` check
+  * Non-admin users attempting admin views are redirected to Quick Order
+
+Stage Summary:
+- LOGIN SECURITY: Demo credentials chips REMOVED. Login screen now shows "Secure Access" notice. Real credentials provided to user separately.
+- ADMIN PANEL: 4 fully functional sections with real data scraped from HTML file:
+  * Dashboard — inventory overview
+  * Inward — add stock + 358-entry history
+  * Outward — dispatch stock + 122-entry history + top clients
+  * Fast-Moving — ranked list of 70 items + urgent restock alerts
+- DATA INTEGRATION: All admin panel data sourced from HTML file's EMBEDDED_DATA (smap, ilog, olog) — real transaction history
+- ROLE ISOLATION: Dealer/Employee/Distributor see only Quick Order + Catalog. Admin-only features are completely hidden.
+
+Files created/modified:
+- src/data/users.json (new secure credentials)
+- src/data/inward-log.json (NEW — 358 inward transactions)
+- src/data/olog.json (NEW — 122 outward transactions)
+- src/data/fast-moving-items.json (NEW — 70 items ranked by dispatch volume)
+- src/data/clients-summary.json (NEW — 39 clients ranked)
+- src/data/vendors-summary.json (NEW — vendor list)
+- src/lib/auth.ts (DEMO_CREDENTIALS now empty array)
+- src/lib/types.ts (added 4 new View types)
+- src/components/auth/login-screen.tsx (removed demo chips, added Secure Access notice)
+- src/components/admin/admin-inward.tsx (NEW)
+- src/components/admin/admin-outward.tsx (NEW)
+- src/components/admin/admin-fast-moving.tsx (NEW)
+- src/components/layout/app-header.tsx (added admin nav items)
+- src/app/page.tsx (routes for 4 new admin views)
+- scripts/extract_logs.py (NEW — extracts ilog/olog from HTML)
+
+Verification (Agent Browser + Vision):
+- Login screen: NO demo credentials visible, "Secure Access" notice shown
+- Admin login with laxree.admin / LaxRee@dmn2026: SUCCESS
+- Admin menu shows: Quick Order, Catalog, Dashboard, Inward, Outward, Fast-Moving, Sign Out
+- Inward page: stats (37,797 / 358 / 0 vendors / 23 last 7 days) + form + 358-entry history table
+- Outward page: stats (2,829 / 122 / 39 clients / 20 last 7 days) + form + 122-entry history + Top Clients section
+- Fast-Moving page: stats (2,829 / 122 / 40 avg / 6 urgent) + sort options + ranked list with LRHD-276 marked URGENT RESTOCK
+- Dealer login with laxree.dealer / Dealer#LR26: SUCCESS, menu shows only Quick Order + Catalog + Sign Out (NO admin items)
+
+Lint: clean (0 errors, 0 warnings)
+Dev server: running on port 3000, no runtime errors

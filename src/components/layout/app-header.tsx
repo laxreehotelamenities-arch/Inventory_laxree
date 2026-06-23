@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Package, LogOut, LayoutGrid, ShoppingCart, ChevronDown, ShieldCheck, Search } from 'lucide-react';
+import { Package, LogOut, LayoutGrid, ShoppingCart, ChevronDown, ShieldCheck, Search, ArrowDownRight, ArrowUpRight, Flame } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const roleBadgeColors: Record<string, string> = {
@@ -30,12 +30,17 @@ export function AppHeader() {
   const cfg = getRoleConfig(currentUser.role);
   const cartCount = cart.reduce((sum, c) => sum + c.qty, 0);
 
-  const navItems: { key: typeof currentView; label: string; icon: typeof LayoutGrid }[] = [
+  const navItems: { key: typeof currentView; label: string; icon: typeof LayoutGrid; adminOnly?: boolean }[] = [
     { key: 'quick-order', label: 'Quick Order', icon: Search },
     { key: 'catalog', label: 'Catalog', icon: LayoutGrid },
   ];
   if (cfg.canViewDashboard) {
-    navItems.push({ key: 'dashboard', label: 'Dashboard', icon: ShieldCheck });
+    navItems.push(
+      { key: 'dashboard', label: 'Dashboard', icon: ShieldCheck, adminOnly: true },
+      { key: 'admin-inward', label: 'Inward', icon: ArrowDownRight, adminOnly: true },
+      { key: 'admin-outward', label: 'Outward', icon: ArrowUpRight, adminOnly: true },
+      { key: 'admin-fast-moving', label: 'Fast-Moving', icon: Flame, adminOnly: true }
+    );
   }
 
   return (

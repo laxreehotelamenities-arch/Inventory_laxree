@@ -2,28 +2,12 @@
 
 import { useState } from 'react';
 import { useAppStore } from '@/store/use-app';
-import { authenticate, DEMO_CREDENTIALS, getRoleConfig } from '@/lib/auth';
+import { authenticate } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Package, Lock, User, Eye, EyeOff, Shield, ShoppingBag, Building2, Truck } from 'lucide-react';
-import { cn } from '@/lib/utils';
-
-const roleIcons = {
-  admin: Shield,
-  employee: ShoppingBag,
-  dealer: Building2,
-  distributor: Truck,
-};
-
-const roleColors: Record<string, string> = {
-  admin: 'bg-rose-50 text-rose-700 border-rose-200',
-  employee: 'bg-amber-50 text-amber-700 border-amber-200',
-  dealer: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  distributor: 'bg-violet-50 text-violet-700 border-violet-200',
-};
+import { Lock, User, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 
 export function LoginScreen() {
   const login = useAppStore((s) => s.login);
@@ -42,15 +26,10 @@ export function LoginScreen() {
         login(user);
         showToast(`Welcome back, ${user.name}!`, 'success');
       } else {
-        showToast('Invalid credentials. Please try again.', 'error');
+        showToast('Invalid credentials. Please contact your administrator.', 'error');
       }
       setLoading(false);
     }, 400);
-  };
-
-  const fillCredentials = (creds: typeof DEMO_CREDENTIALS[number]) => {
-    setUsername(creds.username);
-    setPassword(creds.password);
   };
 
   return (
@@ -74,7 +53,7 @@ export function LoginScreen() {
           <CardHeader className="space-y-1 pb-4">
             <CardTitle className="text-xl text-center">Sign in to your account</CardTitle>
             <p className="text-xs text-center text-slate-500">
-              Choose your role to access the inventory portal
+              Authorized personnel only · Contact admin for credentials
             </p>
           </CardHeader>
           <CardContent>
@@ -90,7 +69,7 @@ export function LoginScreen() {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Enter username"
+                    placeholder="Enter your username"
                     className="pl-9 h-11"
                     autoComplete="username"
                     required
@@ -109,7 +88,7 @@ export function LoginScreen() {
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter password"
+                    placeholder="Enter your password"
                     className="pl-9 pr-9 h-11"
                     autoComplete="current-password"
                     required
@@ -134,34 +113,16 @@ export function LoginScreen() {
               </Button>
             </form>
 
-            {/* Quick role login chips */}
+            {/* Security notice — replaces the demo credentials chips */}
             <div className="mt-6 pt-5 border-t border-slate-100">
-              <p className="text-[11px] uppercase tracking-wide font-semibold text-slate-400 mb-2.5 text-center">
-                Quick Demo Login
-              </p>
-              <div className="grid grid-cols-2 gap-2">
-                {DEMO_CREDENTIALS.map((c) => {
-                  const cfg = getRoleConfig(c.role);
-                  const Icon = roleIcons[c.role];
-                  return (
-                    <button
-                      key={c.role}
-                      type="button"
-                      onClick={() => fillCredentials(c)}
-                      className={cn(
-                        'flex items-center gap-2 px-3 py-2.5 rounded-lg border text-xs font-medium transition-all hover:shadow-sm active:scale-[0.98]',
-                        roleColors[c.role]
-                      )}
-                    >
-                      <Icon className="w-3.5 h-3.5 shrink-0" />
-                      <span className="truncate">{cfg.label}</span>
-                    </button>
-                  );
-                })}
+              <div className="flex items-start gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <ShieldCheck className="w-4 h-4 text-slate-600 shrink-0 mt-0.5" />
+                <div className="text-[11px] text-slate-600 leading-relaxed">
+                  <strong className="text-slate-900">Secure Access.</strong> This is an internal
+                  application. Credentials are issued by the system administrator and must not be
+                  shared. All actions are logged.
+                </div>
               </div>
-              <p className="text-[10px] text-slate-400 text-center mt-3 leading-relaxed">
-                Tap a role to auto-fill credentials, then press Sign In
-              </p>
             </div>
           </CardContent>
         </Card>

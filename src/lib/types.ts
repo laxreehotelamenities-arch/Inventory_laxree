@@ -3,7 +3,18 @@
  */
 export type Role = 'admin' | 'employee' | 'dealer' | 'distributor';
 
-export type View = 'login' | 'catalog' | 'product-detail' | 'cart' | 'dashboard' | 'quick-order';
+export type View =
+  | 'login'
+  | 'catalog'
+  | 'product-detail'
+  | 'cart'
+  | 'dashboard'
+  | 'quick-order'
+  | 'admin-inward'
+  | 'admin-outward'
+  | 'admin-fast-moving'
+  | 'admin-inward-log'
+  | 'admin-outward-log';
 
 export type Tier = 'Essential' | 'Premium' | 'Luxury' | 'Standard';
 

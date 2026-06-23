@@ -31,10 +31,6 @@ export function getRoleConfig(role: Role): RoleConfig {
   return ROLE_CONFIG[role];
 }
 
-// Demo credentials display helper
-export const DEMO_CREDENTIALS = [
-  { role: 'admin' as Role, username: 'admin', password: 'admin123' },
-  { role: 'employee' as Role, username: 'employee', password: 'emp123' },
-  { role: 'dealer' as Role, username: 'dealer', password: 'dealer123' },
-  { role: 'distributor' as Role, username: 'distributor', password: 'dist123' },
-];
+// Demo credentials display helper — REMOVED for security.
+// Admin will receive credentials directly from the system administrator.
+export const DEMO_CREDENTIALS: { role: Role; username: string; password: string }[] = [];

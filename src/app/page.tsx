@@ -8,6 +8,9 @@ import { ProductDetailScreen } from '@/components/catalog/product-detail';
 import { QuickOrderScreen } from '@/components/catalog/quick-order-screen';
 import { CartScreen } from '@/components/cart/cart-screen';
 import { AdminDashboard } from '@/components/dashboard/admin-dashboard';
+import { AdminInwardScreen } from '@/components/admin/admin-inward';
+import { AdminOutwardScreen } from '@/components/admin/admin-outward';
+import { AdminFastMovingScreen } from '@/components/admin/admin-fast-moving';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { useHydrate } from '@/lib/use-hydrate';
@@ -46,7 +49,11 @@ export default function Home() {
         {currentView === 'product-detail' && <ProductDetailScreen />}
         {currentView === 'cart' && <CartScreen />}
         {currentView === 'dashboard' && currentUser.role === 'admin' && <AdminDashboard />}
-        {currentView === 'dashboard' && currentUser.role !== 'admin' && <QuickOrderScreen />}
+        {currentView === 'admin-inward' && currentUser.role === 'admin' && <AdminInwardScreen />}
+        {currentView === 'admin-outward' && currentUser.role === 'admin' && <AdminOutwardScreen />}
+        {currentView === 'admin-fast-moving' && currentUser.role === 'admin' && <AdminFastMovingScreen />}
+        {/* Fallbacks for non-admin trying admin views */}
+        {['dashboard', 'admin-inward', 'admin-outward', 'admin-fast-moving'].includes(currentView) && currentUser.role !== 'admin' && <QuickOrderScreen />}
       </main>
 
       {/* Footer */}

@@ -1,0 +1,702 @@
+[
+  {
+    "key": "LRWT-145__SS",
+    "model": "LRWT-145",
+    "colour": "SS",
+    "category": "Room Amenities",
+    "item": "Tea Kettle",
+    "total_dispatched": 934,
+    "dispatch_count": 3,
+    "current_balance": 856
+  },
+  {
+    "key": "LRWH-227__ROUND BAR NATURAL WOOD",
+    "model": "LRWH-227",
+    "colour": "ROUND BAR NATURAL WOOD",
+    "category": "Room Amenities",
+    "item": "Wooden Hanger",
+    "total_dispatched": 249,
+    "dispatch_count": 4,
+    "current_balance": 2423
+  },
+  {
+    "key": "LRRA-656__SS",
+    "model": "LRRA-656",
+    "colour": "SS",
+    "category": "Room Amenities",
+    "item": "Room Dustbin",
+    "total_dispatched": 230,
+    "dispatch_count": 5,
+    "current_balance": 124
+  },
+  {
+    "key": "LRHD-276__BLACK SHOKIT",
+    "model": "LRHD-276",
+    "colour": "BLACK SHOKIT",
+    "category": "Bathroom Amenities",
+    "item": "Hair Dryer",
+    "total_dispatched": 203,
+    "dispatch_count": 3,
+    "current_balance": 3
+  },
+  {
+    "key": "LRRA-659__BLACK",
+    "model": "LRRA-659",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Room Dustbin",
+    "total_dispatched": 160,
+    "dispatch_count": 7,
+    "current_balance": 260
+  },
+  {
+    "key": "LRWH-226__WITH CLIP NATURAL WOOD",
+    "model": "LRWH-226",
+    "colour": "WITH CLIP NATURAL WOOD",
+    "category": "Room Amenities",
+    "item": "Wooden Hanger",
+    "total_dispatched": 110,
+    "dispatch_count": 2,
+    "current_balance": 355
+  },
+  {
+    "key": "LRWT-147__BLACK",
+    "model": "LRWT-147",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Tea Kettle",
+    "total_dispatched": 106,
+    "dispatch_count": 3,
+    "current_balance": 349
+  },
+  {
+    "key": "LRWT-156__BLACK",
+    "model": "LRWT-156",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Tea Kettle",
+    "total_dispatched": 86,
+    "dispatch_count": 1,
+    "current_balance": 117
+  },
+  {
+    "key": "LRHD-287__WHITE",
+    "model": "LRHD-287",
+    "colour": "WHITE",
+    "category": "Bathroom Amenities",
+    "item": "Hair Dryer",
+    "total_dispatched": 72,
+    "dispatch_count": 4,
+    "current_balance": 27
+  },
+  {
+    "key": "LRMM-305R__ROSE GOLD",
+    "model": "LRMM-305R",
+    "colour": "ROSE GOLD",
+    "category": "Bathroom Amenities",
+    "item": "Magnifying Mirror",
+    "total_dispatched": 64,
+    "dispatch_count": 2,
+    "current_balance": 67
+  },
+  {
+    "key": "LRHD-278__WHITE",
+    "model": "LRHD-278",
+    "colour": "WHITE",
+    "category": "Bathroom Amenities",
+    "item": "Hair Dryer",
+    "total_dispatched": 64,
+    "dispatch_count": 2,
+    "current_balance": 21
+  },
+  {
+    "key": "LRSB-203__BLACK",
+    "model": "LRSB-203",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Safe Box",
+    "total_dispatched": 49,
+    "dispatch_count": 2,
+    "current_balance": 321
+  },
+  {
+    "key": "LRMB-127__BLACK",
+    "model": "LRMB-127",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "MiniBar",
+    "total_dispatched": 46,
+    "dispatch_count": 1,
+    "current_balance": -46
+  },
+  {
+    "key": "LRHD-285__BLACK",
+    "model": "LRHD-285",
+    "colour": "BLACK",
+    "category": "Bathroom Amenities",
+    "item": "Hair Dryer",
+    "total_dispatched": 38,
+    "dispatch_count": 3,
+    "current_balance": 197
+  },
+  {
+    "key": "LRDR-181__BLACK",
+    "model": "LRDR-181",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Room Telephone",
+    "total_dispatched": 30,
+    "dispatch_count": 1,
+    "current_balance": 270
+  },
+  {
+    "key": "Ironing Board__",
+    "model": "Ironing Board",
+    "colour": "",
+    "category": "Room Amenities",
+    "item": "Ironing Board",
+    "total_dispatched": 29,
+    "dispatch_count": 7,
+    "current_balance": 99
+  },
+  {
+    "key": "LRRA-663__DARK BROWN",
+    "model": "LRRA-663",
+    "colour": "DARK BROWN",
+    "category": "Room Amenities",
+    "item": "Room Dustbin",
+    "total_dispatched": 28,
+    "dispatch_count": 1,
+    "current_balance": 4
+  },
+  {
+    "key": "LRWA-362 (2pc)__BROWN",
+    "model": "LRWA-362 (2pc)",
+    "colour": "BROWN",
+    "category": "Bathroom Amenities",
+    "item": "In-Room Soap Dispenser",
+    "total_dispatched": 28,
+    "dispatch_count": 1,
+    "current_balance": 108
+  },
+  {
+    "key": "LRRA-669__DL ABS+PU",
+    "model": "LRRA-669",
+    "colour": "DL ABS+PU",
+    "category": "Room Amenities",
+    "item": "Room Dustbin",
+    "total_dispatched": 25,
+    "dispatch_count": 2,
+    "current_balance": 7
+  },
+  {
+    "key": "Golf Umbrella__BLACK",
+    "model": "Golf Umbrella",
+    "colour": "BLACK",
+    "category": "Lobby Items",
+    "item": "Golf Umbrella",
+    "total_dispatched": 25,
+    "dispatch_count": 1,
+    "current_balance": 0
+  },
+  {
+    "key": "LRRA-658__SS",
+    "model": "LRRA-658",
+    "colour": "SS",
+    "category": "Room Amenities",
+    "item": "Room Dustbin",
+    "total_dispatched": 25,
+    "dispatch_count": 2,
+    "current_balance": 507
+  },
+  {
+    "key": "LRDA-806__BLACK",
+    "model": "LRDA-806",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Desktop Accessories - Tissue Box",
+    "total_dispatched": 21,
+    "dispatch_count": 1,
+    "current_balance": 9
+  },
+  {
+    "key": "LRDA-804__BROWN",
+    "model": "LRDA-804",
+    "colour": "BROWN",
+    "category": "Room Amenities",
+    "item": "Desktop Accessories - Tissue Box",
+    "total_dispatched": 20,
+    "dispatch_count": 1,
+    "current_balance": 1
+  },
+  {
+    "key": "LRHD-276__WHITE",
+    "model": "LRHD-276",
+    "colour": "WHITE",
+    "category": "Bathroom Amenities",
+    "item": "Hair Dryer",
+    "total_dispatched": 18,
+    "dispatch_count": 3,
+    "current_balance": 12
+  },
+  {
+    "key": "LRDR-183__BLACK",
+    "model": "LRDR-183",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Room Telephone",
+    "total_dispatched": 14,
+    "dispatch_count": 2,
+    "current_balance": 296
+  },
+  {
+    "key": "LRWA-356__BLACK",
+    "model": "LRWA-356",
+    "colour": "BLACK",
+    "category": "Bathroom Amenities",
+    "item": "Accessory Tray",
+    "total_dispatched": 12,
+    "dispatch_count": 1,
+    "current_balance": 166
+  },
+  {
+    "key": "LRHD-279__BLACK",
+    "model": "LRHD-279",
+    "colour": "BLACK",
+    "category": "Bathroom Amenities",
+    "item": "Hair Dryer",
+    "total_dispatched": 11,
+    "dispatch_count": 2,
+    "current_balance": 12
+  },
+  {
+    "key": "LRRA-655__DARK BROWN",
+    "model": "LRRA-655",
+    "colour": "DARK BROWN",
+    "category": "Room Amenities",
+    "item": "Luggage Rack",
+    "total_dispatched": 10,
+    "dispatch_count": 1,
+    "current_balance": 0
+  },
+  {
+    "key": "LRWA-382__WHITE",
+    "model": "LRWA-382",
+    "colour": "WHITE",
+    "category": "Lobby Items",
+    "item": "Lobby Soap Dispenser",
+    "total_dispatched": 10,
+    "dispatch_count": 2,
+    "current_balance": 169
+  },
+  {
+    "key": "Iron Holder__BLACK",
+    "model": "Iron Holder",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Iron Holder",
+    "total_dispatched": 10,
+    "dispatch_count": 1,
+    "current_balance": 46
+  },
+  {
+    "key": "LRWA-387 (Set of 2)__WHITE",
+    "model": "LRWA-387 (Set of 2)",
+    "colour": "WHITE",
+    "category": "Bathroom Amenities",
+    "item": "In-Room Soap Dispenser",
+    "total_dispatched": 9,
+    "dispatch_count": 1,
+    "current_balance": 30
+  },
+  {
+    "key": "LRHD-277__WHITE",
+    "model": "LRHD-277",
+    "colour": "WHITE",
+    "category": "Bathroom Amenities",
+    "item": "Hair Dryer",
+    "total_dispatched": 9,
+    "dispatch_count": 2,
+    "current_balance": 41
+  },
+  {
+    "key": "LRWS-330__WHITE",
+    "model": "LRWS-330",
+    "colour": "WHITE",
+    "category": "Bathroom Amenities",
+    "item": "Weighing Scale",
+    "total_dispatched": 5,
+    "dispatch_count": 1,
+    "current_balance": 197
+  },
+  {
+    "key": "LRLI-445__S.S",
+    "model": "LRLI-445",
+    "colour": "S.S",
+    "category": "Lobby Items",
+    "item": "Lobby Dustbin",
+    "total_dispatched": 5,
+    "dispatch_count": 1,
+    "current_balance": 71
+  },
+  {
+    "key": "Shoe Shiner Small__GOLDEN",
+    "model": "Shoe Shiner Small",
+    "colour": "GOLDEN",
+    "category": "Lobby Items",
+    "item": "Shoe Polisher",
+    "total_dispatched": 4,
+    "dispatch_count": 4,
+    "current_balance": 15
+  },
+  {
+    "key": "LRLI-458 (Velvet Rope)__RED",
+    "model": "LRLI-458 (Velvet Rope)",
+    "colour": "RED",
+    "category": "Lobby Items",
+    "item": "Que Manager",
+    "total_dispatched": 4,
+    "dispatch_count": 1,
+    "current_balance": 34
+  },
+  {
+    "key": "LRLI-457S__SS",
+    "model": "LRLI-457S",
+    "colour": "SS",
+    "category": "Lobby Items",
+    "item": "Que Manager",
+    "total_dispatched": 4,
+    "dispatch_count": 1,
+    "current_balance": 3
+  },
+  {
+    "key": "LRHT-430 (Linen Trolley)__BLUE",
+    "model": "LRHT-430 (Linen Trolley)",
+    "colour": "BLUE",
+    "category": "Lobby Items",
+    "item": "Linen Trolley",
+    "total_dispatched": 4,
+    "dispatch_count": 2,
+    "current_balance": 30
+  },
+  {
+    "key": "LRSB-201 (Black)__BLACK",
+    "model": "LRSB-201 (Black)",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Safe Box",
+    "total_dispatched": 4,
+    "dispatch_count": 1,
+    "current_balance": 249
+  },
+  {
+    "key": "LRWA-373 (Auto)__WHITE",
+    "model": "LRWA-373 (Auto)",
+    "colour": "WHITE",
+    "category": "Lobby Items",
+    "item": "Lobby Soap Dispenser",
+    "total_dispatched": 4,
+    "dispatch_count": 1,
+    "current_balance": 10
+  },
+  {
+    "key": "LRMR-255__WHITE",
+    "model": "LRMR-255",
+    "colour": "WHITE",
+    "category": "Room Amenities",
+    "item": "Rollaway Bed",
+    "total_dispatched": 4,
+    "dispatch_count": 1,
+    "current_balance": 3
+  },
+  {
+    "key": "Steam Iron__WHITE & BLACK",
+    "model": "Steam Iron",
+    "colour": "WHITE & BLACK",
+    "category": "Room Amenities",
+    "item": "Steam Iron",
+    "total_dispatched": 3,
+    "dispatch_count": 1,
+    "current_balance": 305
+  },
+  {
+    "key": "LRWH-228__WHITE",
+    "model": "LRWH-228",
+    "colour": "WHITE",
+    "category": "Room Amenities",
+    "item": "Wooden Hanger",
+    "total_dispatched": 3,
+    "dispatch_count": 2,
+    "current_balance": 7
+  },
+  {
+    "key": "LRHT-431 (With Lid And Door)__BLACK",
+    "model": "LRHT-431 (With Lid And Door)",
+    "colour": "BLACK",
+    "category": "Lobby Items",
+    "item": "Housekeeping Trolley",
+    "total_dispatched": 3,
+    "dispatch_count": 1,
+    "current_balance": 2
+  },
+  {
+    "key": "LRWA-365__BROWN",
+    "model": "LRWA-365",
+    "colour": "BROWN",
+    "category": "Bathroom Amenities",
+    "item": "In-Room Soap Dispenser",
+    "total_dispatched": 2,
+    "dispatch_count": 2,
+    "current_balance": 52
+  },
+  {
+    "key": "LRHT-431 (With Lid And Door)__GRAY",
+    "model": "LRHT-431 (With Lid And Door)",
+    "colour": "GRAY",
+    "category": "Lobby Items",
+    "item": "Housekeeping Trolley",
+    "total_dispatched": 2,
+    "dispatch_count": 2,
+    "current_balance": 5
+  },
+  {
+    "key": "LRLI-458G__GOLDEN",
+    "model": "LRLI-458G",
+    "colour": "GOLDEN",
+    "category": "Lobby Items",
+    "item": "Que Manager",
+    "total_dispatched": 2,
+    "dispatch_count": 1,
+    "current_balance": 22
+  },
+  {
+    "key": "LRLI-460__A4 SINGAE WITH POLE STAND",
+    "model": "LRLI-460",
+    "colour": "A4 SINGAE WITH POLE STAND",
+    "category": "Lobby Items",
+    "item": "Que Manager",
+    "total_dispatched": 2,
+    "dispatch_count": 2,
+    "current_balance": 8
+  },
+  {
+    "key": "LRWH-234__NATURAL WOOD",
+    "model": "LRWH-234",
+    "colour": "NATURAL WOOD",
+    "category": "Room Amenities",
+    "item": "Wooden Hanger",
+    "total_dispatched": 2,
+    "dispatch_count": 1,
+    "current_balance": 5558
+  },
+  {
+    "key": "LRWH-231__WITH CLIP NATURAL WOOD",
+    "model": "LRWH-231",
+    "colour": "WITH CLIP NATURAL WOOD",
+    "category": "Room Amenities",
+    "item": "Wooden Hanger",
+    "total_dispatched": 2,
+    "dispatch_count": 1,
+    "current_balance": 98
+  },
+  {
+    "key": "LRWH-233__NATURAL WOOD",
+    "model": "LRWH-233",
+    "colour": "NATURAL WOOD",
+    "category": "Room Amenities",
+    "item": "Wooden Hanger",
+    "total_dispatched": 2,
+    "dispatch_count": 1,
+    "current_balance": 3098
+  },
+  {
+    "key": "LRWT-155__BLACK",
+    "model": "LRWT-155",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Tea Kettle",
+    "total_dispatched": 2,
+    "dispatch_count": 2,
+    "current_balance": 518
+  },
+  {
+    "key": "LRWS-334__SILVER",
+    "model": "LRWS-334",
+    "colour": "SILVER",
+    "category": "Room Amenities",
+    "item": "Ironing Board",
+    "total_dispatched": 2,
+    "dispatch_count": 2,
+    "current_balance": 54
+  },
+  {
+    "key": "LRMB-127__30L GLASS DOOR BLACK",
+    "model": "LRMB-127",
+    "colour": "30L GLASS DOOR BLACK",
+    "category": "Room Amenities",
+    "item": "MiniBar",
+    "total_dispatched": 2,
+    "dispatch_count": 1,
+    "current_balance": 5
+  },
+  {
+    "key": "LRWA-396__WHITE",
+    "model": "LRWA-396",
+    "colour": "WHITE",
+    "category": "Bathroom Amenities",
+    "item": "Hand Dryer",
+    "total_dispatched": 2,
+    "dispatch_count": 1,
+    "current_balance": 6
+  },
+  {
+    "key": "LRWA-361__SS",
+    "model": "LRWA-361",
+    "colour": "SS",
+    "category": "Bathroom Amenities",
+    "item": "In-Room Soap Dispenser",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 20
+  },
+  {
+    "key": "LRWA-364__TRIPLE SS",
+    "model": "LRWA-364",
+    "colour": "TRIPLE SS",
+    "category": "Bathroom Amenities",
+    "item": "In-Room Soap Dispenser",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 66
+  },
+  {
+    "key": "LRRA-651__SS BROWN",
+    "model": "LRRA-651",
+    "colour": "SS BROWN",
+    "category": "Room Amenities",
+    "item": "Coat Stand",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 12
+  },
+  {
+    "key": "LRLT-401__GOLDEN",
+    "model": "LRLT-401",
+    "colour": "GOLDEN",
+    "category": "Lobby Items",
+    "item": "Luggage Trolley",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 0
+  },
+  {
+    "key": "LRDA-814__BLACK",
+    "model": "LRDA-814",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Desktop Accessories - Remote Holder",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 1
+  },
+  {
+    "key": "LRDA-815__BROWN",
+    "model": "LRDA-815",
+    "colour": "BROWN",
+    "category": "Room Amenities",
+    "item": "Desktop Accessories - Remote Holder",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 27
+  },
+  {
+    "key": "LRWT-158__PLAIN BLACK",
+    "model": "LRWT-158",
+    "colour": "PLAIN BLACK",
+    "category": "Room Amenities",
+    "item": "Tea Kettle Tray",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 13
+  },
+  {
+    "key": "LRDR-188__BLACK",
+    "model": "LRDR-188",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Room Telephone",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 44
+  },
+  {
+    "key": "LRLI-449 (SS Push Lid)__S.S.",
+    "model": "LRLI-449 (SS Push Lid)",
+    "colour": "S.S.",
+    "category": "Lobby Items",
+    "item": "Lobby Dustbin",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 15
+  },
+  {
+    "key": "LRRA-667 (SS Swing Lid)__SS",
+    "model": "LRRA-667 (SS Swing Lid)",
+    "colour": "SS",
+    "category": "Room Amenities",
+    "item": "Room Dustbin",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 104
+  },
+  {
+    "key": "LRWT-159__BLACK",
+    "model": "LRWT-159",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Tea Kettle Tray",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 47
+  },
+  {
+    "key": "LRRA-665__S.S.",
+    "model": "LRRA-665",
+    "colour": "S.S.",
+    "category": "Room Amenities",
+    "item": "Room Dustbin",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 49
+  },
+  {
+    "key": "LRWT-167__BLACK",
+    "model": "LRWT-167",
+    "colour": "BLACK",
+    "category": "Room Amenities",
+    "item": "Tea Kettle Tray",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 53
+  },
+  {
+    "key": "LRHT-427__BROWN",
+    "model": "LRHT-427",
+    "colour": "BROWN",
+    "category": "Lobby Items",
+    "item": "Housekeeping Trolley",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 26
+  },
+  {
+    "key": "Shoe Shiner Big__GOLDEN",
+    "model": "Shoe Shiner Big",
+    "colour": "GOLDEN",
+    "category": "Lobby Items",
+    "item": "Shoe Polisher",
+    "total_dispatched": 1,
+    "dispatch_count": 1,
+    "current_balance": 3
+  }
+]

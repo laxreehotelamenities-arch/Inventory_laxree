@@ -2,18 +2,18 @@
   "users": [
     {
       "id": "u-admin-001",
-      "username": "admin",
-      "password": "admin123",
+      "username": "laxree.admin",
+      "password": "LaxRee@dmn2026",
       "name": "Rajesh Kumar",
       "role": "admin",
       "avatar": "RK",
       "department": "Inventory Management",
-      "permissions": ["view_stock_qty", "view_pricing", "edit_stock", "view_dashboard", "view_all_categories", "view_audit_log"]
+      "permissions": ["view_stock_qty", "view_pricing", "edit_stock", "view_dashboard", "view_all_categories", "view_audit_log", "manage_inward", "manage_outward"]
     },
     {
       "id": "u-emp-001",
-      "username": "employee",
-      "password": "emp123",
+      "username": "laxree.emp",
+      "password": "Emp@LaxRee26",
       "name": "Priya Sharma",
       "role": "employee",
       "avatar": "PS",
@@ -22,8 +22,8 @@
     },
     {
       "id": "u-deal-001",
-      "username": "dealer",
-      "password": "dealer123",
+      "username": "laxree.dealer",
+      "password": "Dealer#LR26",
       "name": "Amit Verma",
       "role": "dealer",
       "avatar": "AV",
@@ -32,8 +32,8 @@
     },
     {
       "id": "u-dist-001",
-      "username": "distributor",
-      "password": "dist123",
+      "username": "laxree.dist",
+      "password": "Dist$LR2026",
       "name": "Sneha Patel",
       "role": "distributor",
       "avatar": "SP",
