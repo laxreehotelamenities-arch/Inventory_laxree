@@ -54,6 +54,20 @@ const stepConfig = [
   { num: 4, label: 'Quantity', icon: ShoppingCart },
 ];
 
+const tierColors: Record<string, string> = {
+  Essential: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+  Premium: 'bg-blue-100 text-blue-700 border-blue-200',
+  Luxury: 'bg-purple-100 text-purple-700 border-purple-200',
+  Standard: 'bg-slate-100 text-slate-700 border-slate-200',
+};
+
+const tierDot: Record<string, string> = {
+  Essential: 'bg-emerald-500',
+  Premium: 'bg-blue-500',
+  Luxury: 'bg-purple-500',
+  Standard: 'bg-slate-400',
+};
+
 export function QuickOrderScreen() {
   const { currentUser, addToCart, setView, setSelectedProduct, showToast } = useAppStore();
   const data = useCascadeData();
@@ -272,9 +286,17 @@ export function QuickOrderScreen() {
                     <SelectItem key={m.id} value={m.id}>
                       <span className="flex items-center gap-2 font-mono text-xs">
                         <Package className="w-3.5 h-3.5 text-slate-400" />
+                        {m.tier !== 'Standard' && (
+                          <span className={cn('w-2 h-2 rounded-full', tierDot[m.tier])} title={m.tier} />
+                        )}
                         <span>{m.model_no}</span>
                         {m.colour && (
                           <span className="text-slate-400 font-sans">· {m.colour}</span>
+                        )}
+                        {m.tier !== 'Standard' && (
+                          <span className={cn('text-[9px] font-sans font-semibold px-1 py-0 rounded', tierColors[m.tier])}>
+                            {m.tier}
+                          </span>
                         )}
                         <span className={cn(
                           'ml-auto text-[10px] font-sans font-semibold px-1.5 py-0.5 rounded-full',
@@ -305,6 +327,12 @@ export function QuickOrderScreen() {
                 <Check className="w-4 h-4 text-white" />
               </div>
               <h2 className="text-sm font-bold text-slate-900">Product Selected</h2>
+              {selectedProduct.tier && selectedProduct.tier !== 'Standard' && (
+                <Badge className={cn('ml-auto text-[10px] font-bold border', tierColors[selectedProduct.tier])} variant="secondary">
+                  <span className={cn('w-1.5 h-1.5 rounded-full mr-1', tierDot[selectedProduct.tier])} />
+                  {selectedProduct.tier}
+                </Badge>
+              )}
             </div>
 
             <div className="grid sm:grid-cols-[180px_1fr] gap-4">

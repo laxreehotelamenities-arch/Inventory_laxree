@@ -115,8 +115,8 @@ export function generateOrderPDF({ cart, user, orderId, submittedAt }: GenerateP
   // Table header
   const tableX = margin;
   const tableW = contentW;
-  const colWidths = [12, 30, 60, 30, 25, 33]; // #, Model, Item, Colour, Qty, Status
-  const colNames = ['#', 'Model No', 'Item Name', 'Colour', 'Qty', 'Stock Status'];
+  const colWidths = [10, 26, 50, 28, 30, 22, 34]; // #, Model, Item, Colour, Tier, Qty, Status
+  const colNames = ['#', 'Model No', 'Item Name', 'Colour', 'Tier', 'Qty', 'Stock Status'];
 
   doc.setFillColor(15, 23, 42);
   doc.rect(tableX, y, tableW, 8, 'F');
@@ -164,8 +164,9 @@ export function generateOrderPDF({ cart, user, orderId, submittedAt }: GenerateP
     const cells = [
       String(idx + 1),
       item.product.model_no || '-',
-      (item.product.item || item.product.name || '-').substring(0, 35),
-      (item.product.colour || '-').substring(0, 18),
+      (item.product.item || item.product.name || '-').substring(0, 28),
+      (item.product.colour || '-').substring(0, 16),
+      item.product.tier === 'Standard' ? '-' : item.product.tier,
       String(item.qty),
       statusText,
     ];

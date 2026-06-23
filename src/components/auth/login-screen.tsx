@@ -57,8 +57,12 @@ export function LoginScreen() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 flex flex-col">
       {/* Header / Brand */}
       <header className="px-6 pt-10 pb-4 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-700 shadow-lg mb-4">
-          <Package className="w-9 h-9 text-white" strokeWidth={2.2} />
+        <div className="inline-flex items-center justify-center w-24 h-24 rounded-full shadow-xl mb-4 ring-4 ring-white bg-black overflow-hidden">
+          <img
+            src="/laxree-logo.png"
+            alt="LaxRee Hotel Supplies"
+            className="w-full h-full object-contain"
+          />
         </div>
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">LaxRee Inventory</h1>
         <p className="text-sm text-slate-500 mt-1">Hotel Amenities · Stock & Catalog Portal</p>

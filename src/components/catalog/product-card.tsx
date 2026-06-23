@@ -29,6 +29,13 @@ const statusBg: Record<string, string> = {
   slate: 'bg-slate-50 text-slate-600 border-slate-200',
 };
 
+const tierColors: Record<string, string> = {
+  Essential: 'bg-emerald-500 text-white',
+  Premium: 'bg-blue-500 text-white',
+  Luxury: 'bg-purple-500 text-white',
+  Standard: 'bg-slate-400 text-white',
+};
+
 interface ProductCardProps {
   product: Product;
   onClick: () => void;
@@ -74,6 +81,16 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             <span className="text-[9px] font-mono text-slate-400 text-center break-all line-clamp-2">
               {product.model_no}
             </span>
+          </div>
+        )}
+
+        {/* Tier badge (top-left) */}
+        {product.tier && product.tier !== 'Standard' && (
+          <div className={cn(
+            'absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold shadow-sm',
+            tierColors[product.tier]
+          )}>
+            {product.tier}
           </div>
         )}
 

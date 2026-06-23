@@ -43,11 +43,15 @@ export function AppHeader() {
       <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between gap-3">
         {/* Logo / Brand */}
         <button
-          onClick={() => setView('catalog')}
+          onClick={() => setView('quick-order')}
           className="flex items-center gap-2 shrink-0"
         >
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-slate-900 to-slate-700 flex items-center justify-center">
-            <Package className="w-4.5 h-4.5 text-white" strokeWidth={2.2} />
+          <div className="w-9 h-9 rounded-full overflow-hidden ring-1 ring-slate-200 bg-black">
+            <img
+              src="/laxree-logo.png"
+              alt="LaxRee Hotel Supplies"
+              className="w-full h-full object-contain"
+            />
           </div>
           <div className="hidden sm:block leading-tight text-left">
             <div className="text-sm font-bold text-slate-900">LaxRee</div>

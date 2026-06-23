@@ -58,7 +58,9 @@ export const useAppStore = create<AppState>()(
       login: (user) => set({ currentUser: user, currentView: 'quick-order' }),
       logout: () => set({ currentUser: null, currentView: 'login', cart: [], selectedProduct: null, filters: defaultFilters }),
 
-      currentView: 'login',
+      // Default to 'quick-order' so that on page reload with persisted currentUser,
+      // the user lands on the app (not stuck on an empty 'login' view).
+      currentView: 'quick-order',
       setView: (view) => set({ currentView: view }),
 
       selectedProduct: null,
