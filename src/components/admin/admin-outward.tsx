@@ -6,6 +6,11 @@ import masterData from '@/data/inventory-master.json';
 import outwardLog from '@/data/olog.json';
 import clientsSummary from '@/data/clients-summary.json';
 import type { Product } from '@/lib/types';
+import {
+  useCascadeData,
+  getItemsForCategory,
+  getModelsForCategoryItem,
+} from '@/lib/cascade';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -25,9 +30,12 @@ import {
   Package,
   Search,
   Plus,
-  TrendingDown,
   CheckCircle2,
+  Boxes,
+  Tag,
+  TrendingDown,
   Users,
+  AlertTriangle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -55,15 +63,28 @@ const CLIENTS = clientsSummary as { client: string; total_qty: number }[];
 
 export function AdminOutwardScreen() {
   const { showToast } = useAppStore();
-  const [search, setSearch] = useState('');
+  const data = useCascadeData();
+
+  // Form state — cascade: Category → Item → Model
+  const [category, setCategory] = useState('');
+  const [item, setItem] = useState('');
   const [selectedProductId, setSelectedProductId] = useState<string>('');
   const [qty, setQty] = useState<number>(1);
   const [client, setClient] = useState('');
   const [challan, setChallan] = useState('');
   const [bill, setBill] = useState('');
-  const [remark, setRemark] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [submitted, setSubmitted] = useState(false);
+  const [search, setSearch] = useState('');
+
+  const availableItems = category ? getItemsForCategory(data, category) : [];
+  const availableModels =
+    category && item ? getModelsForCategoryItem(data, category, item) : [];
+
+  const selectedProduct = useMemo(
+    () => PRODUCTS.find((p) => p.id === selectedProductId),
+    [selectedProductId]
+  );
 
   const filteredLog = useMemo(() => {
     if (!search) return LOG;
@@ -90,26 +111,24 @@ export function AdminOutwardScreen() {
     return { totalQty, uniqueClients, last7Days };
   }, []);
 
-  const productOptions = useMemo(() => {
-    const map = new Map<string, Product>();
-    for (const p of PRODUCTS) {
-      const key = `${p.category}__${p.item}__${p.model_no}__${p.colour}`;
-      if (!map.has(key)) map.set(key, p);
-    }
-    return Array.from(map.values()).sort((a, b) =>
-      `${a.category} ${a.item} ${a.model_no}`.localeCompare(`${b.category} ${b.item} ${b.model_no}`)
-    );
-  }, []);
-
-  const selectedProduct = useMemo(
-    () => PRODUCTS.find((p) => p.id === selectedProductId),
-    [selectedProductId]
-  );
+  const handleCategoryChange = (v: string) => {
+    setCategory(v);
+    setItem('');
+    setSelectedProductId('');
+  };
+  const handleItemChange = (v: string) => {
+    setItem(v);
+    setSelectedProductId('');
+  };
+  const handleModelChange = (v: string) => {
+    setSelectedProductId(v);
+    setQty(1);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedProduct) {
-      showToast('Please select a product', 'error');
+      showToast('Please select Category → Item → Model', 'error');
       return;
     }
     if (selectedProduct.stock_qty < qty) {
@@ -121,48 +140,40 @@ export function AdminOutwardScreen() {
     }
     setSubmitted(true);
     showToast(
-      `Outward recorded: ${qty} units of ${selectedProduct.model_no} to ${client || 'walk-in'}`,
+      `Outward recorded: −${qty} units of ${selectedProduct.model_no} to ${client || 'walk-in'}`,
       'success'
     );
     setTimeout(() => {
       setSubmitted(false);
+      setCategory('');
+      setItem('');
       setSelectedProductId('');
       setQty(1);
       setClient('');
       setChallan('');
       setBill('');
-      setRemark('');
     }, 3000);
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-4 pb-24 space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-            <ArrowUpRight className="w-5 h-5 text-rose-600" />
-            Outward Management
-          </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Dispatch stock to clients · View dispatch history
-          </p>
-        </div>
+    <div className="max-w-5xl mx-auto px-4 py-4 pb-24 space-y-4">
+      <div>
+        <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <ArrowUpRight className="w-5 h-5 text-rose-600" />
+          Outward Management
+        </h1>
+        <p className="text-xs text-slate-500 mt-0.5">
+          Dispatch stock · Select Category → Item → Model → Quantity
+        </p>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         <Card className="border-rose-200 bg-rose-50/50">
           <CardContent className="p-3">
             <div className="text-[10px] font-semibold text-rose-700 uppercase">Total Dispatched</div>
             <div className="text-xl font-bold text-rose-900 mt-1">{stats.totalQty.toLocaleString('en-IN')}</div>
             <div className="text-[10px] text-rose-700">units sent out</div>
-          </CardContent>
-        </Card>
-        <Card className="border-slate-200">
-          <CardContent className="p-3">
-            <div className="text-[10px] font-semibold text-slate-500 uppercase">Transactions</div>
-            <div className="text-xl font-bold text-slate-900 mt-1">{LOG.length}</div>
-            <div className="text-[10px] text-slate-500">total dispatches</div>
           </CardContent>
         </Card>
         <Card className="border-slate-200">
@@ -200,43 +211,176 @@ export function AdminOutwardScreen() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3">
-              <div className="grid sm:grid-cols-2 gap-3">
-                <div className="space-y-1.5 sm:col-span-2">
-                  <Label className="text-xs font-semibold text-slate-700">Product</Label>
-                  <Select value={selectedProductId} onValueChange={setSelectedProductId}>
-                    <SelectTrigger className="h-11">
-                      <SelectValue placeholder="Select product (search by category / item / model)" />
-                    </SelectTrigger>
-                    <SelectContent className="max-h-80">
-                      <SelectGroup>
-                        <SelectLabel>Products ({productOptions.length})</SelectLabel>
-                        {productOptions.map((p) => (
-                          <SelectItem key={p.id} value={p.id}>
-                            <span className="flex items-center gap-2 text-xs">
-                              <Package className="w-3 h-3 text-slate-400" />
-                              <span className="font-mono">{p.model_no}</span>
-                              <span className="text-slate-500">· {p.item}</span>
-                              {p.colour && <span className="text-slate-400">· {p.colour}</span>}
-                              <span className={cn(
-                                'ml-auto text-[9px] font-sans font-semibold px-1.5 py-0 rounded-full',
-                                p.stock_qty === 0
-                                  ? 'bg-rose-100 text-rose-700'
-                                  : p.stock_qty <= 10
-                                    ? 'bg-amber-100 text-amber-700'
-                                    : 'bg-emerald-100 text-emerald-700'
-                              )}>
-                                {p.stock_qty} avail
-                              </span>
-                            </span>
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
+              {/* Cascade: Category → Item → Model */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                  <span className="w-4 h-4 rounded-full bg-slate-900 text-white text-[10px] font-bold flex items-center justify-center">1</span>
+                  Category
+                </Label>
+                <Select value={category} onValueChange={handleCategoryChange}>
+                  <SelectTrigger className="h-11">
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-72">
+                    <SelectGroup>
+                      <SelectLabel>Categories ({data.categories.length})</SelectLabel>
+                      {data.categories.map((c) => (
+                        <SelectItem key={c} value={c}>
+                          <span className="flex items-center gap-2">
+                            <Boxes className="w-3.5 h-3.5 text-slate-400" />
+                            {c}
+                          </span>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
 
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                  <span className={cn(
+                    'w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center',
+                    category ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-400'
+                  )}>2</span>
+                  Item Name
+                </Label>
+                <Select value={item} onValueChange={handleItemChange} disabled={!category}>
+                  <SelectTrigger className="h-11">
+                    <SelectValue placeholder={category ? 'Select item' : 'Select category first'} />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-72">
+                    <SelectGroup>
+                      <SelectLabel>Items in {category} ({availableItems.length})</SelectLabel>
+                      {availableItems.map((i) => (
+                        <SelectItem key={i} value={i}>
+                          <span className="flex items-center gap-2">
+                            <Tag className="w-3.5 h-3.5 text-slate-400" />
+                            {i}
+                          </span>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                  <span className={cn(
+                    'w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center',
+                    item ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-400'
+                  )}>3</span>
+                  Model Number
+                </Label>
+                <Select value={selectedProductId} onValueChange={handleModelChange} disabled={!item}>
+                  <SelectTrigger className="h-11">
+                    <SelectValue placeholder={item ? 'Select model' : 'Select item first'} />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-80">
+                    <SelectGroup>
+                      <SelectLabel>Models ({availableModels.length})</SelectLabel>
+                      {availableModels.map((m) => (
+                        <SelectItem key={m.id} value={m.id}>
+                          <span className="flex items-center gap-2 font-mono text-xs">
+                            <Package className="w-3.5 h-3.5 text-slate-400" />
+                            <span>{m.model_no}</span>
+                            {m.colour && <span className="text-slate-400 font-sans">· {m.colour}</span>}
+                            <span className={cn(
+                              'ml-auto text-[10px] font-sans font-semibold px-1.5 py-0 rounded-full',
+                              m.stock_qty === 0
+                                ? 'bg-rose-100 text-rose-700'
+                                : m.stock_qty <= 10
+                                  ? 'bg-amber-100 text-amber-700'
+                                  : 'bg-emerald-100 text-emerald-700'
+                            )}>
+                              Balance: {m.stock_qty}
+                            </span>
+                          </span>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Selected product balance preview */}
+              {selectedProduct && (
+                <div className={cn(
+                  'rounded-lg p-3 border',
+                  selectedProduct.stock_qty === 0
+                    ? 'bg-rose-50 border-rose-200'
+                    : selectedProduct.stock_qty < qty
+                      ? 'bg-amber-50 border-amber-200'
+                      : 'bg-rose-50 border-rose-200'
+                )}>
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <div className="flex items-center gap-2">
+                      <Package className="w-4 h-4 text-rose-600" />
+                      <div>
+                        <div className="text-sm font-bold text-rose-900">
+                          {selectedProduct.model_no} · {selectedProduct.item}
+                        </div>
+                        <div className="text-[10px] text-rose-700">
+                          {selectedProduct.colour || 'N/A'} · Available to Dispatch
+                        </div>
+                      </div>
+                    </div>
+                    <Badge className={cn(
+                      'text-sm',
+                      selectedProduct.stock_qty === 0
+                        ? 'bg-rose-100 text-rose-700'
+                        : selectedProduct.stock_qty < qty
+                          ? 'bg-amber-100 text-amber-700'
+                          : 'bg-rose-100 text-rose-700'
+                    )} variant="secondary">
+                      {selectedProduct.stock_qty} units
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 pt-2 mt-2 border-t border-rose-200">
+                    <div>
+                      <div className="text-[9px] uppercase text-rose-700 font-semibold">Inward</div>
+                      <div className="text-xs font-bold text-rose-900">+{selectedProduct.inward.toLocaleString('en-IN')}</div>
+                    </div>
+                    <div>
+                      <div className="text-[9px] uppercase text-rose-700 font-semibold">Dispatched</div>
+                      <div className="text-xs font-bold text-rose-900">−{selectedProduct.dispatched.toLocaleString('en-IN')}</div>
+                    </div>
+                    <div>
+                      <div className="text-[9px] uppercase text-rose-700 font-semibold">After Dispatch</div>
+                      <div className={cn(
+                        'text-xs font-bold',
+                        selectedProduct.stock_qty - qty < 0 ? 'text-rose-700' : 'text-rose-900'
+                      )}>
+                        {selectedProduct.stock_qty - qty}
+                      </div>
+                    </div>
+                  </div>
+                  {selectedProduct.stock_qty < qty && selectedProduct.stock_qty > 0 && (
+                    <div className="mt-2 flex items-center gap-1.5 text-[11px] text-amber-800 bg-amber-100 rounded p-1.5">
+                      <AlertTriangle className="w-3 h-3" />
+                      Insufficient stock — only {selectedProduct.stock_qty} units available
+                    </div>
+                  )}
+                  {selectedProduct.stock_qty === 0 && (
+                    <div className="mt-2 flex items-center gap-1.5 text-[11px] text-rose-800 bg-rose-100 rounded p-1.5">
+                      <AlertTriangle className="w-3 h-3" />
+                      Out of stock — cannot dispatch
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Quantity + Date row */}
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-semibold text-slate-700">Quantity</Label>
+                  <Label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                    <span className={cn(
+                      'w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center',
+                      selectedProductId ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-400'
+                    )}>4</span>
+                    Quantity
+                  </Label>
                   <Input
                     type="number"
                     min={1}
@@ -246,7 +390,6 @@ export function AdminOutwardScreen() {
                     required
                   />
                 </div>
-
                 <div className="space-y-1.5">
                   <Label className="text-xs font-semibold text-slate-700">Date</Label>
                   <Input
@@ -257,26 +400,35 @@ export function AdminOutwardScreen() {
                     required
                   />
                 </div>
+              </div>
 
-                <div className="space-y-1.5 sm:col-span-2">
-                  <Label className="text-xs font-semibold text-slate-700">Client / Buyer</Label>
-                  <Input
-                    type="text"
-                    value={client}
-                    onChange={(e) => setClient(e.target.value)}
-                    placeholder="Client name"
-                    className="h-11"
-                    list="client-list"
-                  />
-                  <datalist id="client-list">
-                    {CLIENTS.slice(0, 20).map((c) => (
-                      <option key={c.client} value={c.client} />
-                    ))}
-                  </datalist>
-                </div>
+              {/* Client + Challan + Bill */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                  <span className={cn(
+                    'w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center',
+                    qty ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-400'
+                  )}>5</span>
+                  Client / Buyer
+                </Label>
+                <Input
+                  type="text"
+                  value={client}
+                  onChange={(e) => setClient(e.target.value)}
+                  placeholder="Client name"
+                  className="h-11"
+                  list="client-list"
+                />
+                <datalist id="client-list">
+                  {CLIENTS.slice(0, 20).map((c) => (
+                    <option key={c.client} value={c.client} />
+                  ))}
+                </datalist>
+              </div>
 
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-semibold text-slate-700">Challan No.</Label>
+                  <Label className="text-xs font-semibold text-slate-500">Challan No. (optional)</Label>
                   <Input
                     type="text"
                     value={challan}
@@ -285,9 +437,8 @@ export function AdminOutwardScreen() {
                     className="h-11"
                   />
                 </div>
-
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-semibold text-slate-700">Bill No.</Label>
+                  <Label className="text-xs font-semibold text-slate-500">Bill No. (optional)</Label>
                   <Input
                     type="text"
                     value={bill}
@@ -296,58 +447,28 @@ export function AdminOutwardScreen() {
                     className="h-11"
                   />
                 </div>
-
-                <div className="space-y-1.5 sm:col-span-2">
-                  <Label className="text-xs font-semibold text-slate-700">Remark (optional)</Label>
-                  <Input
-                    type="text"
-                    value={remark}
-                    onChange={(e) => setRemark(e.target.value)}
-                    placeholder="Any notes about this dispatch"
-                    className="h-11"
-                  />
-                </div>
               </div>
-
-              {selectedProduct && (
-                <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 flex items-center gap-2">
-                  <Package className="w-4 h-4 text-rose-600" />
-                  <div className="text-xs">
-                    <div className="font-semibold text-rose-900">
-                      {selectedProduct.model_no} · {selectedProduct.item}
-                    </div>
-                    <div className="text-rose-700">
-                      {selectedProduct.category} · Available: {selectedProduct.stock_qty}
-                    </div>
-                  </div>
-                  <Badge className="ml-auto bg-rose-100 text-rose-700" variant="secondary">
-                    −{qty} units
-                  </Badge>
-                </div>
-              )}
 
               <Button
                 type="submit"
-                disabled={!selectedProductId || !qty}
+                disabled={!selectedProductId || !qty || (selectedProduct?.stock_qty ?? 0) < qty}
                 className="w-full h-11 bg-rose-600 hover:bg-rose-700"
               >
                 <ArrowUpRight className="w-4 h-4 mr-1.5" />
-                Record Outward
+                Record Outward (−{qty} units)
               </Button>
             </form>
           )}
         </CardContent>
       </Card>
 
-      {/* Outward History */}
+      {/* Dispatch History */}
       <Card className="border-slate-200">
         <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm flex items-center gap-1.5">
-              <TrendingDown className="w-4 h-4 text-slate-700" />
-              Dispatch History ({filteredLog.length})
-            </CardTitle>
-          </div>
+          <CardTitle className="text-sm flex items-center gap-1.5">
+            <TrendingDown className="w-4 h-4 text-slate-700" />
+            Dispatch History ({filteredLog.length})
+          </CardTitle>
           <div className="relative mt-2">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <Input

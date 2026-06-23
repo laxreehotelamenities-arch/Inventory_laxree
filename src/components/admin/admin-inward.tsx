@@ -5,6 +5,11 @@ import { useAppStore } from '@/store/use-app';
 import masterData from '@/data/inventory-master.json';
 import inwardLog from '@/data/inward-log.json';
 import type { Product } from '@/lib/types';
+import {
+  useCascadeData,
+  getItemsForCategory,
+  getModelsForCategoryItem,
+} from '@/lib/cascade';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,8 +29,10 @@ import {
   Package,
   Search,
   Plus,
-  TrendingUp,
   CheckCircle2,
+  Boxes,
+  Tag,
+  TrendingUp,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -50,16 +57,30 @@ const LOG = inwardLog as InwardEntry[];
 
 export function AdminInwardScreen() {
   const { showToast } = useAppStore();
-  const [search, setSearch] = useState('');
+  const data = useCascadeData();
+
+  // Form state — cascade: Category → Item → Model
+  const [category, setCategory] = useState('');
+  const [item, setItem] = useState('');
   const [selectedProductId, setSelectedProductId] = useState<string>('');
   const [qty, setQty] = useState<number>(1);
   const [vendor, setVendor] = useState('');
   const [bill, setBill] = useState('');
-  const [remark, setRemark] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [submitted, setSubmitted] = useState(false);
+  const [search, setSearch] = useState('');
 
-  // Filter log
+  // Cascade derived lists
+  const availableItems = category ? getItemsForCategory(data, category) : [];
+  const availableModels =
+    category && item ? getModelsForCategoryItem(data, category, item) : [];
+
+  const selectedProduct = useMemo(
+    () => PRODUCTS.find((p) => p.id === selectedProductId),
+    [selectedProductId]
+  );
+
+  // Filtered log
   const filteredLog = useMemo(() => {
     if (!search) return LOG;
     const q = search.toLowerCase();
@@ -76,72 +97,65 @@ export function AdminInwardScreen() {
   // Stats
   const stats = useMemo(() => {
     const totalQty = LOG.reduce((s, e) => s + e.qty, 0);
-    const uniqueVendors = new Set(LOG.map((e) => e.vendor).filter(Boolean)).size;
-    const today = new Date().toISOString().split('T')[0];
-    const todayEntries = LOG.filter((e) => e.date === today).length;
     const last7Days = LOG.filter((e) => {
       const d = new Date(e.date);
       const now = new Date();
       const diff = (now.getTime() - d.getTime()) / (1000 * 60 * 60 * 24);
       return diff <= 7;
     }).length;
-    return { totalQty, uniqueVendors, todayEntries, last7Days };
+    return { totalQty, last7Days };
   }, []);
 
-  // Group by item+model for the dropdown
-  const productOptions = useMemo(() => {
-    const map = new Map<string, Product>();
-    for (const p of PRODUCTS) {
-      const key = `${p.category}__${p.item}__${p.model_no}__${p.colour}`;
-      if (!map.has(key)) map.set(key, p);
-    }
-    return Array.from(map.values()).sort((a, b) =>
-      `${a.category} ${a.item} ${a.model_no}`.localeCompare(`${b.category} ${b.item} ${b.model_no}`)
-    );
-  }, []);
-
-  const selectedProduct = useMemo(
-    () => PRODUCTS.find((p) => p.id === selectedProductId),
-    [selectedProductId]
-  );
+  const handleCategoryChange = (v: string) => {
+    setCategory(v);
+    setItem('');
+    setSelectedProductId('');
+  };
+  const handleItemChange = (v: string) => {
+    setItem(v);
+    setSelectedProductId('');
+  };
+  const handleModelChange = (v: string) => {
+    setSelectedProductId(v);
+    setQty(1);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedProduct) {
-      showToast('Please select a product', 'error');
+      showToast('Please select Category → Item → Model', 'error');
       return;
     }
     setSubmitted(true);
     showToast(
-      `Inward recorded: ${qty} units of ${selectedProduct.model_no} from ${vendor || 'unknown vendor'}`,
+      `Inward recorded: +${qty} units of ${selectedProduct.model_no}`,
       'success'
     );
     setTimeout(() => {
       setSubmitted(false);
+      setCategory('');
+      setItem('');
       setSelectedProductId('');
       setQty(1);
       setVendor('');
       setBill('');
-      setRemark('');
     }, 3000);
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-4 pb-24 space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-            <ArrowDownRight className="w-5 h-5 text-emerald-600" />
-            Inward Management
-          </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Add new stock to inventory · View inward history
-          </p>
-        </div>
+    <div className="max-w-5xl mx-auto px-4 py-4 pb-24 space-y-4">
+      <div>
+        <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <ArrowDownRight className="w-5 h-5 text-emerald-600" />
+          Inward Management
+        </h1>
+        <p className="text-xs text-slate-500 mt-0.5">
+          Add new stock · Select Category → Item → Model → Quantity
+        </p>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         <Card className="border-emerald-200 bg-emerald-50/50">
           <CardContent className="p-3">
             <div className="text-[10px] font-semibold text-emerald-700 uppercase">Total Inward</div>
@@ -154,13 +168,6 @@ export function AdminInwardScreen() {
             <div className="text-[10px] font-semibold text-slate-500 uppercase">Transactions</div>
             <div className="text-xl font-bold text-slate-900 mt-1">{LOG.length}</div>
             <div className="text-[10px] text-slate-500">total entries</div>
-          </CardContent>
-        </Card>
-        <Card className="border-slate-200">
-          <CardContent className="p-3">
-            <div className="text-[10px] font-semibold text-slate-500 uppercase">Vendors</div>
-            <div className="text-xl font-bold text-slate-900 mt-1">{stats.uniqueVendors}</div>
-            <div className="text-[10px] text-slate-500">unique suppliers</div>
           </CardContent>
         </Card>
         <Card className="border-blue-200 bg-blue-50/50">
@@ -191,33 +198,145 @@ export function AdminInwardScreen() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3">
-              <div className="grid sm:grid-cols-2 gap-3">
-                <div className="space-y-1.5 sm:col-span-2">
-                  <Label className="text-xs font-semibold text-slate-700">Product</Label>
-                  <Select value={selectedProductId} onValueChange={setSelectedProductId}>
-                    <SelectTrigger className="h-11">
-                      <SelectValue placeholder="Select product (search by category / item / model)" />
-                    </SelectTrigger>
-                    <SelectContent className="max-h-80">
-                      <SelectGroup>
-                        <SelectLabel>Products ({productOptions.length})</SelectLabel>
-                        {productOptions.map((p) => (
-                          <SelectItem key={p.id} value={p.id}>
-                            <span className="flex items-center gap-2 text-xs">
-                              <Package className="w-3 h-3 text-slate-400" />
-                              <span className="font-mono">{p.model_no}</span>
-                              <span className="text-slate-500">· {p.item}</span>
-                              {p.colour && <span className="text-slate-400">· {p.colour}</span>}
-                            </span>
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
+              {/* Cascade: Category → Item → Model */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                  <span className="w-4 h-4 rounded-full bg-slate-900 text-white text-[10px] font-bold flex items-center justify-center">1</span>
+                  Category
+                </Label>
+                <Select value={category} onValueChange={handleCategoryChange}>
+                  <SelectTrigger className="h-11">
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-72">
+                    <SelectGroup>
+                      <SelectLabel>Categories ({data.categories.length})</SelectLabel>
+                      {data.categories.map((c) => (
+                        <SelectItem key={c} value={c}>
+                          <span className="flex items-center gap-2">
+                            <Boxes className="w-3.5 h-3.5 text-slate-400" />
+                            {c}
+                          </span>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
 
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                  <span className={cn(
+                    'w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center',
+                    category ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-400'
+                  )}>2</span>
+                  Item Name
+                </Label>
+                <Select value={item} onValueChange={handleItemChange} disabled={!category}>
+                  <SelectTrigger className="h-11">
+                    <SelectValue placeholder={category ? 'Select item' : 'Select category first'} />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-72">
+                    <SelectGroup>
+                      <SelectLabel>Items in {category} ({availableItems.length})</SelectLabel>
+                      {availableItems.map((i) => (
+                        <SelectItem key={i} value={i}>
+                          <span className="flex items-center gap-2">
+                            <Tag className="w-3.5 h-3.5 text-slate-400" />
+                            {i}
+                          </span>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                  <span className={cn(
+                    'w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center',
+                    item ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-400'
+                  )}>3</span>
+                  Model Number
+                </Label>
+                <Select value={selectedProductId} onValueChange={handleModelChange} disabled={!item}>
+                  <SelectTrigger className="h-11">
+                    <SelectValue placeholder={item ? 'Select model' : 'Select item first'} />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-80">
+                    <SelectGroup>
+                      <SelectLabel>Models ({availableModels.length})</SelectLabel>
+                      {availableModels.map((m) => (
+                        <SelectItem key={m.id} value={m.id}>
+                          <span className="flex items-center gap-2 font-mono text-xs">
+                            <Package className="w-3.5 h-3.5 text-slate-400" />
+                            <span>{m.model_no}</span>
+                            {m.colour && <span className="text-slate-400 font-sans">· {m.colour}</span>}
+                            <span className={cn(
+                              'ml-auto text-[10px] font-sans font-semibold px-1.5 py-0 rounded-full',
+                              m.stock_qty === 0
+                                ? 'bg-rose-100 text-rose-700'
+                                : m.stock_qty <= 10
+                                  ? 'bg-amber-100 text-amber-700'
+                                  : 'bg-emerald-100 text-emerald-700'
+                            )}>
+                              Balance: {m.stock_qty}
+                            </span>
+                          </span>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Selected product balance preview */}
+              {selectedProduct && (
+                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <div className="flex items-center gap-2">
+                      <Package className="w-4 h-4 text-emerald-600" />
+                      <div>
+                        <div className="text-sm font-bold text-emerald-900">
+                          {selectedProduct.model_no} · {selectedProduct.item}
+                        </div>
+                        <div className="text-[10px] text-emerald-700">
+                          {selectedProduct.colour || 'N/A'} · Current Balance
+                        </div>
+                      </div>
+                    </div>
+                    <Badge className="bg-emerald-100 text-emerald-700 text-sm" variant="secondary">
+                      {selectedProduct.stock_qty} units
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 pt-2 mt-2 border-t border-emerald-200">
+                    <div>
+                      <div className="text-[9px] uppercase text-emerald-700 font-semibold">Inward</div>
+                      <div className="text-xs font-bold text-emerald-900">+{selectedProduct.inward.toLocaleString('en-IN')}</div>
+                    </div>
+                    <div>
+                      <div className="text-[9px] uppercase text-emerald-700 font-semibold">Dispatched</div>
+                      <div className="text-xs font-bold text-emerald-900">−{selectedProduct.dispatched.toLocaleString('en-IN')}</div>
+                    </div>
+                    <div>
+                      <div className="text-[9px] uppercase text-emerald-700 font-semibold">After Adding</div>
+                      <div className="text-xs font-bold text-emerald-900">{selectedProduct.stock_qty + qty}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Quantity + Date row */}
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-semibold text-slate-700">Quantity</Label>
+                  <Label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                    <span className={cn(
+                      'w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center',
+                      selectedProductId ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-400'
+                    )}>4</span>
+                    Quantity
+                  </Label>
                   <Input
                     type="number"
                     min={1}
@@ -227,7 +346,6 @@ export function AdminInwardScreen() {
                     required
                   />
                 </div>
-
                 <div className="space-y-1.5">
                   <Label className="text-xs font-semibold text-slate-700">Date</Label>
                   <Input
@@ -238,9 +356,12 @@ export function AdminInwardScreen() {
                     required
                   />
                 </div>
+              </div>
 
+              {/* Optional: Vendor + Bill */}
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-semibold text-slate-700">Vendor / Supplier</Label>
+                  <Label className="text-xs font-semibold text-slate-500">Vendor (optional)</Label>
                   <Input
                     type="text"
                     value={vendor}
@@ -249,9 +370,8 @@ export function AdminInwardScreen() {
                     className="h-11"
                   />
                 </div>
-
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-semibold text-slate-700">Bill / Invoice No.</Label>
+                  <Label className="text-xs font-semibold text-slate-500">Bill No. (optional)</Label>
                   <Input
                     type="text"
                     value={bill}
@@ -260,35 +380,7 @@ export function AdminInwardScreen() {
                     className="h-11"
                   />
                 </div>
-
-                <div className="space-y-1.5 sm:col-span-2">
-                  <Label className="text-xs font-semibold text-slate-700">Remark (optional)</Label>
-                  <Input
-                    type="text"
-                    value={remark}
-                    onChange={(e) => setRemark(e.target.value)}
-                    placeholder="Any notes about this inward"
-                    className="h-11"
-                  />
-                </div>
               </div>
-
-              {selectedProduct && (
-                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 flex items-center gap-2">
-                  <Package className="w-4 h-4 text-emerald-600" />
-                  <div className="text-xs">
-                    <div className="font-semibold text-emerald-900">
-                      {selectedProduct.model_no} · {selectedProduct.item}
-                    </div>
-                    <div className="text-emerald-700">
-                      {selectedProduct.category} · {selectedProduct.colour || 'N/A'}
-                    </div>
-                  </div>
-                  <Badge className="ml-auto bg-emerald-100 text-emerald-700" variant="secondary">
-                    +{qty} units
-                  </Badge>
-                </div>
-              )}
 
               <Button
                 type="submit"
@@ -296,7 +388,7 @@ export function AdminInwardScreen() {
                 className="w-full h-11 bg-emerald-600 hover:bg-emerald-700"
               >
                 <ArrowDownRight className="w-4 h-4 mr-1.5" />
-                Record Inward
+                Record Inward (+{qty} units)
               </Button>
             </form>
           )}
@@ -306,18 +398,16 @@ export function AdminInwardScreen() {
       {/* Inward History */}
       <Card className="border-slate-200">
         <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm flex items-center gap-1.5">
-              <TrendingUp className="w-4 h-4 text-slate-700" />
-              Inward History ({filteredLog.length})
-            </CardTitle>
-          </div>
+          <CardTitle className="text-sm flex items-center gap-1.5">
+            <TrendingUp className="w-4 h-4 text-slate-700" />
+            Inward History ({filteredLog.length})
+          </CardTitle>
           <div className="relative mt-2">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by model, item, vendor, bill…"
+              placeholder="Search by model, item, vendor…"
               className="pl-9 h-9"
             />
           </div>
