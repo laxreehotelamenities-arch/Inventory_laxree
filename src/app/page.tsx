@@ -11,6 +11,7 @@ import { AdminDashboard } from '@/components/dashboard/admin-dashboard';
 import { AdminInwardScreen } from '@/components/admin/admin-inward';
 import { AdminOutwardScreen } from '@/components/admin/admin-outward';
 import { AdminFastMovingScreen } from '@/components/admin/admin-fast-moving';
+import { AdminPurchaseRequestScreen } from '@/components/admin/admin-purchase-request';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { useHydrate } from '@/lib/use-hydrate';
@@ -52,8 +53,9 @@ export default function Home() {
         {currentView === 'admin-inward' && currentUser.role === 'admin' && <AdminInwardScreen />}
         {currentView === 'admin-outward' && currentUser.role === 'admin' && <AdminOutwardScreen />}
         {currentView === 'admin-fast-moving' && currentUser.role === 'admin' && <AdminFastMovingScreen />}
+        {currentView === 'admin-purchase-request' && currentUser.role === 'admin' && <AdminPurchaseRequestScreen />}
         {/* Fallbacks for non-admin trying admin views */}
-        {['dashboard', 'admin-inward', 'admin-outward', 'admin-fast-moving'].includes(currentView) && currentUser.role !== 'admin' && <QuickOrderScreen />}
+        {['dashboard', 'admin-inward', 'admin-outward', 'admin-fast-moving', 'admin-purchase-request'].includes(currentView) && currentUser.role !== 'admin' && <QuickOrderScreen />}
       </main>
 
       {/* Footer */}

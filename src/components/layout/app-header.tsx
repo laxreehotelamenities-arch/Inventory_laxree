@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Package, LogOut, LayoutGrid, ShoppingCart, ChevronDown, ShieldCheck, Search, ArrowDownRight, ArrowUpRight, Flame } from 'lucide-react';
+import { Package, LogOut, LayoutGrid, ShoppingCart, ChevronDown, ShieldCheck, Search, ArrowDownRight, ArrowUpRight, Flame, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const roleBadgeColors: Record<string, string> = {
@@ -39,7 +39,8 @@ export function AppHeader() {
       { key: 'dashboard', label: 'Dashboard', icon: ShieldCheck, adminOnly: true },
       { key: 'admin-inward', label: 'Inward', icon: ArrowDownRight, adminOnly: true },
       { key: 'admin-outward', label: 'Outward', icon: ArrowUpRight, adminOnly: true },
-      { key: 'admin-fast-moving', label: 'Fast-Moving', icon: Flame, adminOnly: true }
+      { key: 'admin-fast-moving', label: 'Fast-Moving', icon: Flame, adminOnly: true },
+      { key: 'admin-purchase-request', label: 'Purchase Requests', icon: FileText, adminOnly: true }
     );
   }
 

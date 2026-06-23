@@ -14,7 +14,8 @@ export type View =
   | 'admin-outward'
   | 'admin-fast-moving'
   | 'admin-inward-log'
-  | 'admin-outward-log';
+  | 'admin-outward-log'
+  | 'admin-purchase-request';
 
 export type Tier = 'Essential' | 'Premium' | 'Luxury' | 'Standard';
 

@@ -8,12 +8,12 @@
       "role": "admin",
       "avatar": "RK",
       "department": "Inventory Management",
-      "permissions": ["view_stock_qty", "view_pricing", "edit_stock", "view_dashboard", "view_all_categories", "view_audit_log", "manage_inward", "manage_outward"]
+      "permissions": ["view_stock_qty", "view_pricing", "edit_stock", "view_dashboard", "view_all_categories", "view_audit_log", "manage_inward", "manage_outward", "manage_purchase_requests"]
     },
     {
       "id": "u-emp-001",
-      "username": "laxree.emp",
-      "password": "Emp@LaxRee26",
+      "username": "laxree.priya",
+      "password": "Priya@LR26",
       "name": "Priya Sharma",
       "role": "employee",
       "avatar": "PS",
@@ -21,9 +21,29 @@
       "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
     },
     {
+      "id": "u-emp-002",
+      "username": "laxree.rahul",
+      "password": "Rahul@LR26",
+      "name": "Rahul Verma",
+      "role": "employee",
+      "avatar": "RV",
+      "department": "Sales Executive",
+      "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
+    },
+    {
+      "id": "u-emp-003",
+      "username": "laxree.anjali",
+      "password": "Anjali@LR26",
+      "name": "Anjali Singh",
+      "role": "employee",
+      "avatar": "AS",
+      "department": "Sales Coordinator",
+      "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
+    },
+    {
       "id": "u-deal-001",
-      "username": "laxree.dealer",
-      "password": "Dealer#LR26",
+      "username": "laxree.dealer1",
+      "password": "Dealer1@LR26",
       "name": "Amit Verma",
       "role": "dealer",
       "avatar": "AV",
@@ -31,13 +51,63 @@
       "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
     },
     {
+      "id": "u-deal-002",
+      "username": "laxree.dealer2",
+      "password": "Dealer2@LR26",
+      "name": "Suresh Patel",
+      "role": "dealer",
+      "avatar": "SP",
+      "department": "Dealer - South Region",
+      "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
+    },
+    {
+      "id": "u-deal-003",
+      "username": "laxree.dealer3",
+      "password": "Dealer3@LR26",
+      "name": "Vikram Reddy",
+      "role": "dealer",
+      "avatar": "VR",
+      "department": "Dealer - East Region",
+      "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
+    },
+    {
+      "id": "u-deal-004",
+      "username": "laxree.dealer4",
+      "password": "Dealer4@LR26",
+      "name": "Manish Gupta",
+      "role": "dealer",
+      "avatar": "MG",
+      "department": "Dealer - West Region",
+      "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
+    },
+    {
       "id": "u-dist-001",
-      "username": "laxree.dist",
-      "password": "Dist$LR2026",
+      "username": "laxree.dist1",
+      "password": "Dist1@LR26",
       "name": "Sneha Patel",
       "role": "distributor",
       "avatar": "SP",
       "department": "Distributor - West Zone",
+      "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
+    },
+    {
+      "id": "u-dist-002",
+      "username": "laxree.dist2",
+      "password": "Dist2@LR26",
+      "name": "Karan Mehta",
+      "role": "distributor",
+      "avatar": "KM",
+      "department": "Distributor - North Zone",
+      "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
+    },
+    {
+      "id": "u-dist-003",
+      "username": "laxree.dist3",
+      "password": "Dist3@LR26",
+      "name": "Deepak Joshi",
+      "role": "distributor",
+      "avatar": "DJ",
+      "department": "Distributor - South Zone",
       "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
     }
   ],

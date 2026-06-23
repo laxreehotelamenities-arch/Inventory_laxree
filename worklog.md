@@ -426,3 +426,74 @@ Verification (Agent Browser + Vision):
 
 Lint: clean (0 errors, 0 warnings)
 Dev server: running on port 3000, no runtime errors
+
+---
+Task ID: purchase-request-feature
+Agent: main (Super Z)
+Task: Add Purchase Request feature to admin panel + provide logins for employee/dealer/distributor
+
+Work Log:
+- Verified all 11 user logins work (admin + 3 employees + 4 dealers + 3 distributors)
+- Built src/data/purchase-requests.json with 8 sample PRs based on real low-stock items
+- Created src/components/admin/admin-purchase-request.tsx — comprehensive PR management screen:
+  * Stats cards: Total PRs, Pending, Ordered, Received (with urgent count)
+  * "New PR" button toggles form
+  * "Generate New Purchase Request" form: Product dropdown (with current stock badge), Quantity, Priority (Normal/Urgent), Vendor (with autocomplete from 4 known suppliers), Expected Delivery date, Notes
+  * "Suggested for Restock" section: lists 20 low-stock items, each with "Create PR" quick button
+  * Filter + Search bar (by PR number, model, item, vendor)
+  * Status filter pills: All / Pending / Ordered / Received / Cancelled
+  * PR list with: PR number, status badge, priority badge (URGENT), date, model, item, category, order qty, current stock, vendor, expected delivery
+  * Action buttons per PR: PDF download, Mark Ordered, Mark Received, Cancel
+  * Status transitions: Pending → Ordered → Received (or Cancelled)
+- Created src/lib/purchase-pdf.ts — generates professional PR PDF using jsPDF:
+  * A4 portrait format
+  * Color-coded header (red for Urgent, dark slate for Normal)
+  * LaxRee logo + PR number + date
+  * Request Details section (PR number, date, requested by, priority, status, expected delivery)
+  * Vendor/Supplier section
+  * Item table with columns: #, Model No, Item Name, Colour, Current Stock, Order Qty
+  * Justification paragraph (auto-generated based on current stock)
+  * Signature block (Requested By + Approved By with date lines)
+  * Page numbers in footer
+  * Filename: PR-2026-XXXX.pdf
+- Added 'admin-purchase-request' to View type union
+- Added route in src/app/page.tsx for admin-purchase-request view (admin-only)
+- Added "Purchase Requests" nav item to admin menu in app-header.tsx (with FileText icon)
+
+Stage Summary:
+- ADMIN PANEL now has 5 sections:
+  1. Dashboard — inventory overview
+  2. Inward — add stock + 358-entry history
+  3. Outward — dispatch stock + 122-entry history + top clients
+  4. Fast-Moving — ranked list + urgent restock alerts
+  5. Purchase Requests — generate PRs + PDF download + status tracking
+
+- PR FLOW VERIFIED:
+  * Admin clicks "New PR" → form opens
+  * Selects product (LRBF-542 Banquet Chair, current stock 295) → enters qty 100 → submits
+  * Success message: "Purchase Request PR-2026-1008 created!"
+  * PDF auto-downloads: /home/z/Downloads/PR-2026-1008.pdf (10KB, 1 page)
+  * PDF verified via Vision: header, request details, vendor, item table, justification, signatures all present
+  * PR appears in list with "Pending" status
+  * Admin can mark as "Ordered" → "Received" or "Cancel"
+
+- ALL 11 LOGINS VERIFIED WORKING:
+  * Admin: laxree.admin / LaxRee@dmn2026 ✓
+  * Employees (3): laxree.priya, laxree.rahul, laxree.anjali ✓
+  * Dealers (4): laxree.dealer1-4 ✓
+  * Distributors (3): laxree.dist1-3 ✓
+  * All non-admin users see only Quick Order + Catalog + Sign Out (NO admin access)
+
+Files created/modified:
+- src/data/purchase-requests.json (NEW — 8 sample PRs)
+- src/lib/purchase-pdf.ts (NEW — PR PDF generator)
+- src/components/admin/admin-purchase-request.tsx (NEW — PR management screen)
+- src/lib/types.ts (added 'admin-purchase-request' view)
+- src/app/page.tsx (route + import)
+- src/components/layout/app-header.tsx (Purchase Requests menu item)
+
+Verification:
+- Lint: clean (0 errors, 0 warnings)
+- Dev server: running on port 3000, no runtime errors
+- Agent Browser: admin login → PR creation → PDF download verified
+- Agent Browser: dealer/employee/distributor logins verified — no admin access
