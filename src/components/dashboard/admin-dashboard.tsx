@@ -14,7 +14,6 @@ import {
   Boxes,
   ArrowDownRight,
   ArrowUpRight,
-  CircleDollarSign,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -36,10 +35,6 @@ export function AdminDashboard() {
     const totalUnits = PRODUCTS.reduce((sum, p) => sum + p.stock_qty, 0);
     const totalInward = PRODUCTS.reduce((sum, p) => sum + p.inward, 0);
     const totalDispatched = PRODUCTS.reduce((sum, p) => sum + p.dispatched, 0);
-    const inventoryValue = PRODUCTS.reduce(
-      (sum, p) => sum + (p.ssp ?? 0) * p.stock_qty,
-      0
-    );
 
     // Tier breakdown
     const byTier = (['Essential', 'Premium', 'Luxury', 'Standard'] as const).map((tier) => {
@@ -51,23 +46,21 @@ export function AdminDashboard() {
         lowStock: items.filter((p) => p.stock_qty > 0 && p.stock_qty <= 10).length,
         outOfStock: items.filter((p) => p.stock_qty === 0).length,
         units: items.reduce((s, p) => s + p.stock_qty, 0),
-        value: items.reduce((s, p) => s + (p.ssp ?? 0) * p.stock_qty, 0),
       };
     });
 
-    // Top categories
-    const byCategoryMap = new Map<string, { count: number; units: number; value: number }>();
+    // Top categories (by units — no pricing in internal app)
+    const byCategoryMap = new Map<string, { count: number; units: number }>();
     for (const p of PRODUCTS) {
       const c = p.category || 'Uncategorized';
-      const cur = byCategoryMap.get(c) || { count: 0, units: 0, value: 0 };
+      const cur = byCategoryMap.get(c) || { count: 0, units: 0 };
       cur.count += 1;
       cur.units += p.stock_qty;
-      cur.value += (p.ssp ?? 0) * p.stock_qty;
       byCategoryMap.set(c, cur);
     }
     const byCategory = Array.from(byCategoryMap.entries())
       .map(([category, data]) => ({ category, ...data }))
-      .sort((a, b) => b.value - a.value)
+      .sort((a, b) => b.units - a.units)
       .slice(0, 8);
 
     // Low stock alerts (top 10)
@@ -83,7 +76,6 @@ export function AdminDashboard() {
       totalUnits,
       totalInward,
       totalDispatched,
-      inventoryValue,
       byTier,
       byCategory,
       lowStockAlerts,
@@ -164,21 +156,21 @@ export function AdminDashboard() {
         </Card>
       </div>
 
-      {/* Inventory value + movements */}
+      {/* Inventory movements */}
       <div className="grid md:grid-cols-3 gap-3">
         <Card className="md:col-span-1 border-slate-200">
           <CardContent className="p-4">
             <div className="flex items-center gap-2 mb-1">
-              <CircleDollarSign className="w-4 h-4 text-slate-700" />
+              <Boxes className="w-4 h-4 text-slate-700" />
               <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Inventory Value
+                Stock Movements
               </span>
             </div>
             <div className="text-2xl font-bold text-slate-900">
-              ₹{(stats.inventoryValue / 100000).toFixed(2)}L
+              {stats.totalUnits.toLocaleString('en-IN')}
             </div>
             <div className="text-[11px] text-slate-500 mt-0.5">
-              ≈ ₹{(stats.inventoryValue / 10000000).toFixed(2)} Cr · at SSP rates
+              total units in inventory
             </div>
             <div className="mt-3 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
               <div>
@@ -229,9 +221,6 @@ export function AdminDashboard() {
                       <span className="text-slate-400">·</span>
                       <span className="text-slate-500">{t.units.toLocaleString('en-IN')} units</span>
                     </div>
-                    <span className="font-bold text-slate-900 text-[11px]">
-                      ₹{(t.value / 100000).toFixed(1)}L
-                    </span>
                   </div>
                   <div className="h-2 rounded-full bg-slate-100 overflow-hidden flex">
                     <div className="bg-emerald-500" style={{ width: `${inStockPct}%` }} />
@@ -256,24 +245,24 @@ export function AdminDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-1.5">
               <TrendingUp className="w-4 h-4 text-slate-700" />
-              Top Categories by Value
+              Top Categories by Units
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {stats.byCategory.map((c) => {
-              const max = stats.byCategory[0]?.value || 1;
-              const pct = (c.value / max) * 100;
+              const max = stats.byCategory[0]?.units || 1;
+              const pct = (c.units / max) * 100;
               return (
                 <div key={c.category}>
                   <div className="flex items-center justify-between text-xs mb-1">
                     <span className="font-medium text-slate-700 truncate">{c.category}</span>
                     <span className="font-bold text-slate-900 shrink-0 ml-2">
-                      ₹{(c.value / 100000).toFixed(1)}L
+                      {c.units.toLocaleString('en-IN')} units
                     </span>
                   </div>
                   <Progress value={pct} className="h-1.5" />
                   <div className="text-[10px] text-slate-500 mt-0.5">
-                    {c.count} SKUs · {c.units.toLocaleString('en-IN')} units
+                    {c.count} SKUs
                   </div>
                 </div>
               );
@@ -296,7 +285,7 @@ export function AdminDashboard() {
                     backgroundColor: p.stock_qty === 0 ? '#e11d48' : '#f59e0b'
                   }} />
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-slate-900 truncate">{p.name}</div>
+                    <div className="font-medium text-slate-900 truncate">{p.item || p.name}</div>
                     <div className="text-[10px] text-slate-500">
                       {p.model_no} · {p.category}
                     </div>
@@ -310,7 +299,7 @@ export function AdminDashboard() {
                         : 'bg-amber-50 text-amber-700 border-amber-200'
                     )}
                   >
-                    {p.stock_qty} left
+                    {p.stock_qty === 0 ? 'Out of Stock' : 'Low Stock'}
                   </Badge>
                 </div>
               ))}

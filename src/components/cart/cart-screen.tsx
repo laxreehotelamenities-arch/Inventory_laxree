@@ -27,7 +27,6 @@ export function CartScreen() {
 
   if (!currentUser) return null;
 
-  const totalValue = cart.reduce((sum, c) => sum + (c.product.ssp ?? 0) * c.qty, 0);
   const totalUnits = cart.reduce((sum, c) => sum + c.qty, 0);
   const cfg = currentUser.role === 'admin' ? null : {
     dispatchDays: '7-10',
@@ -62,10 +61,6 @@ export function CartScreen() {
               <div className="flex justify-between text-xs">
                 <span className="text-slate-500">Items requested</span>
                 <span className="font-semibold text-slate-900">{totalUnits} units</span>
-              </div>
-              <div className="flex justify-between text-xs mt-1.5">
-                <span className="text-slate-500">Estimated value</span>
-                <span className="font-semibold text-slate-900">₹{totalValue.toLocaleString('en-IN')}</span>
               </div>
               {cfg && (
                 <div className="flex justify-between text-xs mt-1.5">
@@ -187,13 +182,8 @@ export function CartScreen() {
                           </Button>
                         </div>
 
-                        {/* Price + stock */}
+                        {/* Stock status (no price — internal app) */}
                         <div className="text-right">
-                          {product.ssp && (
-                            <div className="text-sm font-bold text-slate-900">
-                              ₹{(product.ssp * qty).toLocaleString('en-IN')}
-                            </div>
-                          )}
                           <div
                             className={cn(
                               'text-[10px] font-semibold',
@@ -219,10 +209,6 @@ export function CartScreen() {
               <div className="flex justify-between text-sm">
                 <span className="text-slate-600">Total units</span>
                 <span className="font-semibold text-slate-900">{totalUnits}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-slate-600">Estimated value</span>
-                <span className="font-semibold text-slate-900">₹{totalValue.toLocaleString('en-IN')}</span>
               </div>
               {cfg && (
                 <div className="flex justify-between text-xs items-center">

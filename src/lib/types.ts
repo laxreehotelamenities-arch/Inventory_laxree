@@ -69,31 +69,32 @@ export function getStockStatus(product: Product): 'in-stock' | 'out-of-stock' | 
 }
 
 // Stock display helper (role-aware)
+// IMPORTANT: Internal app — NO quantity shown to ANY role.
+// Only status labels: "Available" / "Out of Stock" + dispatch ETA for non-admins.
 export function getStockDisplay(product: Product, role: Role): {
   label: string;
   sublabel: string;
   color: 'green' | 'amber' | 'red' | 'slate';
 } {
   const status = getStockStatus(product);
-  const isAdmin = role === 'admin';
 
   if (status === 'in-stock') {
     return {
-      label: 'In Stock',
-      sublabel: isAdmin ? `${product.stock_qty} units available` : 'Dispatch within 7-10 days',
+      label: 'Available',
+      sublabel: 'Dispatch within 7-10 days',
       color: 'green',
     };
   }
   if (status === 'low-stock') {
     return {
-      label: 'Low Stock',
-      sublabel: isAdmin ? `Only ${product.stock_qty} units left` : 'Limited stock — dispatch within 7-10 days',
+      label: 'Limited Stock',
+      sublabel: 'Dispatch within 7-10 days',
       color: 'amber',
     };
   }
   return {
     label: 'Out of Stock',
-    sublabel: isAdmin ? '0 units — restock needed' : 'Available in 24-30 days',
+    sublabel: 'Available in 24-30 days',
     color: 'red',
   };
 }

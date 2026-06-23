@@ -78,11 +78,11 @@ export function ProductDetailScreen() {
   const handleAddToCart = () => {
     if (insufficientStock && !isAdmin) {
       setShowAlternatives(true);
-      showToast(`Only ${product.stock_qty} units in stock — see alternatives below`, 'error');
+      showToast(`Insufficient stock — see alternatives below`, 'error');
       return;
     }
     addToCart(product, requestedQty);
-    showToast(`Added ${requestedQty} × ${product.name} to request list`, 'success');
+    showToast(`Added ${requestedQty} × ${product.model_no} to request list`, 'success');
     setView('cart');
   };
 
@@ -177,31 +177,7 @@ export function ProductDetailScreen() {
             </div>
           </div>
 
-          {/* Price */}
-          {product.ssp && (
-            <div className="bg-slate-50 rounded-xl p-3.5 border border-slate-100">
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold text-slate-900">
-                  ₹{product.ssp.toLocaleString('en-IN')}
-                </span>
-                {product.mrp && product.mrp > product.ssp && (
-                  <span className="text-sm text-slate-400 line-through">
-                    ₹{product.mrp.toLocaleString('en-IN')}
-                  </span>
-                )}
-                {product.discount_pct && product.discount_pct > 0 && (
-                  <Badge className="bg-emerald-100 text-emerald-700 text-[10px] font-bold">
-                    {product.discount_pct}% OFF
-                  </Badge>
-                )}
-              </div>
-              <div className="text-[11px] text-slate-500 mt-1">
-                Special Sales Price · taxes extra as applicable
-              </div>
-            </div>
-          )}
-
-          {/* Stock info card */}
+          {/* Stock info card — NO price, NO qty numbers (internal app) */}
           <div
             className={cn(
               'rounded-xl p-3.5 border',
@@ -220,26 +196,8 @@ export function ProductDetailScreen() {
                 <div className="text-sm font-bold text-slate-900">{stock.label}</div>
                 <div className="text-xs text-slate-600 mt-0.5">{stock.sublabel}</div>
 
-                {/* Admin: detailed stock info */}
-                {isAdmin && (
-                  <div className="grid grid-cols-3 gap-2 mt-2.5 pt-2.5 border-t border-slate-200/70">
-                    <div>
-                      <div className="text-[9px] uppercase text-slate-500 font-semibold">Inward</div>
-                      <div className="text-sm font-bold text-slate-900">{product.inward.toLocaleString('en-IN')}</div>
-                    </div>
-                    <div>
-                      <div className="text-[9px] uppercase text-slate-500 font-semibold">Dispatched</div>
-                      <div className="text-sm font-bold text-slate-900">{product.dispatched.toLocaleString('en-IN')}</div>
-                    </div>
-                    <div>
-                      <div className="text-[9px] uppercase text-slate-500 font-semibold">Balance</div>
-                      <div className="text-sm font-bold text-slate-900">{product.stock_qty.toLocaleString('en-IN')}</div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Non-admin: dispatch info */}
-                {!isAdmin && cfg.dispatchDays && (
+                {/* Dispatch info */}
+                {cfg.dispatchDays && (
                   <div className="flex items-center gap-1.5 mt-2 text-[11px] text-slate-600">
                     {status === 'out-of-stock' ? (
                       <>
@@ -330,11 +288,11 @@ export function ProductDetailScreen() {
               <div className="text-xs bg-amber-50 border border-amber-200 text-amber-800 rounded-lg p-2.5 flex items-start gap-2">
                 <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
                 <div>
-                  Requested <strong>{requestedQty}</strong> units, but only <strong>{product.stock_qty}</strong> in stock.
+                  Requested quantity exceeds current stock.
                   {alternatives.length > 0 ? (
-                    <>Scroll down for <strong>{alternatives.length} alternative{alternatives.length > 1 ? 's' : ''}</strong> in {product.tier} tier.</>
+                    <> Scroll down for <strong>{alternatives.length} alternative{alternatives.length > 1 ? 's' : ''}</strong> in {product.item || product.name}.</>
                   ) : (
-                    <> No alternative models available in the same tier &amp; category.</>
+                    <> No alternative models available in the same item.</>
                   )}
                 </div>
               </div>
@@ -360,12 +318,11 @@ export function ProductDetailScreen() {
           <div className="flex items-center gap-2 mb-1">
             <Layers className="w-4 h-4 text-slate-700" />
             <h2 className="text-base font-bold text-slate-900">
-              Alternative Models in {product.tier} Tier
+              Alternative Models
             </h2>
           </div>
           <p className="text-xs text-slate-500 mb-4">
-            Same category as <strong className="text-slate-700">{product.category}</strong>, with sufficient stock for{' '}
-            <strong className="text-slate-700">{requestedQty} units</strong>.
+            Other models of <strong className="text-slate-700">{product.item || product.name}</strong> currently in stock.
           </p>
 
           {alternatives.length === 0 ? (
@@ -373,9 +330,8 @@ export function ProductDetailScreen() {
               <Package className="w-10 h-10 text-slate-300 mx-auto mb-2" />
               <h3 className="text-sm font-semibold text-slate-900">No alternative models available</h3>
               <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">
-                There are currently no other models in the {product.tier} tier &amp; {product.category} category with
-                enough stock to fulfil your request of {requestedQty} units. Please try reducing the quantity or
-                contact sales for assistance.
+                There are currently no other models of {product.item || product.name} with sufficient stock to fulfil your request.
+                Please try reducing the quantity or contact sales for assistance.
               </p>
             </div>
           ) : (
@@ -402,13 +358,8 @@ export function ProductDetailScreen() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-[10px] text-slate-500 uppercase tracking-wide">{alt.model_no}</div>
-                      <div className="text-sm font-semibold text-slate-900 line-clamp-1">{alt.name}</div>
+                      <div className="text-sm font-semibold text-slate-900 line-clamp-1">{alt.colour || alt.item}</div>
                       <div className="flex items-center gap-1.5 mt-0.5">
-                        {alt.ssp && (
-                          <span className="text-xs font-bold text-slate-900">
-                            ₹{alt.ssp.toLocaleString('en-IN')}
-                          </span>
-                        )}
                         <span
                           className={cn(
                             'text-[10px] font-semibold',
@@ -416,7 +367,7 @@ export function ProductDetailScreen() {
                             altStock.color === 'amber' && 'text-amber-600'
                           )}
                         >
-                          · {altStock.label}
+                          {altStock.label}
                         </span>
                       </div>
                     </div>

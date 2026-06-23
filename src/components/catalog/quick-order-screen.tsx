@@ -47,13 +47,6 @@ import { findAlternatives, getStockStatus } from '@/lib/types';
 
 const INVENTORY = getInventory();
 
-const tierColors: Record<string, string> = {
-  Essential: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-  Premium: 'bg-blue-100 text-blue-700 border-blue-200',
-  Luxury: 'bg-purple-100 text-purple-700 border-purple-200',
-  Standard: 'bg-slate-100 text-slate-700 border-slate-200',
-};
-
 const stepConfig = [
   { num: 1, label: 'Category', icon: Boxes },
   { num: 2, label: 'Item', icon: Tag },
@@ -291,7 +284,7 @@ export function QuickOrderScreen() {
                               ? 'bg-amber-100 text-amber-700'
                               : 'bg-emerald-100 text-emerald-700'
                         )}>
-                          {m.stock_qty} in stock
+                          {m.stock_qty === 0 ? 'Out of Stock' : m.stock_qty <= 10 ? 'Limited' : 'Available'}
                         </span>
                       </span>
                     </SelectItem>
@@ -312,16 +305,11 @@ export function QuickOrderScreen() {
                 <Check className="w-4 h-4 text-white" />
               </div>
               <h2 className="text-sm font-bold text-slate-900">Product Selected</h2>
-              {selectedProduct.tier && selectedProduct.tier !== 'Standard' && (
-                <Badge className={cn('ml-auto text-[10px] font-bold', tierColors[selectedProduct.tier])} variant="secondary">
-                  {selectedProduct.tier}
-                </Badge>
-              )}
             </div>
 
-            <div className="grid sm:grid-cols-[160px_1fr] gap-4">
+            <div className="grid sm:grid-cols-[180px_1fr] gap-4">
               {/* Image */}
-              <div className="aspect-square bg-slate-50 rounded-xl border border-slate-200 overflow-hidden flex items-center justify-center relative">
+              <div className="aspect-square bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200 overflow-hidden flex items-center justify-center relative">
                 {selectedProduct.image_url && !imgFailed ? (
                   <img
                     src={selectedProduct.image_url}
@@ -332,9 +320,9 @@ export function QuickOrderScreen() {
                     onError={() => setImgFailed(true)}
                   />
                 ) : (
-                  <div className="flex flex-col items-center text-slate-300">
-                    {imgFailed ? <ImageOff className="w-10 h-10" /> : <Package className="w-10 h-10" />}
-                    <span className="text-[10px] mt-1">No image</span>
+                  <div className="flex flex-col items-center text-slate-400 gap-2 p-4 text-center">
+                    {imgFailed ? <ImageOff className="w-12 h-12" /> : <Package className="w-12 h-12" strokeWidth={1.5} />}
+                    <span className="text-[10px] font-mono">{selectedProduct.model_no}</span>
                   </div>
                 )}
               </div>
@@ -345,36 +333,19 @@ export function QuickOrderScreen() {
                   <div className="text-[10px] text-slate-500 uppercase tracking-wide">
                     {selectedProduct.category} › {selectedProduct.item}
                   </div>
-                  <h3 className="text-sm font-bold text-slate-900 leading-tight mt-0.5">
-                    {selectedProduct.item || selectedProduct.name}
+                  <h3 className="text-base font-bold text-slate-900 leading-tight mt-0.5">
+                    {selectedProduct.model_no}
                   </h3>
-                  <div className="flex flex-wrap items-center gap-1.5 mt-1">
-                    <Badge variant="outline" className="text-[10px] font-mono">{selectedProduct.model_no}</Badge>
+                  <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
                     {selectedProduct.colour && (
-                      <span className="text-[11px] text-slate-500">Colour: <strong>{selectedProduct.colour}</strong></span>
+                      <span className="text-xs text-slate-500">Colour: <strong className="text-slate-700">{selectedProduct.colour}</strong></span>
                     )}
                   </div>
                 </div>
 
-                {selectedProduct.ssp && (
-                  <div className="bg-slate-50 rounded-lg p-2.5 border border-slate-100">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-xl font-bold text-slate-900">
-                        ₹{selectedProduct.ssp.toLocaleString('en-IN')}
-                      </span>
-                      {selectedProduct.mrp && selectedProduct.mrp > selectedProduct.ssp && (
-                        <span className="text-xs text-slate-400 line-through">
-                          ₹{selectedProduct.mrp.toLocaleString('en-IN')}
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-[10px] text-slate-500">SSP · taxes extra</div>
-                  </div>
-                )}
-
-                {/* Stock availability — the key feature user asked for */}
+                {/* Stock availability — NO qty, NO price (internal app) */}
                 <div className={cn(
-                  'rounded-lg p-2.5 border flex items-start gap-2.5',
+                  'rounded-lg p-3 border flex items-start gap-2.5',
                   stockStatus === 'in-stock' && 'bg-emerald-50 border-emerald-200',
                   stockStatus === 'low-stock' && 'bg-amber-50 border-amber-200',
                   stockStatus === 'out-of-stock' && 'bg-rose-50 border-rose-200'
@@ -384,20 +355,12 @@ export function QuickOrderScreen() {
                   {stockStatus === 'out-of-stock' && <XCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />}
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-bold text-slate-900">
-                      {isAdmin ? (
-                        <>{selectedProduct.stock_qty} units available</>
-                      ) : stockStatus === 'in-stock' ? (
-                        <>In Stock</>
-                      ) : stockStatus === 'low-stock' ? (
-                        <>Limited Stock</>
-                      ) : (
-                        <>Out of Stock</>
-                      )}
+                      {stockStatus === 'in-stock' && 'Available'}
+                      {stockStatus === 'low-stock' && 'Limited Stock'}
+                      {stockStatus === 'out-of-stock' && 'Out of Stock'}
                     </div>
                     <div className="text-[11px] text-slate-600 mt-0.5">
-                      {isAdmin ? (
-                        <>Balance: {selectedProduct.stock_qty} · Inward: {selectedProduct.inward} · Dispatched: {selectedProduct.dispatched}</>
-                      ) : stockStatus === 'out-of-stock' ? (
+                      {stockStatus === 'out-of-stock' ? (
                         <span className="flex items-center gap-1">
                           <Clock className="w-3 h-3" /> Available in {cfg.restockDays} days
                         </span>
@@ -445,11 +408,6 @@ export function QuickOrderScreen() {
                   >
                     <Plus className="w-4 h-4" />
                   </Button>
-                  <div className="ml-2 text-xs text-slate-500">
-                    {selectedProduct.ssp && (
-                      <span>Total: <strong className="text-slate-900">₹{(selectedProduct.ssp * qty).toLocaleString('en-IN')}</strong></span>
-                    )}
-                  </div>
                 </div>
               </div>
 
@@ -458,7 +416,7 @@ export function QuickOrderScreen() {
                 <div className="text-xs bg-amber-50 border border-amber-200 text-amber-800 rounded-lg p-2.5 flex items-start gap-2">
                   <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
                   <div>
-                    Requested <strong>{qty}</strong> units, but only <strong>{selectedProduct.stock_qty}</strong> in stock.
+                    Requested quantity exceeds current stock.
                     {alternatives.length > 0 ? (
                       <> {alternatives.length} alternative{alternatives.length > 1 ? 's' : ''} available below in {selectedProduct.item}.</>
                     ) : (
@@ -500,7 +458,7 @@ export function QuickOrderScreen() {
             </h2>
           </div>
           <p className="text-xs text-slate-500 mb-3">
-            Other models of <strong>{selectedProduct.item}</strong> with enough stock for {qty} units.
+            Other models of <strong>{selectedProduct.item}</strong> currently in stock.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {alternatives.map((alt) => (
@@ -509,7 +467,7 @@ export function QuickOrderScreen() {
                 onClick={() => handleModelChange(alt.id)}
                 className="flex items-center gap-3 p-2.5 bg-white border border-slate-200 rounded-xl hover:border-slate-300 hover:shadow-sm transition-all text-left"
               >
-                <div className="w-14 h-14 bg-slate-50 rounded-lg overflow-hidden flex items-center justify-center shrink-0">
+                <div className="w-14 h-14 bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg overflow-hidden flex items-center justify-center shrink-0">
                   {alt.image_url ? (
                     <img src={alt.image_url} alt={alt.name} className="w-full h-full object-contain p-1" loading="eager" decoding="async" />
                   ) : (
@@ -520,10 +478,9 @@ export function QuickOrderScreen() {
                   <div className="text-[10px] text-slate-500 uppercase tracking-wide">{alt.model_no}</div>
                   <div className="text-sm font-semibold text-slate-900 line-clamp-1">{alt.colour || alt.item}</div>
                   <div className="flex items-center gap-1.5 mt-0.5">
-                    {alt.ssp && (
-                      <span className="text-xs font-bold text-slate-900">₹{alt.ssp.toLocaleString('en-IN')}</span>
-                    )}
-                    <span className="text-[10px] text-emerald-600 font-semibold">· In Stock</span>
+                    <span className="text-[10px] text-emerald-600 font-semibold flex items-center gap-0.5">
+                      <Check className="w-3 h-3" /> Available
+                    </span>
                   </div>
                 </div>
                 <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />

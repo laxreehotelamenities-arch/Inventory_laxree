@@ -5,15 +5,8 @@ import { useAppStore } from '@/store/use-app';
 import type { Product } from '@/lib/types';
 import { getStockDisplay } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
-import { ImageIcon, Package } from 'lucide-react';
+import { Package } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const tierColors: Record<Product['tier'], string> = {
-  Essential: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-  Premium: 'bg-blue-100 text-blue-700 border-blue-200',
-  Luxury: 'bg-purple-100 text-purple-700 border-purple-200',
-  Standard: 'bg-slate-100 text-slate-700 border-slate-200',
-};
 
 const statusRing: Record<string, string> = {
   green: 'bg-emerald-500',
@@ -29,6 +22,13 @@ const statusText: Record<string, string> = {
   slate: 'text-slate-600',
 };
 
+const statusBg: Record<string, string> = {
+  green: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  amber: 'bg-amber-50 text-amber-700 border-amber-200',
+  red: 'bg-rose-50 text-rose-700 border-rose-200',
+  slate: 'bg-slate-50 text-slate-600 border-slate-200',
+};
+
 interface ProductCardProps {
   product: Product;
   onClick: () => void;
@@ -37,9 +37,10 @@ interface ProductCardProps {
 export function ProductCard({ product, onClick }: ProductCardProps) {
   const currentUser = useAppStore((s) => s.currentUser);
   const stock = getStockDisplay(product, currentUser?.role ?? 'employee');
-  const isAdmin = currentUser?.role === 'admin';
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgFailed, setImgFailed] = useState(false);
+
+  const hasImage = product.image_url && !imgFailed;
 
   return (
     <button
@@ -47,112 +48,69 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       className="group flex flex-col bg-white rounded-xl border border-slate-200 overflow-hidden text-left transition-all hover:shadow-md hover:border-slate-300 active:scale-[0.98]"
     >
       {/* Image */}
-      <div className="relative aspect-square bg-slate-50 overflow-hidden">
+      <div className="relative aspect-square bg-gradient-to-br from-slate-50 to-slate-100 overflow-hidden">
         {/* Skeleton shimmer while loading */}
-        {product.image_url && !imgLoaded && !imgFailed && (
+        {hasImage && !imgLoaded && (
           <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 animate-pulse" />
         )}
 
-        {product.image_url && !imgFailed ? (
+        {hasImage ? (
           <img
-            src={product.image_url}
+            src={product.image_url!}
             alt={product.item || product.name}
             className={cn(
               'w-full h-full object-contain p-2 group-hover:scale-105 transition-all duration-300',
               imgLoaded ? 'opacity-100' : 'opacity-0'
             )}
-            // Eager load so images appear immediately — catalog grid is the primary view
             loading="eager"
             decoding="async"
             onLoad={() => setImgLoaded(true)}
             onError={() => setImgFailed(true)}
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            {imgFailed ? (
-              <Package className="w-10 h-10 text-slate-300" />
-            ) : (
-              <ImageIcon className="w-10 h-10 text-slate-300" />
-            )}
+          // Nicer placeholder for products without an image
+          <div className="w-full h-full flex flex-col items-center justify-center gap-1.5 p-3">
+            <Package className="w-10 h-10 text-slate-300" strokeWidth={1.5} />
+            <span className="text-[9px] font-mono text-slate-400 text-center break-all line-clamp-2">
+              {product.model_no}
+            </span>
           </div>
         )}
 
-        {/* Tier badge */}
-        {product.tier !== 'Standard' && (
-          <Badge
-            className={cn(
-              'absolute top-1.5 left-1.5 text-[9px] font-bold px-1.5 py-0 h-5 border',
-              tierColors[product.tier]
-            )}
-            variant="secondary"
-          >
-            {product.tier}
-          </Badge>
-        )}
-        {/* Stock dot */}
-        <div className="absolute top-1.5 right-1.5 flex items-center gap-1 bg-white/90 backdrop-blur px-1.5 py-0.5 rounded-full shadow-sm">
+        {/* Stock status pill (top-right) — replaces the small dot */}
+        <div className={cn(
+          'absolute top-1.5 right-1.5 flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[9px] font-bold backdrop-blur',
+          statusBg[stock.color]
+        )}>
           <span className={cn('w-1.5 h-1.5 rounded-full', statusRing[stock.color])} />
-          <span className={cn('text-[9px] font-semibold', statusText[stock.color])}>{stock.label}</span>
+          {stock.label}
         </div>
       </div>
 
       {/* Content */}
       <div className="p-2.5 flex flex-col gap-1 flex-1">
         <div className="text-[10px] text-slate-500 font-medium uppercase tracking-wide line-clamp-1">
-          {product.category} › {product.item || product.name}
+          {product.category}
         </div>
-        <h3 className="text-xs font-semibold text-slate-900 line-clamp-2 leading-tight min-h-[2rem]">
-          {product.model_no}
+        <h3 className="text-xs font-semibold text-slate-900 line-clamp-1 leading-tight min-h-[1rem]">
+          {product.item || product.name}
         </h3>
 
         {/* Model + Color */}
         <div className="flex items-center gap-1.5 flex-wrap">
+          <Badge variant="outline" className="text-[9px] font-mono px-1 py-0 h-4">
+            {product.model_no}
+          </Badge>
           {product.colour && (
-            <Badge variant="outline" className="text-[9px] font-mono px-1 py-0 h-4">
-              {product.colour}
-            </Badge>
-          )}
-          {product.color && product.color !== 'Multi' && !product.colour && (
-            <span className="text-[10px] text-slate-500 truncate max-w-[80px]">{product.color}</span>
+            <span className="text-[10px] text-slate-500 truncate max-w-[80px]">{product.colour}</span>
           )}
         </div>
 
-        {/* Price + Stock */}
-        <div className="mt-auto pt-1.5 flex items-end justify-between gap-1">
-          <div className="leading-tight">
-            {product.ssp ? (
-              <>
-                <div className="text-sm font-bold text-slate-900">
-                  ₹{product.ssp.toLocaleString('en-IN')}
-                </div>
-                {product.mrp && product.mrp > product.ssp && (
-                  <div className="text-[10px] text-slate-400 line-through">
-                    ₹{product.mrp.toLocaleString('en-IN')}
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="text-[11px] text-slate-400 italic">Price on request</div>
-            )}
+        {/* Footer: dispatch ETA (no price, no qty) */}
+        <div className="mt-auto pt-1.5">
+          <div className={cn('text-[10px] font-medium', statusText[stock.color])}>
+            {stock.sublabel}
           </div>
-
-          {isAdmin && (
-            <div className="text-right shrink-0">
-              <div className="text-[9px] text-slate-400 uppercase">Stock</div>
-              <div
-                className={cn(
-                  'text-xs font-bold',
-                  product.stock_qty > 10
-                    ? 'text-emerald-600'
-                    : product.stock_qty > 0
-                      ? 'text-amber-600'
-                      : 'text-rose-600'
-                )}
-              >
-                {product.stock_qty}
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </button>
