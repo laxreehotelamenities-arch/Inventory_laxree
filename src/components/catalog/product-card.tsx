@@ -44,6 +44,7 @@ interface ProductCardProps {
 export function ProductCard({ product, onClick }: ProductCardProps) {
   const currentUser = useAppStore((s) => s.currentUser);
   const stock = getStockDisplay(product, currentUser?.role ?? 'employee');
+  const isAdmin = currentUser?.role === 'admin';
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgFailed, setImgFailed] = useState(false);
 
@@ -94,13 +95,13 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           </div>
         )}
 
-        {/* Stock status pill (top-right) — replaces the small dot */}
+        {/* Stock status pill (top-right) — Admin sees qty, others see only status label */}
         <div className={cn(
           'absolute top-1.5 right-1.5 flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[9px] font-bold backdrop-blur',
           statusBg[stock.color]
         )}>
           <span className={cn('w-1.5 h-1.5 rounded-full', statusRing[stock.color])} />
-          {stock.label}
+          {isAdmin ? `${product.stock_qty} units` : stock.label}
         </div>
       </div>
 
@@ -123,7 +124,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           )}
         </div>
 
-        {/* Footer: dispatch ETA (no price, no qty) */}
+        {/* Footer: dispatch ETA */}
         <div className="mt-auto pt-1.5">
           <div className={cn('text-[10px] font-medium', statusText[stock.color])}>
             {stock.sublabel}

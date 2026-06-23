@@ -181,6 +181,7 @@ export function CartScreen() {
           <div className="space-y-2.5">
             {cart.map(({ product, qty }) => {
               const stock = getStockDisplay(product, currentUser.role);
+              const isAdmin = currentUser.role === 'admin';
               return (
                 <Card key={product.id} className="overflow-hidden">
                   <CardContent className="p-3 flex gap-3">
@@ -258,7 +259,7 @@ export function CartScreen() {
                               stock.color === 'red' && 'text-rose-600'
                             )}
                           >
-                            {stock.label}
+                            {isAdmin ? `${product.stock_qty} units` : stock.label}
                           </div>
                         </div>
                       </div>

@@ -497,3 +497,81 @@ Verification:
 - Dev server: running on port 3000, no runtime errors
 - Agent Browser: admin login → PR creation → PDF download verified
 - Agent Browser: dealer/employee/distributor logins verified — no admin access
+
+---
+Task ID: remove-names-admin-only-qty
+Agent: main (Super Z)
+Task: 2 fixes — (1) Replace real names with role labels, (2) Stock qty visible ONLY to admin (dealers/employees/distributors see only "Available"/"Out of Stock")
+
+Work Log:
+- Replaced ALL real names in src/data/users.json with role-based labels:
+  * "Rajesh Kumar" → "Admin" (avatar: AD)
+  * "Priya Sharma", "Rahul Verma", "Anjali Singh" → "Employee 1/2/3" (avatars: E1, E2, E3)
+  * "Amit Verma", "Suresh Patel", "Vikram Reddy", "Manish Gupta" → "Dealer 1/2/3/4" (avatars: D1-D4)
+  * "Sneha Patel", "Karan Mehta", "Deepak Joshi" → "Distributor 1/2/3" (avatars: DT1-DT3)
+  * All "department" fields standardized to role names ("Inventory Management" / "Employee" / "Dealer" / "Distributor")
+  * Removed region-specific departments like "Dealer - North Region"
+
+- Updated employee usernames for consistency:
+  * laxree.priya → laxree.emp1 (password: Emp1@LR26)
+  * laxree.rahul → laxree.emp2 (password: Emp2@LR26)
+  * laxree.anjali → laxree.emp3 (password: Emp3@LR26)
+  * (dealer/distributor usernames unchanged)
+
+- Updated src/components/catalog/product-card.tsx:
+  * Stock badge (top-right) now shows different content based on role
+  * Admin sees: "166 units", "51 units", "295 units" (exact qty)
+  * Non-admin sees: "Available" / "Limited Stock" / "Out of Stock" (no qty)
+
+- Updated src/components/catalog/product-detail.tsx:
+  * Stock info card now role-aware:
+    * Admin: "166 units available" + Inward/Dispatched/Balance table (+166 / -0 / 166)
+    * Non-admin: "Available" / "Limited Stock" / "Out of Stock" + dispatch ETA
+  * Admin gets full audit trail (inward/dispatched/balance breakdown)
+  * Non-admin gets only dispatch info (7-10 days or 24-30 days restock)
+
+- Updated src/components/catalog/quick-order-screen.tsx:
+  * Model dropdown options now show:
+    * Admin: "166 units" badge per model
+    * Non-admin: "Available" / "Limited" / "Out of Stock" badge
+  * Product preview stock card:
+    * Admin: "166 units available" + "Balance · Inward: X · Dispatched: Y"
+    * Non-admin: status label + dispatch ETA
+  * Updated OOS message to: "It will be available once order is confirmed (24-30 days)"
+
+- Updated src/components/cart/cart-screen.tsx:
+  * Cart item stock status badge:
+    * Admin: "166 units"
+    * Non-admin: "Available" / "Out of Stock"
+
+- Updated src/lib/pdf-generator.ts (order PDF):
+  * Removed "Role: X · Department" line (was showing real department names)
+  * Now only shows "Name: Admin" (or Dealer 1, etc.) + User ID
+
+Stage Summary:
+- NAMES: Zero real names visible anywhere. All UI shows role labels only:
+  * Admin → "Admin"
+  * Employee → "Employee 1/2/3"
+  * Dealer → "Dealer 1/2/3/4"
+  * Distributor → "Distributor 1/2/3"
+- QTY VISIBILITY:
+  * Admin sees EXACT qty everywhere (catalog cards, product detail, quick order dropdown, quick order preview, cart) + Inward/Dispatched/Balance table in product detail
+  * Dealer/Employee/Distributor see ONLY status labels ("Available"/"Limited Stock"/"Out of Stock") + dispatch ETA — they CANNOT see how many units are in stock, so they cannot plan/hold stock based on priority
+
+Verification (Agent Browser + Vision):
+- Admin login → Catalog cards show "166 units", "51 units", "295 units", "160 units" ✓
+- Admin menu shows "Admin" name (not "Rajesh Kumar") ✓
+- Dealer1 login → Catalog cards show "Available" (no qty) ✓
+- Dealer1 menu shows "Dealer 1" name (not "Amit Verma") ✓
+- Employee1 login → Menu shows "Employee 1" name (not "Priya Sharma") ✓
+
+Files modified:
+- src/data/users.json (names → role labels, departments standardized)
+- src/components/catalog/product-card.tsx (admin-only qty in badge)
+- src/components/catalog/product-detail.tsx (admin-only Inward/Dispatched/Balance table)
+- src/components/catalog/quick-order-screen.tsx (admin-only qty in dropdown + preview)
+- src/components/cart/cart-screen.tsx (admin-only qty in cart items)
+- src/lib/pdf-generator.ts (removed department line from order PDF)
+
+Lint: clean (0 errors, 0 warnings)
+Dev server: running on port 3000, no runtime errors

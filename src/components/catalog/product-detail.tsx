@@ -193,11 +193,33 @@ export function ProductDetailScreen() {
               {stock.color === 'red' && <XCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />}
               {stock.color === 'slate' && <Info className="w-5 h-5 text-slate-500 shrink-0 mt-0.5" />}
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-bold text-slate-900">{stock.label}</div>
-                <div className="text-xs text-slate-600 mt-0.5">{stock.sublabel}</div>
+                <div className="text-sm font-bold text-slate-900">
+                  {isAdmin ? `${product.stock_qty} units available` : stock.label}
+                </div>
+                <div className="text-xs text-slate-600 mt-0.5">
+                  {isAdmin ? 'Current balance in inventory' : stock.sublabel}
+                </div>
 
-                {/* Dispatch info */}
-                {cfg.dispatchDays && (
+                {/* Admin: detailed stock info table */}
+                {isAdmin && (
+                  <div className="grid grid-cols-3 gap-2 mt-2.5 pt-2.5 border-t border-slate-200/70">
+                    <div>
+                      <div className="text-[9px] uppercase text-slate-500 font-semibold">Inward</div>
+                      <div className="text-sm font-bold text-emerald-700">+{product.inward.toLocaleString('en-IN')}</div>
+                    </div>
+                    <div>
+                      <div className="text-[9px] uppercase text-slate-500 font-semibold">Dispatched</div>
+                      <div className="text-sm font-bold text-rose-700">−{product.dispatched.toLocaleString('en-IN')}</div>
+                    </div>
+                    <div>
+                      <div className="text-[9px] uppercase text-slate-500 font-semibold">Balance</div>
+                      <div className="text-sm font-bold text-slate-900">{product.stock_qty.toLocaleString('en-IN')}</div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Non-admin: dispatch info */}
+                {!isAdmin && cfg.dispatchDays && (
                   <div className="flex items-center gap-1.5 mt-2 text-[11px] text-slate-600">
                     {status === 'out-of-stock' ? (
                       <>

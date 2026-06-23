@@ -96,7 +96,6 @@ export function generateOrderPDF({ cart, user, orderId, submittedAt }: GenerateP
 
   const requestorLines = [
     `Name: ${user.name}`,
-    `Role: ${user.role.charAt(0).toUpperCase() + user.role.slice(1)} · ${user.department}`,
     `User ID: ${user.id}`,
   ];
   for (const line of requestorLines) {

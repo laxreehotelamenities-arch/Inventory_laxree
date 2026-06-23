@@ -306,7 +306,9 @@ export function QuickOrderScreen() {
                               ? 'bg-amber-100 text-amber-700'
                               : 'bg-emerald-100 text-emerald-700'
                         )}>
-                          {m.stock_qty === 0 ? 'Out of Stock' : m.stock_qty <= 10 ? 'Limited' : 'Available'}
+                          {isAdmin
+                            ? `${m.stock_qty} units`
+                            : (m.stock_qty === 0 ? 'Out of Stock' : m.stock_qty <= 10 ? 'Limited' : 'Available')}
                         </span>
                       </span>
                     </SelectItem>
@@ -371,7 +373,7 @@ export function QuickOrderScreen() {
                   </div>
                 </div>
 
-                {/* Stock availability — NO qty, NO price (internal app) */}
+                {/* Stock availability — Admin sees qty + inward/dispatched/balance, others see only status */}
                 <div className={cn(
                   'rounded-lg p-3 border flex items-start gap-2.5',
                   stockStatus === 'in-stock' && 'bg-emerald-50 border-emerald-200',
@@ -383,14 +385,18 @@ export function QuickOrderScreen() {
                   {stockStatus === 'out-of-stock' && <XCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />}
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-bold text-slate-900">
-                      {stockStatus === 'in-stock' && 'Available'}
-                      {stockStatus === 'low-stock' && 'Limited Stock'}
-                      {stockStatus === 'out-of-stock' && 'Out of Stock'}
+                      {isAdmin
+                        ? `${selectedProduct.stock_qty} units available`
+                        : stockStatus === 'in-stock' ? 'Available'
+                        : stockStatus === 'low-stock' ? 'Limited Stock'
+                        : 'Out of Stock'}
                     </div>
                     <div className="text-[11px] text-slate-600 mt-0.5">
-                      {stockStatus === 'out-of-stock' ? (
+                      {isAdmin ? (
+                        <span>Balance · Inward: {selectedProduct.inward} · Dispatched: {selectedProduct.dispatched}</span>
+                      ) : stockStatus === 'out-of-stock' ? (
                         <span className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" /> Available in {cfg.restockDays} days
+                          <Clock className="w-3 h-3" /> It will be available once order is confirmed ({cfg.restockDays} days)
                         </span>
                       ) : (
                         <span className="flex items-center gap-1">
