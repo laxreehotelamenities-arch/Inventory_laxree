@@ -1,0 +1,82 @@
+{
+  "users": [
+    {
+      "id": "u-admin-001",
+      "username": "admin",
+      "password": "admin123",
+      "name": "Rajesh Kumar",
+      "role": "admin",
+      "avatar": "RK",
+      "department": "Inventory Management",
+      "permissions": ["view_stock_qty", "view_pricing", "edit_stock", "view_dashboard", "view_all_categories", "view_audit_log"]
+    },
+    {
+      "id": "u-emp-001",
+      "username": "employee",
+      "password": "emp123",
+      "name": "Priya Sharma",
+      "role": "employee",
+      "avatar": "PS",
+      "department": "Sales Executive",
+      "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
+    },
+    {
+      "id": "u-deal-001",
+      "username": "dealer",
+      "password": "dealer123",
+      "name": "Amit Verma",
+      "role": "dealer",
+      "avatar": "AV",
+      "department": "Dealer - North Region",
+      "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
+    },
+    {
+      "id": "u-dist-001",
+      "username": "distributor",
+      "password": "dist123",
+      "name": "Sneha Patel",
+      "role": "distributor",
+      "avatar": "SP",
+      "department": "Distributor - West Zone",
+      "permissions": ["view_stock_status", "view_pricing", "view_catalog"]
+    }
+  ],
+  "roleConfig": {
+    "admin": {
+      "label": "Administrator",
+      "color": "rose",
+      "canViewQuantity": true,
+      "canEditStock": true,
+      "canViewDashboard": true,
+      "dispatchDays": null,
+      "restockDays": null
+    },
+    "employee": {
+      "label": "Employee",
+      "color": "amber",
+      "canViewQuantity": false,
+      "canEditStock": false,
+      "canViewDashboard": false,
+      "dispatchDays": "7-10",
+      "restockDays": "24-30"
+    },
+    "dealer": {
+      "label": "Dealer",
+      "color": "emerald",
+      "canViewQuantity": false,
+      "canEditStock": false,
+      "canViewDashboard": false,
+      "dispatchDays": "7-10",
+      "restockDays": "24-30"
+    },
+    "distributor": {
+      "label": "Distributor",
+      "color": "violet",
+      "canViewQuantity": false,
+      "canEditStock": false,
+      "canViewDashboard": false,
+      "dispatchDays": "7-10",
+      "restockDays": "24-30"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "total_products": 608,
+  "by_tier": {
+    "Essential": 55,
+    "Premium": 94,
+    "Luxury": 73,
+    "Standard": 386
+  },
+  "by_source": {
+    "pdf": 222,
+    "inventory": 47,
+    "xlsx": 339
+  },
+  "by_category": {
+    "MiniBar": 12,
+    "Tea Kettle": 32,
+    "Wooden Hangers": 18,
+    "RFID Locks": 3,
+    "Room Telephones": 25,
+    "Desktop Accessories": 16,
+    "Mattresses and Rollaway Bed": 30,
+    "Magnifying Mirror": 5,
+    "In-Room Soap Dispenser": 15,
+    "Lobby Soap Dispenser": 5,
+    "Weighing Scale": 19,
+    "Washroom ADD-ONS": 7,
+    "Luggage Trolley": 6,
+    "Housekeeping and Linen Trolley": 10,
+    "Lobby Dustbins": 5,
+    "Que Manager & Floor Signages": 14,
+    "Room Amenities": 17,
+    "Bathroom Amenities": 4,
+    "Lobby Items": 11,
+    "Bath Tubs": 6,
+    "Banquet Furniture": 4,
+    "Spare Parts": 5,
+    "Catalog Item": 339
+  },
+  "with_image": 476,
+  "with_stock": 222,
+  "with_price": 561,
+  "categories_list": [
+    "Banquet Furniture",
+    "Bath Tubs",
+    "Bathroom Amenities",
+    "Catalog Item",
+    "Desktop Accessories",
+    "Housekeeping and Linen Trolley",
+    "In-Room Soap Dispenser",
+    "Lobby Dustbins",
+    "Lobby Items",
+    "Lobby Soap Dispenser",
+    "Luggage Trolley",
+    "Magnifying Mirror",
+    "Mattresses and Rollaway Bed",
+    "MiniBar",
+    "Que Manager & Floor Signages",
+    "RFID Locks",
+    "Room Amenities",
+    "Room Telephones",
+    "Spare Parts",
+    "Tea Kettle",
+    "Washroom ADD-ONS",
+    "Weighing Scale",
+    "Wooden Hangers"
+  ],
+  "tiers_list": [
+    "Essential",
+    "Luxury",
+    "Premium",
+    "Standard"
+  ]
+}

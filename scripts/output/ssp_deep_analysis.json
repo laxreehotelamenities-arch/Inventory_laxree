@@ -1,0 +1,1106 @@
+{
+  "headers_row3": [
+    "Model No",
+    "Description",
+    "DISCOUNT",
+    "DISCOUNT %",
+    "MRP",
+    "SSP",
+    "Color",
+    "Images"
+  ],
+  "total_product_rows": 897,
+  "section_header_rows": [],
+  "tier_keyword_rows": [
+    {
+      "row": 67,
+      "kw": "essential",
+      "description": "Essential Safe Box \nRight hand flip with 4-6 digit personal codes. \nLow energy consumption,\nIndividual Manual Over Ride Key, Pre Drillled mount holes in the bottom , Master Over ride Key option available.\nSize : W230 X D170 X H170mm."
+    },
+    {
+      "row": 410,
+      "kw": "standard",
+      "description": "Automatic Soap Dispenser\nSuitable for 3 different liquid: foam, soap, sanitizer\n capacity :1200ml ,Lockable with window design\nSupport DC(6V,1A) and battery (the standard packing is not including DC/battery)\nleakage proof , with Water tray\nProduct size:15.5*11.5*27.60cm"
+    }
+  ],
+  "prefix_summary": [
+    {
+      "prefix": "LRAT",
+      "count": 210,
+      "top_category": "Toiletries"
+    },
+    {
+      "prefix": "LROF",
+      "count": 127,
+      "top_category": "Furniture / Fixture"
+    },
+    {
+      "prefix": "LRFD",
+      "count": 67,
+      "top_category": "Furniture / Fixture"
+    },
+    {
+      "prefix": "LRLF",
+      "count": 48,
+      "top_category": "Uncategorized"
+    },
+    {
+      "prefix": "LRFP",
+      "count": 46,
+      "top_category": "Uncategorized"
+    },
+    {
+      "prefix": "LRWA",
+      "count": 41,
+      "top_category": "Toiletries"
+    },
+    {
+      "prefix": "LRGL",
+      "count": 39,
+      "top_category": "Furniture / Fixture"
+    },
+    {
+      "prefix": "LRBF",
+      "count": 33,
+      "top_category": "Furniture / Fixture"
+    },
+    {
+      "prefix": "LRGF",
+      "count": 30,
+      "top_category": "Furniture / Fixture"
+    },
+    {
+      "prefix": "LRLI",
+      "count": 27,
+      "top_category": "Bins / Waste"
+    },
+    {
+      "prefix": "LRDA",
+      "count": 22,
+      "top_category": "Tissue / Dispenser"
+    },
+    {
+      "prefix": "LRWT",
+      "count": 22,
+      "top_category": "Kettle / F&B"
+    },
+    {
+      "prefix": "LRRA",
+      "count": 22,
+      "top_category": "Bins / Waste"
+    },
+    {
+      "prefix": "LRBT",
+      "count": 22,
+      "top_category": "Uncategorized"
+    },
+    {
+      "prefix": "LRMR",
+      "count": 17,
+      "top_category": "Bed Linen"
+    },
+    {
+      "prefix": "LRHT",
+      "count": 16,
+      "top_category": "Furniture / Fixture"
+    },
+    {
+      "prefix": "LRHD",
+      "count": 14,
+      "top_category": "Hair Dryer"
+    },
+    {
+      "prefix": "LRWH",
+      "count": 12,
+      "top_category": "Hangers"
+    },
+    {
+      "prefix": "LRDR",
+      "count": 12,
+      "top_category": "Clock / Electronics"
+    },
+    {
+      "prefix": "LRSB",
+      "count": 9,
+      "top_category": "Safe"
+    },
+    {
+      "prefix": "LRMM",
+      "count": 9,
+      "top_category": "Mirror"
+    },
+    {
+      "prefix": "LRWS",
+      "count": 8,
+      "top_category": "Iron / Ironing"
+    },
+    {
+      "prefix": "LRMB",
+      "count": 6,
+      "top_category": "Lighting"
+    },
+    {
+      "prefix": "LRET",
+      "count": 4,
+      "top_category": "Lighting"
+    },
+    {
+      "prefix": "LRLT",
+      "count": 3,
+      "top_category": "Furniture / Fixture"
+    },
+    {
+      "prefix": "LRDO",
+      "count": 2,
+      "top_category": "Kettle / F&B"
+    }
+  ],
+  "inferred_category_distribution": {
+    "Furniture / Fixture": 239,
+    "Uncategorized": 236,
+    "Toiletries": 113,
+    "Kettle / F&B": 63,
+    "Tissue / Dispenser": 61,
+    "Bins / Waste": 33,
+    "Towel": 24,
+    "Hair Dryer": 15,
+    "Clock / Electronics": 15,
+    "Bed Linen": 15,
+    "Hangers": 13,
+    "Mirror": 12,
+    "Lighting": 12,
+    "Bathroom Accessory": 12,
+    "Signage": 10,
+    "Safe": 9,
+    "Hand Dryer": 8,
+    "Iron / Ironing": 4,
+    "Bathrobe": 2,
+    "Laundry / Housekeeping": 1
+  },
+  "color_distribution": {
+    "AS PER SELECTION": 222,
+    "AS PER PICTURE": 206,
+    "BLACK": 68,
+    "WHITE": 54,
+    "AS PER CATALOGUE": 45,
+    "SS FINISH": 29,
+    "WALNUT COLOR / NATURAL WOOD": 22,
+    "TOP: BLACK / WHITE": 13,
+    "FREY / NATURAL WHITE / SAND STONE / BROWN / MIDNIGHT STONE / CREAM STONE": 13,
+    "NATURAL WOOD": 12,
+    "BRWON + CREAM": 12,
+    "MULTON TOP / FELT TOP": 10,
+    "WHITE / BLACK": 9,
+    "BROWN": 8,
+    "TRANSPARENT": 7,
+    "BLACK / BROWN": 6,
+    "BROWN / BLACK": 6,
+    "GOLDEN + BLACK": 6,
+    "RED OXIDE, TERACOTTA, BLACK, GRAY, BLUE BLACK, RED BLACK, BROWN, BLUE, BROWN BLACK, CEMENT GRAY,": 6,
+    "CHROME": 5,
+    "BLACK / WHITE": 5,
+    "GOLDEN": 5,
+    "LIGHT/WALNUT": 5,
+    "BLUE": 4,
+    "RED": 4,
+    "RED/GREY": 4,
+    "GREY MAHROON,/ GREY BLACK,/GREEN BLACK /RED BLACK,/BLUE BLACK /GREY": 4,
+    "BLACK + GREY": 3,
+    "WHITE/ BLACK": 3,
+    "LIGHT WALNUT / NATURAL ASH": 3,
+    "RED / GREEN / YELLOW": 3,
+    "CREAM / BROWN / BROWN GREEN / GREEN / GREY GREEN": 3,
+    "YELLOW": 2,
+    "SS": 2,
+    "BLACK / OFFWHITE": 2,
+    "SILVER": 2,
+    "BLACK +SS": 2,
+    "NATURAL WOOD / WALNUT": 2,
+    "NATURAL WOOD/ WALNUT": 2,
+    "WOODEN": 2,
+    "WOODEN FINISH": 2,
+    "BLACK +GREY": 2,
+    "GREY": 2,
+    "ORANGE": 2,
+    "ROSE GOLD": 2,
+    "TRANSPARENT GLASS": 2,
+    "CREAM": 2,
+    "WHITE/BLACK": 2,
+    "GOLD/SS/BLACK": 2,
+    "GOLD PLATED": 2
+  },
+  "sample_products_every_60th": [
+    {
+      "row": 4,
+      "model_no_raw": "LRWA - 399",
+      "model_code": "LRWA-399",
+      "prefix": "LRWA",
+      "description": "HAND DRYER 1650 W POWER. HAVING AIR SPEED 10 M/S IN ALUMINUM ALLOY BODY. SIZE: 290 W X 165 D X 215 H (MM)",
+      "discount": 80,
+      "discount_pct": 20,
+      "mrp": 8000,
+      "ssp": 6400,
+      "color": "WHITE",
+      "images": null,
+      "inferred_category": "Hand Dryer"
+    },
+    {
+      "row": 64,
+      "model_no_raw": "LRWT 166",
+      "model_code": "LRWT-166",
+      "prefix": "LRWT",
+      "description": "Three in One Tray with Anti Theft Mechanism , In built compartments for Sachet , stirrer , mugs and water btottle , Made in Melamine materail , Suitable for all Kettle type. SIZE : -  Main Tray :  W380 *D300 *H22.5 mm / Service Tray : W3356 * D130 *H11 mm / Tea Box : W155 * D115 *H50 mm",
+      "discount": 75,
+      "discount_pct": 25,
+      "mrp": 1950,
+      "ssp": 1463,
+      "color": "Black",
+      "images": null,
+      "inferred_category": "Kettle / F&B"
+    },
+    {
+      "row": 124,
+      "model_no_raw": "LRMR 253 ( Pocket 10\")",
+      "model_code": "LRMR-253",
+      "prefix": "LRMR",
+      "description": "Pocket  Spring Mattresss                                                                              10\" Pocket Spring matress made in soft foam backing on both side , size : 1800 x 2000 mm",
+      "discount": 65,
+      "discount_pct": 35,
+      "mrp": 19500,
+      "ssp": 12675,
+      "color": "Brwon + Cream",
+      "images": null,
+      "inferred_category": "Bed Linen"
+    },
+    {
+      "row": 184,
+      "model_no_raw": "LRWS 327",
+      "model_code": "LRWS-327",
+      "prefix": "LRWS",
+      "description": "Electronic  Weighing Scale\nABS & Tempered Glass Platform, High Precision Strain Guage Sensor System\nLow Battery / Overload Indication, LCD Display with backlight , Automatic Zero Resetting ,Capacity : 3-180 Kg weighing, Size : Dia 320 mm",
+      "discount": 80,
+      "discount_pct": 20,
+      "mrp": 2000,
+      "ssp": 1600,
+      "color": "Transparent Glass",
+      "images": null,
+      "inferred_category": "Kettle / F&B"
+    },
+    {
+      "row": 244,
+      "model_no_raw": "LRAT - 6502 (Soap Dish)",
+      "model_code": "LRAT-6502",
+      "prefix": "LRAT",
+      "description": "Soap dish, made in resin material, size: 11 x 9 x 2.5 cm",
+      "discount": null,
+      "discount_pct": null,
+      "mrp": 472,
+      "ssp": 354,
+      "color": "As per Picture",
+      "images": null,
+      "inferred_category": "Toiletries"
+    },
+    {
+      "row": 304,
+      "model_no_raw": "LRAT - 6512 (Amenity Box)",
+      "model_code": "LRAT-6512",
+      "prefix": "LRAT",
+      "description": "Amenity box, made in resin material, size: 28 x 30 x 12.9 cm",
+      "discount": null,
+      "discount_pct": null,
+      "mrp": 6150,
+      "ssp": 4613,
+      "color": "As per Picture",
+      "images": null,
+      "inferred_category": "Toiletries"
+    },
+    {
+      "row": 364,
+      "model_no_raw": "LRAT - 6529 (Tray)",
+      "model_code": "LRAT-6529",
+      "prefix": "LRAT",
+      "description": "Amenity tray, made in resin material, size: 34 x 22 x 2 cm",
+      "discount": null,
+      "discount_pct": null,
+      "mrp": 3547,
+      "ssp": 2660,
+      "color": null,
+      "images": null,
+      "inferred_category": "Toiletries"
+    },
+    {
+      "row": 424,
+      "model_no_raw": "LRLT 401",
+      "model_code": "LRLT-401",
+      "prefix": "LRLT",
+      "description": "Luggage Hand Trolley\nStainless Steel body , Heavy duty four wheel luggage trolley , Soft Carpet luggage platform , Bag Hanger Bar on the top ,with heavy duty wheels ,                                                                       SIZE : L 1070 * D 620 * H 1880 mm",
+      "discount": 90,
+      "discount_pct": 10,
+      "mrp": 20200,
+      "ssp": 18180,
+      "color": "Silver / Golden",
+      "images": null,
+      "inferred_category": "Hangers"
+    },
+    {
+      "row": 484,
+      "model_no_raw": "LRGF - 674 ( Dressing Stool )",
+      "model_code": "LRGF-674",
+      "prefix": "LRGF",
+      "description": "Dressing Stool  made in Canadian Ash wood Size : 430 x320 x430 mm",
+      "discount": 100,
+      "discount_pct": null,
+      "mrp": null,
+      "ssp": 7979.999999999999,
+      "color": "Walnut color / Natural Wood",
+      "images": null,
+      "inferred_category": "Furniture / Fixture"
+    },
+    {
+      "row": 544,
+      "model_no_raw": "LRGL - 946",
+      "model_code": "LRGL-946",
+      "prefix": "LRGL",
+      "description": "Coffee Table                                                                           made in golden powder coated ms stucture top made in artificial stone finish tile , bottom made in natural stone  , top dia : 450 mm",
+      "discount": 100,
+      "discount_pct": null,
+      "mrp": null,
+      "ssp": 9375,
+      "color": "Black",
+      "images": null,
+      "inferred_category": "Furniture / Fixture"
+    },
+    {
+      "row": 604,
+      "model_no_raw": "LRFD - 519",
+      "model_code": "LRFD-519",
+      "prefix": "LRFD",
+      "description": "Resturant chair                                                                             made in powder coated metal  leg  , seat & back leatherette tapestry.",
+      "discount": 100,
+      "discount_pct": null,
+      "mrp": null,
+      "ssp": 5460,
+      "color": "as per Selection",
+      "images": null,
+      "inferred_category": "Furniture / Fixture"
+    },
+    {
+      "row": 664,
+      "model_no_raw": "LRBF - 532 ( 1800 )",
+      "model_code": "LRBF-532",
+      "prefix": "LRBF",
+      "description": "Banquet table made in MS powder coated frame with multon top/ felt top backed by 18 MM plyboard , Size: 1800 MM Dia",
+      "discount": 100,
+      "discount_pct": null,
+      "mrp": null,
+      "ssp": 7560,
+      "color": "Multon Top / Felt Top",
+      "images": null,
+      "inferred_category": "Furniture / Fixture"
+    },
+    {
+      "row": 724,
+      "model_no_raw": "LROF - 765(Table)",
+      "model_code": "LROF-765",
+      "prefix": "LROF",
+      "description": "Dining Table                                                                                                          MADE IN ALLUMINIUM FRAME WITH wooden  TOP , Size : 1800 x 750 x750 mm",
+      "discount": 100,
+      "discount_pct": null,
+      "mrp": null,
+      "ssp": 61599.99999999999,
+      "color": "as per selection",
+      "images": null,
+      "inferred_category": "Furniture / Fixture"
+    },
+    {
+      "row": 784,
+      "model_no_raw": "LROF - 792 (Cushion)",
+      "model_code": "LROF-792",
+      "prefix": "LROF",
+      "description": "Seat and back cushion made in Fast Dry  Fabric",
+      "discount": 100,
+      "discount_pct": null,
+      "mrp": null,
+      "ssp": 840,
+      "color": "As Per Selection",
+      "images": null,
+      "inferred_category": "Uncategorized"
+    },
+    {
+      "row": 844,
+      "model_no_raw": "LRFP - 1713 (34 x 26)",
+      "model_code": "LRFP-1713",
+      "prefix": "LRFP",
+      "description": "Flower pot . Size: 340 x 260 MM , Matt  Finish",
+      "discount": 100,
+      "discount_pct": null,
+      "mrp": null,
+      "ssp": 1877.3999999999999,
+      "color": "AS PER CATALOGUE",
+      "images": null,
+      "inferred_category": "Uncategorized"
+    }
+  ],
+  "sample_products_per_prefix": {
+    "LRAT": [
+      {
+        "row": 196,
+        "model_no_raw": "LRAT - 366 (Towel Tray)",
+        "model_code": "LRAT-366",
+        "prefix": "LRAT",
+        "description": "towel tray made in Resin , Size : \n13.5*16.3*7cm",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 1190,
+        "color": "As per Picture",
+        "images": null,
+        "inferred_category": "Towel"
+      },
+      {
+        "row": 197,
+        "model_no_raw": "LRAT - 366 (Tissue)",
+        "model_code": "LRAT-366",
+        "prefix": "LRAT",
+        "description": "tissue box made in resin material size : 13.5*13.5*15cm",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 1582,
+        "color": "As per Picture",
+        "images": null,
+        "inferred_category": "Tissue / Dispenser"
+      },
+      {
+        "row": 198,
+        "model_no_raw": "LRAT - 366 (amenity box)",
+        "model_code": "LRAT-366",
+        "prefix": "LRAT",
+        "description": "amenity box made in resin material , size :\n30.5*24*9.5cm",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 3779.9999999999995,
+        "color": "As per Picture",
+        "images": null,
+        "inferred_category": "Toiletries"
+      }
+    ],
+    "LROF": [
+      {
+        "row": 9,
+        "model_no_raw": "LROF - 755",
+        "model_code": "LROF-755",
+        "prefix": "LROF",
+        "description": "OUTDOOR CHAIR MADEI N ALLUMINIUM FRAMEWITH ROPE WEAVING HAVING SEAT & BACK CUSHION MADE IN QUICK DRY FABRIC",
+        "discount": 80,
+        "discount_pct": 20,
+        "mrp": 18500,
+        "ssp": 14800,
+        "color": "AS PER CATALOGUE",
+        "images": null,
+        "inferred_category": "Furniture / Fixture"
+      },
+      {
+        "row": 688,
+        "model_no_raw": "LROF - 750 ( 3 Seater)",
+        "model_code": "LROF-750",
+        "prefix": "LROF",
+        "description": "Outdoor Sofa                                                                                     3 seater sofa made in Alluminium Frame and Rehau Wicker & cushions made in Quick Dry  Fabric  ( Size : 1800 x 800 x 750 mm )",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 75600,
+        "color": "as per selection",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      },
+      {
+        "row": 689,
+        "model_no_raw": "LROF - 750 (1 Seater)",
+        "model_code": "LROF-750",
+        "prefix": "LROF",
+        "description": "Outdoor Sofa                                                                                     1 seater sofa made in Alluminium Frame and Rehau Wicker & cushions made in Quick Dry  Fabric  ( Size : 800 x 800 x 750 mm )",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 29399.999999999996,
+        "color": "as per selection",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      }
+    ],
+    "LRFD": [
+      {
+        "row": 14,
+        "model_no_raw": "LRFD 608",
+        "model_code": "LRFD-608",
+        "prefix": "LRFD",
+        "description": "RFID LOCK MADE IN STAILNESS STEEL BODY WITH 5 LATCH MORTISE LOCK. MASTER KEY FOR OVERRIDE. SIZE: 242 X 32.5 X 77 MM",
+        "discount": 75,
+        "discount_pct": 25,
+        "mrp": 6700,
+        "ssp": 5025,
+        "color": "SS FINISH",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      },
+      {
+        "row": 15,
+        "model_no_raw": "LRFD 609",
+        "model_code": "LRFD-609",
+        "prefix": "LRFD",
+        "description": "RFID LOCK MADE IN ALLUMINIUM ALLOY BODY & COATED GLOSS PAINT WITH 5 MATCH MORTISE LOCK MASTER OVER RIDE KEY SIZE: 330 X 45 X 16 MM",
+        "discount": 75,
+        "discount_pct": 25,
+        "mrp": 7200,
+        "ssp": 5400,
+        "color": "BLACK",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      },
+      {
+        "row": 16,
+        "model_no_raw": "LRFD 610",
+        "model_code": "LRFD-610",
+        "prefix": "LRFD",
+        "description": "RFID LOCK MADE IN SS OUTER BODY WITH 5 MATCH MORTISE LOCK OVERRIDE KEY SIZE: 242 X 32.5 X 77 MM",
+        "discount": 75,
+        "discount_pct": 25,
+        "mrp": 6600,
+        "ssp": 4950,
+        "color": "SS FINISH",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      }
+    ],
+    "LRLF": [
+      {
+        "row": 545,
+        "model_no_raw": "LRLF - 476 (3 Seater )",
+        "model_code": "LRLF-476",
+        "prefix": "LRLF",
+        "description": "Sofa made in Wooden Frame with  Cushion Arm, Wooden Leg & Leatherite Tapestry.   Size : L 1785 X D 740 X H 770mm.",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 31499.999999999996,
+        "color": "as per selection",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      },
+      {
+        "row": 546,
+        "model_no_raw": "LRLF - 476  (2 Seater )",
+        "model_code": "LRLF-476",
+        "prefix": "LRLF",
+        "description": "Sofa made in Wooden Frame with  Cushion Arm, Wooden Leg & Leatherite Tapestry. Size :  L 1300 X D 740 X H 770mm.",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 21000,
+        "color": "as per selection",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      },
+      {
+        "row": 547,
+        "model_no_raw": "LRLF - 476  (1 Seater )",
+        "model_code": "LRLF-476",
+        "prefix": "LRLF",
+        "description": "Sofa made in Wooden Frame with  Cushion Arm, Wooden Leg & Leatherite Tapestry.   Size :  L 770 X D 740 X H 770mm.",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 10500,
+        "color": "as per selection",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      }
+    ],
+    "LRFP": [
+      {
+        "row": 814,
+        "model_no_raw": "LRFP - 1701",
+        "model_code": "LRFP-1701",
+        "prefix": "LRFP",
+        "description": "FRP Buddha                                                                                     Buddha statue made in FRP , size : 2.5 ft high",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 12640,
+        "color": "Brown / Black",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      },
+      {
+        "row": 815,
+        "model_no_raw": "LRFP - 1702",
+        "model_code": "LRFP-1702",
+        "prefix": "LRFP",
+        "description": "Flower Bowl                                                                               Flower bowl with ceramic / Marble  finish outer surface , size : 600 mm x 320 mm",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 12400,
+        "color": "Blue / Yellow / Red / Grey",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      },
+      {
+        "row": 816,
+        "model_no_raw": "LRFP - 1703",
+        "model_code": "LRFP-1703",
+        "prefix": "LRFP",
+        "description": "Flower pot. Size:  330 x 600 MM , Stone Finish",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 2039.8,
+        "color": "AS PER CATALOGUE",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      }
+    ],
+    "LRWA": [
+      {
+        "row": 4,
+        "model_no_raw": "LRWA - 399",
+        "model_code": "LRWA-399",
+        "prefix": "LRWA",
+        "description": "HAND DRYER 1650 W POWER. HAVING AIR SPEED 10 M/S IN ALUMINUM ALLOY BODY. SIZE: 290 W X 165 D X 215 H (MM)",
+        "discount": 80,
+        "discount_pct": 20,
+        "mrp": 8000,
+        "ssp": 6400,
+        "color": "WHITE",
+        "images": null,
+        "inferred_category": "Hand Dryer"
+      },
+      {
+        "row": 6,
+        "model_no_raw": "LRWA - 405",
+        "model_code": "LRWA-405",
+        "prefix": "LRWA",
+        "description": "PUMP SOAP DISPENSER WITH ANTI THEFT BRACKET CAPACITY 300 ML",
+        "discount": 75,
+        "discount_pct": 25,
+        "mrp": 580,
+        "ssp": 435,
+        "color": "BLACK",
+        "images": null,
+        "inferred_category": "Toiletries"
+      },
+      {
+        "row": 13,
+        "model_no_raw": "LRWA - 362 (1)",
+        "model_code": "LRWA-362",
+        "prefix": "LRWA",
+        "description": "MANUAL PUMP TYPE SOAP/SHAMPOO DISPENSER WITH ABS BRACKET. CAPACITY 300 ML x 1 BOTTLE",
+        "discount": 75,
+        "discount_pct": 25,
+        "mrp": 900,
+        "ssp": 675,
+        "color": "BROWN",
+        "images": null,
+        "inferred_category": "Toiletries"
+      }
+    ],
+    "LRGL": [
+      {
+        "row": 506,
+        "model_no_raw": "LRGL - 626",
+        "model_code": "LRGL-626",
+        "prefix": "LRGL",
+        "description": "Wing Chair                                                                                    Made in wooden legs with fabric upholstery , with small cushion , Base price of Fabric @ 400/mtr",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 12800,
+        "color": "As per selection",
+        "images": null,
+        "inferred_category": "Furniture / Fixture"
+      },
+      {
+        "row": 507,
+        "model_no_raw": "LRGL - 627",
+        "model_code": "LRGL-627",
+        "prefix": "LRGL",
+        "description": "Wing Chair                                                                                    Made in wooden legs with fabric upholstery , visible wooden frame at seat bottom  , Base price of Fabric @ 400/mtr",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 16000,
+        "color": "As per selection",
+        "images": null,
+        "inferred_category": "Furniture / Fixture"
+      },
+      {
+        "row": 508,
+        "model_no_raw": "LRGL - 628",
+        "model_code": "LRGL-628",
+        "prefix": "LRGL",
+        "description": "Wing Chair                                                                                    Made in wooden legs with fabric upholstery , visible wooden frame at seat bottom  , Base price of Fabric @ 400/mtr",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 16000,
+        "color": "As per selection",
+        "images": null,
+        "inferred_category": "Furniture / Fixture"
+      }
+    ],
+    "LRBF": [
+      {
+        "row": 655,
+        "model_no_raw": "LRBF - 526",
+        "model_code": "LRBF-526",
+        "prefix": "LRBF",
+        "description": "Banquet chair made in Golden SS frame with cushion seat",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 7200,
+        "color": "Golden",
+        "images": null,
+        "inferred_category": "Furniture / Fixture"
+      },
+      {
+        "row": 656,
+        "model_no_raw": "LRBF - 527",
+        "model_code": "LRBF-527",
+        "prefix": "LRBF",
+        "description": "Banquet Chivari chair made in MS  frame with golden powder coat",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 1440,
+        "color": "Golden",
+        "images": null,
+        "inferred_category": "Furniture / Fixture"
+      },
+      {
+        "row": 657,
+        "model_no_raw": "LRBF - 528",
+        "model_code": "LRBF-528",
+        "prefix": "LRBF",
+        "description": "Banquet chair made in Golden SS frame with cushion seat",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 7200,
+        "color": "Golden",
+        "images": null,
+        "inferred_category": "Furniture / Fixture"
+      }
+    ],
+    "LRGF": [
+      {
+        "row": 476,
+        "model_no_raw": "LRGF 673",
+        "model_code": "LRGF-673",
+        "prefix": "LRGF",
+        "description": "King Size Bed made in Canadian Ash wood , with detachable  cushion on head board , as per picture . Size : 2100 x 2020 x 1040 mm",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 45500,
+        "color": "Light/Walnut",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      },
+      {
+        "row": 477,
+        "model_no_raw": "LRGF 674 ( King Bed )",
+        "model_code": "LRGF-674",
+        "prefix": "LRGF",
+        "description": "King Size Bed made in Canadian Ash wood , with detachable  cushion on head board , as per picture . Size : 2100 x 2020 x 1040 mm",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 43400,
+        "color": "Light Walnut / Natural Ash",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      },
+      {
+        "row": 478,
+        "model_no_raw": "LRGF 674 ( Side Table - 1 Drawer )",
+        "model_code": "LRGF-674",
+        "prefix": "LRGF",
+        "description": "Bed Side Table having 1 drawer  made in Canadian Ash wood , copper cover on wooden legs , as per picture . Size : 480 x 400 x 450 mm",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 9800,
+        "color": "Light Walnut / Natural Ash",
+        "images": null,
+        "inferred_category": "Furniture / Fixture"
+      }
+    ],
+    "LRLI": [
+      {
+        "row": 7,
+        "model_no_raw": "LRLI - 467 (WET FLOOR SIGNAGE)",
+        "model_code": "LRLI-467",
+        "prefix": "LRLI",
+        "description": "FOLDABLE FLOOR SIGNAGE MADE OF PLASTIC. SIZE: 220 - 300 MM (W) X 625 MM (H)",
+        "discount": 80,
+        "discount_pct": 20,
+        "mrp": 550,
+        "ssp": 440,
+        "color": "YELLOW",
+        "images": null,
+        "inferred_category": "Signage"
+      },
+      {
+        "row": 8,
+        "model_no_raw": "LRLI - 469 (SS FLOOR SIGNAGE NO PARKING)",
+        "model_code": "LRLI-469",
+        "prefix": "LRLI",
+        "description": "FLODABLE FLOOR SIGNAGE MADE IN STAINLESS STELL. SIZE: 400 X 400 X 580 MM",
+        "discount": 80,
+        "discount_pct": 20,
+        "mrp": 2150,
+        "ssp": 1720,
+        "color": "SS FINISH",
+        "images": null,
+        "inferred_category": "Signage"
+      },
+      {
+        "row": 435,
+        "model_no_raw": "LRLI - 445",
+        "model_code": "LRLI-445",
+        "prefix": "LRLI",
+        "description": "Ash Trash Been                                                                Lobby Dustbin made in SS material , with inner trash bucket , Size : L250*W250*H600mm",
+        "discount": -50,
+        "discount_pct": 150,
+        "mrp": 2650,
+        "ssp": 2252.5,
+        "color": "SS Finish",
+        "images": null,
+        "inferred_category": "Bins / Waste"
+      }
+    ],
+    "LRDA": [
+      {
+        "row": 5,
+        "model_no_raw": "LRDA - 822",
+        "model_code": "LRDA-822",
+        "prefix": "LRDA",
+        "description": "MAGZINE HOLDER OF SIZE: L 220 X W 310 X D 2800 MM",
+        "discount": 85,
+        "discount_pct": 15,
+        "mrp": 1900,
+        "ssp": 1615,
+        "color": "BROWN",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      },
+      {
+        "row": 134,
+        "model_no_raw": "LRDA 801",
+        "model_code": "LRDA-801",
+        "prefix": "LRDA",
+        "description": "Square Leatherette Tissue Box                                             Tissue Box made in leatherette material . Size : W130 X D130 X H145 mm",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 862.5,
+        "color": "Brown / Black",
+        "images": null,
+        "inferred_category": "Tissue / Dispenser"
+      },
+      {
+        "row": 135,
+        "model_no_raw": "LRDA 802",
+        "model_code": "LRDA-802",
+        "prefix": "LRDA",
+        "description": "Square Resin Tissue Box                                             Tissue Box made in Resin material . Size : W135 * D135 * H100 mm",
+        "discount": 75,
+        "discount_pct": 25,
+        "mrp": 2000,
+        "ssp": 1500,
+        "color": "Wooden Finish",
+        "images": null,
+        "inferred_category": "Tissue / Dispenser"
+      }
+    ],
+    "LRWT": [
+      {
+        "row": 12,
+        "model_no_raw": "LRWT 145",
+        "model_code": "LRWT-145",
+        "prefix": "LRWT",
+        "description": "0.8 L ELECTRIC KETTLE POWER SUPPLY : 220V, 50 HZ, 800W SINGLE LAYER - SS 201 GRADE INNER STAINLESS STEEL BODY , MATT FINISH OUTER SURFACE , AUTOMATIC SHUT-OFF. POWER ON INDICATOR",
+        "discount": 90,
+        "discount_pct": 10,
+        "mrp": 800,
+        "ssp": 720,
+        "color": "SS",
+        "images": null,
+        "inferred_category": "Kettle / F&B"
+      },
+      {
+        "row": 46,
+        "model_no_raw": "LRWT 147",
+        "model_code": "LRWT-147",
+        "prefix": "LRWT",
+        "description": "0.6 L Electric Kettle\nPower Supply : 220V, 50 Hz, 800W\nDouble Layer - SS 201 grade Inner  Stainless Steel body ,   Matt Finish outer surface , Detachable Lid ,Automatic Shut-off. Power on Indicator",
+        "discount": 90,
+        "discount_pct": 10,
+        "mrp": 1200,
+        "ssp": 1080,
+        "color": "Black",
+        "images": null,
+        "inferred_category": "Kettle / F&B"
+      },
+      {
+        "row": 47,
+        "model_no_raw": "LRWT 148",
+        "model_code": "LRWT-148",
+        "prefix": "LRWT",
+        "description": "0.6 L Electric Kettle\nPower Supply : 220V, 50 Hz, 900W\nDouble Layer - SS 304 Food grade Inner  Stainless Steel body ,   Matt Finish outer surface , Detachable Lid ,Automatic Shut-off. Power on Indicator",
+        "discount": 90,
+        "discount_pct": 10,
+        "mrp": 1260,
+        "ssp": 1134,
+        "color": "Black",
+        "images": null,
+        "inferred_category": "Kettle / F&B"
+      }
+    ],
+    "LRRA": [
+      {
+        "row": 20,
+        "model_no_raw": "LRRA - 666 SP+PP DOUBLE LAYER",
+        "model_code": "LRRA-666",
+        "prefix": "LRRA",
+        "description": "DOUBLE LAYER DUSTBIN MADE IN SS OUTER BODY. SIZE: 250 X 345 MM",
+        "discount": 80,
+        "discount_pct": 20,
+        "mrp": 1280,
+        "ssp": 1024,
+        "color": null,
+        "images": null,
+        "inferred_category": "Bins / Waste"
+      },
+      {
+        "row": 21,
+        "model_no_raw": "LRRA - 661 SP+PP DOUBLE LAYER",
+        "model_code": "LRRA-661",
+        "prefix": "LRRA",
+        "description": "DOUBLE LAYER DUSTBIN MADE IN SS OUTER BODY. SIZE: 250 X 345 MM",
+        "discount": 80,
+        "discount_pct": 20,
+        "mrp": 1280,
+        "ssp": 1024,
+        "color": null,
+        "images": null,
+        "inferred_category": "Bins / Waste"
+      },
+      {
+        "row": 22,
+        "model_no_raw": "LRRA - 667 SS WITH SWING LID",
+        "model_code": "LRRA-667",
+        "prefix": "LRRA",
+        "description": "5 LTR SWING DUSTBIN MADE IN STAINLESS STEEL WITH RUBBER RING AT THE BOTTOM FOR SCRATCH RESISTANCE. SIZE: 8 X 12 INCHES",
+        "discount": 90,
+        "discount_pct": 10,
+        "mrp": 550,
+        "ssp": 495,
+        "color": null,
+        "images": null,
+        "inferred_category": "Bins / Waste"
+      }
+    ],
+    "LRBT": [
+      {
+        "row": 879,
+        "model_no_raw": "LRBT - 311\nColor Body",
+        "model_code": "LRBT-311",
+        "prefix": "LRBT",
+        "description": "Bath Tub made in acrylic , free standing with metal legs . Size : 1600/1700*740*710 mm",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 33000,
+        "color": "White+mahroon",
+        "images": null,
+        "inferred_category": "Furniture / Fixture"
+      },
+      {
+        "row": 880,
+        "model_no_raw": "LRBT - 312 and LRBT - 6703\nWhite Body",
+        "model_code": "LRBT-312",
+        "prefix": "LRBT",
+        "description": "Bath Tub  made in acrylic , free standing with metal legs . Size : 1600/1700*740*710 mm",
+        "discount": 100,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": 31500,
+        "color": "White",
+        "images": null,
+        "inferred_category": "Furniture / Fixture"
+      },
+      {
+        "row": 881,
+        "model_no_raw": "LRBT - 6602",
+        "model_code": "LRBT-6602",
+        "prefix": "LRBT",
+        "description": "Bath Tub made in acrylic with drainer, without accessories. Size: 1400*750*580 mm/ 1500*750*580 mm/ 1600*750*580 mm/ 1700*750*580 mm",
+        "discount": 0,
+        "discount_pct": null,
+        "mrp": null,
+        "ssp": null,
+        "color": "White",
+        "images": null,
+        "inferred_category": "Uncategorized"
+      }
+    ],
+    "LRMR": [
+      {
+        "row": 117,
+        "model_no_raw": "LRMR 251 ( Bonnel 8\" )",
+        "model_code": "LRMR-251",
+        "prefix": "LRMR",
+        "description": "Bonnell Spring Mattresss                                                                              8\" Bonnell Spring matress made in soft foam backing on both side , size : 1800 x 2000 mm",
+        "discount": 75,
+        "discount_pct": 25,
+        "mrp": 16200,
+        "ssp": 12150,
+        "color": "Brwon + Cream",
+        "images": null,
+        "inferred_category": "Bed Linen"
+      },
+      {
+        "row": 118,
+        "model_no_raw": "LRMR 251 ( Bonnel 10\" )",
+        "model_code": "LRMR-251",
+        "prefix": "LRMR",
+        "description": "Bonnell Spring Mattresss                                                                              10\" Bonnell Spring matress made in soft foam backing on both side , size : 1800 x 2000 mm",
+        "discount": 75,
+        "discount_pct": 25,
+        "mrp": 17800,
+        "ssp": 13350,
+        "color": "Brwon + Cream",
+        "images": null,
+        "inferred_category": "Bed Linen"
+      },
+      {
+        "row": 119,
+        "model_no_raw": "LRMR 251 ( Bonnel 12\" )",
+        "model_code": "LRMR-251",
+        "prefix": "LRMR",
+        "description": "Bonnell Spring Mattresss                                                                              12\" Bonnell Spring matress made in soft foam backing on both side , size : 1800 x 2000 mm",
+        "discount": 75,
+        "discount_pct": 25,
+        "mrp": 19500,
+        "ssp": 14625,
+        "color": "Brwon + Cream",
+        "images": null,
+        "inferred_category": "Bed Linen"
+      }
+    ]
+  }
+}
