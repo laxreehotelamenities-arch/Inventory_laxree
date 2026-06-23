@@ -126,7 +126,7 @@ export function CartScreen() {
                     {/* Image */}
                     <div className="w-20 h-20 bg-slate-50 rounded-lg overflow-hidden flex items-center justify-center shrink-0">
                       {product.image_url ? (
-                        <img src={product.image_url} alt={product.name} className="w-full h-full object-contain p-1" />
+                        <img src={product.image_url} alt={product.name} className="w-full h-full object-contain p-1" loading="eager" decoding="async" />
                       ) : (
                         <Package className="w-7 h-7 text-slate-300" />
                       )}
@@ -137,11 +137,14 @@ export function CartScreen() {
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
                           <div className="text-[10px] text-slate-500 uppercase truncate">{product.category}</div>
-                          <h3 className="text-sm font-semibold text-slate-900 line-clamp-1">{product.name}</h3>
+                          <h3 className="text-sm font-semibold text-slate-900 line-clamp-1">{product.item || product.name}</h3>
                           <div className="flex items-center gap-1.5 mt-0.5">
                             <Badge variant="outline" className="text-[9px] font-mono px-1">
                               {product.model_no}
                             </Badge>
+                            {product.colour && (
+                              <span className="text-[9px] text-slate-500">· {product.colour}</span>
+                            )}
                             {product.tier !== 'Standard' && (
                               <Badge variant="secondary" className="text-[9px]">{product.tier}</Badge>
                             )}

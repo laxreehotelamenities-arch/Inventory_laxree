@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from 'react';
 import { useAppStore } from '@/store/use-app';
-import catalogData from '@/data/catalog.json';
+import masterData from '@/data/inventory-master.json';
+import { useCascadeData } from '@/lib/cascade';
 import type { Product, Tier } from '@/lib/types';
 import { ProductCard } from './product-card';
 import { FilterSheet } from './filter-sheet';
@@ -12,7 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import { Search, SlidersHorizontal, X, PackageSearch, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const PRODUCTS = catalogData as Product[];
+const PRODUCTS = masterData as Product[];
 
 const tierOrder: Tier[] = ['Essential', 'Premium', 'Luxury', 'Standard'];
 const tierColors: Record<Tier, string> = {
@@ -25,11 +26,11 @@ const tierColors: Record<Tier, string> = {
 export function CatalogScreen() {
   const { filters, setFilters, resetFilters, currentUser, setSelectedProduct, setView } = useAppStore();
   const [showFilters, setShowFilters] = useState(false);
+  const data = useCascadeData();
 
   const categories = useMemo(() => {
-    const set = new Set(PRODUCTS.map((p) => p.category).filter(Boolean));
-    return ['all', ...Array.from(set).sort()];
-  }, []);
+    return ['all', ...data.categories];
+  }, [data]);
 
   const filteredProducts = useMemo(() => {
     let result = PRODUCTS.filter((p) => {
@@ -38,6 +39,7 @@ export function CatalogScreen() {
         const q = filters.search.toLowerCase();
         const matches =
           p.name?.toLowerCase().includes(q) ||
+          p.item?.toLowerCase().includes(q) ||
           p.model_no?.toLowerCase().includes(q) ||
           p.description?.toLowerCase().includes(q) ||
           p.category?.toLowerCase().includes(q);
@@ -163,34 +165,34 @@ export function CatalogScreen() {
         </div>
       )}
 
-      {/* Quick tier filter pills */}
+      {/* Quick category filter pills */}
       <div className="flex gap-1.5 overflow-x-auto pb-2 mb-3 -mx-4 px-4 no-scrollbar">
         <button
-          onClick={() => setFilters({ tier: 'all' })}
+          onClick={() => setFilters({ category: 'all' })}
           className={cn(
             'shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors',
-            filters.tier === 'all'
+            filters.category === 'all'
               ? 'bg-slate-900 text-white border-slate-900'
               : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300'
           )}
         >
           All Products
         </button>
-        {tierOrder.map((tier) => {
-          const count = PRODUCTS.filter((p) => p.tier === tier).length;
+        {data.categories.map((cat) => {
+          const count = PRODUCTS.filter((p) => p.category === cat).length;
           if (count === 0) return null;
           return (
             <button
-              key={tier}
-              onClick={() => setFilters({ tier })}
+              key={cat}
+              onClick={() => setFilters({ category: cat })}
               className={cn(
                 'shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors',
-                filters.tier === tier
-                  ? tierColors[tier]
+                filters.category === cat
+                  ? 'bg-slate-900 text-white border-slate-900'
                   : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300'
               )}
             >
-              {tier} <span className="opacity-60">({count})</span>
+              {cat} <span className="opacity-60">({count})</span>
             </button>
           );
         })}

@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Package, LogOut, LayoutGrid, ShoppingCart, ChevronDown, ShieldCheck } from 'lucide-react';
+import { Package, LogOut, LayoutGrid, ShoppingCart, ChevronDown, ShieldCheck, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const roleBadgeColors: Record<string, string> = {
@@ -31,6 +31,7 @@ export function AppHeader() {
   const cartCount = cart.reduce((sum, c) => sum + c.qty, 0);
 
   const navItems: { key: typeof currentView; label: string; icon: typeof LayoutGrid }[] = [
+    { key: 'quick-order', label: 'Quick Order', icon: Search },
     { key: 'catalog', label: 'Catalog', icon: LayoutGrid },
   ];
   if (cfg.canViewDashboard) {

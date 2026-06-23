@@ -5,6 +5,7 @@ import { LoginScreen } from '@/components/auth/login-screen';
 import { AppHeader } from '@/components/layout/app-header';
 import { CatalogScreen } from '@/components/catalog/catalog-screen';
 import { ProductDetailScreen } from '@/components/catalog/product-detail';
+import { QuickOrderScreen } from '@/components/catalog/quick-order-screen';
 import { CartScreen } from '@/components/cart/cart-screen';
 import { AdminDashboard } from '@/components/dashboard/admin-dashboard';
 import { Toaster } from '@/components/ui/sonner';
@@ -40,11 +41,12 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-slate-50">
       <AppHeader />
       <main className="flex-1">
+        {currentView === 'quick-order' && <QuickOrderScreen />}
         {currentView === 'catalog' && <CatalogScreen />}
         {currentView === 'product-detail' && <ProductDetailScreen />}
         {currentView === 'cart' && <CartScreen />}
         {currentView === 'dashboard' && currentUser.role === 'admin' && <AdminDashboard />}
-        {currentView === 'dashboard' && currentUser.role !== 'admin' && <CatalogScreen />}
+        {currentView === 'dashboard' && currentUser.role !== 'admin' && <QuickOrderScreen />}
       </main>
 
       {/* Footer */}

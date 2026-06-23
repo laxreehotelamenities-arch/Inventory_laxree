@@ -3,7 +3,7 @@
  */
 export type Role = 'admin' | 'employee' | 'dealer' | 'distributor';
 
-export type View = 'login' | 'catalog' | 'product-detail' | 'cart' | 'dashboard';
+export type View = 'login' | 'catalog' | 'product-detail' | 'cart' | 'dashboard' | 'quick-order';
 
 export type Tier = 'Essential' | 'Premium' | 'Luxury' | 'Standard';
 
@@ -14,20 +14,23 @@ export interface Product {
   model_no: string;
   model_no_raw: string;
   name: string;
+  item?: string; // For inventory-master: the item name from HTML
   category: string;
   tier: Tier;
   description: string;
   color: string;
+  colour?: string; // alias for inventory-master
   size: string;
   ssp: number | null;
   mrp: number | null;
   discount_pct: number | null;
   stock_qty: number;
+  balance?: number; // alias for inventory-master
   inward: number;
   dispatched: number;
   image_url: string | null;
   in_stock: boolean;
-  source: 'pdf' | 'inventory' | 'xlsx';
+  source: 'pdf' | 'inventory' | 'xlsx' | 'master';
 }
 
 export interface AppUser {
@@ -95,18 +98,25 @@ export function getStockDisplay(product: Product, role: Role): {
   };
 }
 
-// Find alternative products within the same tier+category
+// Find alternative products within the same category + item (different model/colour)
+// This matches the HTML inventory structure: Category → Item → Models
 export function findAlternatives(
   product: Product,
   allProducts: Product[],
   requestedQty: number
 ): Product[] {
+  // Get the item name (preferred) or fall back to name
+  const itemName = product.item || product.name;
   return allProducts
     .filter(
       (p) =>
         p.id !== product.id &&
-        p.tier === product.tier &&
         p.category === product.category &&
+        // Match by item name (HTML structure) OR by tier+name fallback (PDF catalog)
+        (
+          (p.item && product.item && p.item === product.item) ||
+          (!product.item && p.tier === product.tier && p.name === product.name)
+        ) &&
         p.stock_qty >= requestedQty &&
         p.in_stock
     )

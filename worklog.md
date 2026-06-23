@@ -52,3 +52,59 @@ Stage Summary:
   * employee / emp123 — catalog + status only
   * dealer / dealer123 — catalog + status only
   * distributor / dist123 — catalog + status only
+
+---
+Task ID: fix-cascade-and-images
+Agent: main (Super Z)
+Task: Fix image loading + rebuild cascading dropdown to match HTML file structure (Category → Item → Model — no subcategory/tier in between)
+
+Work Log:
+- Diagnosed image issue: all <img> tags were using loading="lazy" which deferred all 476 catalog images until scroll-into-view. Changed all <img> tags (product-card, product-detail, cart-screen, quick-order-screen, alternatives) to loading="eager" decoding="async" + added skeleton shimmer for loading state.
+- Re-extracted canonical hierarchy directly from HTML inventory file (LaxRee_Inventory_2026-06-18.html):
+  - 6 categories: Banquet Furniture, Bath Tubs, Bathroom Amenities, Lobby Items, Room Amenities, Spare Parts
+  - 53 items (Hair Dryer, Tea Kettle, Room Dustbin, etc.)
+  - 293 model+colour SKUs
+- Built new inventory-master.json by merging:
+  - HTML inventory (Category → Item → Model → stock)  [PRIMARY structure]
+  - XLSX images (212 of 293 products have images)
+  - PDF/XLSX pricing (260 of 293 products have SSP)
+  - PDF tier info (kept as metadata only, not a cascade step)
+- Rewrote Quick Order screen with 3-step cascade:
+  - Step 1: Category (dropdown showing 6 categories with item counts)
+  - Step 2: Item Name (dropdown showing items in selected category with model counts)
+  - Step 3: Model Number (dropdown showing models with colour + stock qty per row)
+  - Step 4: Quantity input (auto-reveals product preview with image, price, stock status)
+- Updated findAlternatives() to use same category+item (instead of tier+category) for matching alternatives — so when LRHD-276 BLACK SHOKIT is out of stock, alternatives shown are other Hair Dryer models (LRHD-285, LRHD-286, etc.), not random unrelated products.
+- Updated CatalogScreen to use new inventory-master data source with category filter pills (replaced tier pills).
+- Updated AdminDashboard to use new inventory-master data source.
+- Updated ProductCard to show "category › item" breadcrumb + model_no as primary title.
+- Updated ProductDetail to show category › item breadcrumb + model_no as title.
+- Updated CartScreen to show item name + model_no + colour.
+
+Stage Summary:
+- Image issue FIXED: all 212 catalog images now load eagerly on first paint (verified 212/212 loaded, 0 pending, 0 failed via Agent Browser).
+- Cascading flow FIXED: now matches HTML file structure exactly — Category → Item → Model → Qty (NO subcategory/tier step).
+- Alternatives FIXED: now shows alternatives within same item (e.g. all Hair Dryer models), not random tier-matched products.
+- Verified end-to-end:
+  * Tea Kettle flow: Room Amenities → Tea Kettle → LRWT-145 (SS, 856 in stock) → image + price + "In Stock, Dispatch within 7-10 days"
+  * Out-of-stock flow: Lobby Items → Luggage Trolley → LRLT-401 (GOLDEN, 0 in stock) → "Out of Stock, Available in 24-30 days" + 3 alternatives (LRLT-402, LRLT-403, LRLT-425)
+  * Insufficient qty flow: Bathroom Amenities → Hair Dryer → LRHD-276 BLACK SHOKIT (3 in stock) → set qty=5 → "Limited Stock" warning + 5 alternatives (LRHD-285, LRHD-286, etc.)
+
+Files modified:
+- /home/z/my-project/scripts/extract_hierarchy.py (new — extracts HTML hierarchy)
+- /home/z/my-project/scripts/build_inventory_master.py (new — builds unified inventory-master.json)
+- /home/z/my-project/src/data/inventory-master.json (new — 293 SKUs, 205KB)
+- /home/z/my-project/src/data/inventory-hierarchy.json (rebuilt — 6 categories summary)
+- /home/z/my-project/src/lib/cascade.ts (rewritten — 3-step cascade, no tier)
+- /home/z/my-project/src/lib/types.ts (added item/colour/balance fields + new findAlternatives logic)
+- /home/z/my-project/src/components/catalog/quick-order-screen.tsx (rewritten — 3-step cascade)
+- /home/z/my-project/src/components/catalog/product-card.tsx (image loading eager + item-based display)
+- /home/z/my-project/src/components/catalog/catalog-screen.tsx (use inventory-master + category pills)
+- /home/z/my-project/src/components/catalog/product-detail.tsx (use inventory-master + item breadcrumb)
+- /home/z/my-project/src/components/cart/cart-screen.tsx (show item name + colour)
+- /home/z/my-project/src/components/dashboard/admin-dashboard.tsx (use inventory-master)
+
+Verification:
+- Lint: clean (0 errors, 0 warnings)
+- Dev server: running on port 3000, no runtime errors
+- Agent Browser: all flows tested successfully (login, cascade, out-of-stock, insufficient-qty, alternatives)

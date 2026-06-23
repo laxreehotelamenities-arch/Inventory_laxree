@@ -55,7 +55,7 @@ export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
       currentUser: null,
-      login: (user) => set({ currentUser: user, currentView: 'catalog' }),
+      login: (user) => set({ currentUser: user, currentView: 'quick-order' }),
       logout: () => set({ currentUser: null, currentView: 'login', cart: [], selectedProduct: null, filters: defaultFilters }),
 
       currentView: 'login',

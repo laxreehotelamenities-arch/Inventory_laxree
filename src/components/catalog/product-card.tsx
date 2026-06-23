@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useAppStore } from '@/store/use-app';
 import type { Product } from '@/lib/types';
 import { getStockDisplay } from '@/lib/types';
@@ -37,6 +38,8 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   const currentUser = useAppStore((s) => s.currentUser);
   const stock = getStockDisplay(product, currentUser?.role ?? 'employee');
   const isAdmin = currentUser?.role === 'admin';
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgFailed, setImgFailed] = useState(false);
 
   return (
     <button
@@ -45,26 +48,35 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
     >
       {/* Image */}
       <div className="relative aspect-square bg-slate-50 overflow-hidden">
-        {product.image_url ? (
+        {/* Skeleton shimmer while loading */}
+        {product.image_url && !imgLoaded && !imgFailed && (
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 animate-pulse" />
+        )}
+
+        {product.image_url && !imgFailed ? (
           <img
             src={product.image_url}
-            alt={product.name}
-            className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
-            loading="lazy"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = 'none';
-              const parent = (e.target as HTMLImageElement).parentElement;
-              if (parent) {
-                parent.classList.add('flex', 'items-center', 'justify-center');
-                parent.innerHTML = '<div class="text-slate-300"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>';
-              }
-            }}
+            alt={product.item || product.name}
+            className={cn(
+              'w-full h-full object-contain p-2 group-hover:scale-105 transition-all duration-300',
+              imgLoaded ? 'opacity-100' : 'opacity-0'
+            )}
+            // Eager load so images appear immediately — catalog grid is the primary view
+            loading="eager"
+            decoding="async"
+            onLoad={() => setImgLoaded(true)}
+            onError={() => setImgFailed(true)}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <ImageIcon className="w-10 h-10 text-slate-300" />
+            {imgFailed ? (
+              <Package className="w-10 h-10 text-slate-300" />
+            ) : (
+              <ImageIcon className="w-10 h-10 text-slate-300" />
+            )}
           </div>
         )}
+
         {/* Tier badge */}
         {product.tier !== 'Standard' && (
           <Badge
@@ -87,20 +99,20 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       {/* Content */}
       <div className="p-2.5 flex flex-col gap-1 flex-1">
         <div className="text-[10px] text-slate-500 font-medium uppercase tracking-wide line-clamp-1">
-          {product.category}
+          {product.category} › {product.item || product.name}
         </div>
         <h3 className="text-xs font-semibold text-slate-900 line-clamp-2 leading-tight min-h-[2rem]">
-          {product.name}
+          {product.model_no}
         </h3>
 
         {/* Model + Color */}
         <div className="flex items-center gap-1.5 flex-wrap">
-          {product.model_no && (
+          {product.colour && (
             <Badge variant="outline" className="text-[9px] font-mono px-1 py-0 h-4">
-              {product.model_no}
+              {product.colour}
             </Badge>
           )}
-          {product.color && product.color !== 'Multi' && (
+          {product.color && product.color !== 'Multi' && !product.colour && (
             <span className="text-[10px] text-slate-500 truncate max-w-[80px]">{product.color}</span>
           )}
         </div>

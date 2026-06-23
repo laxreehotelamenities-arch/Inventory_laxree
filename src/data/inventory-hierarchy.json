@@ -1,0 +1,90 @@
+{
+  "categories": {
+    "Banquet Furniture": {
+      "item_count": 2,
+      "items": [
+        "Banquet Chair",
+        "Stage"
+      ]
+    },
+    "Bath Tubs": {
+      "item_count": 1,
+      "items": [
+        "Bath Tub - Free Standing"
+      ]
+    },
+    "Bathroom Amenities": {
+      "item_count": 7,
+      "items": [
+        "Accessory Tray",
+        "Hair Dryer",
+        "Hand Dryer",
+        "In-Room Soap Dispenser",
+        "Magnifying Mirror",
+        "Paper Dispenser",
+        "Weighing Scale"
+      ]
+    },
+    "Lobby Items": {
+      "item_count": 9,
+      "items": [
+        "Golf Umbrella",
+        "Housekeeping Trolley",
+        "Linen Trolley",
+        "Lobby Dustbin",
+        "Lobby Soap Dispenser",
+        "Luggage Trolley",
+        "Newspaper Stand",
+        "Que Manager",
+        "Shoe Polisher"
+      ]
+    },
+    "Room Amenities": {
+      "item_count": 30,
+      "items": [
+        "Ash Tray",
+        "Bed Base",
+        "Cloth Brush",
+        "Coat Stand",
+        "Coffee Mug",
+        "DND Set",
+        "Desktop Accessories - Accessory Tray",
+        "Desktop Accessories - Coaster",
+        "Desktop Accessories - Compedium",
+        "Desktop Accessories - Notepad Holder",
+        "Desktop Accessories - Remote Holder",
+        "Desktop Accessories - Tissue Box",
+        "Emergency Torch",
+        "Energy Saver Switch",
+        "Gateway Wifi",
+        "Iron Holder",
+        "Ironing Board",
+        "Luggage Rack",
+        "MiniBar",
+        "RFID Lock",
+        "Rollaway Bed",
+        "Room Dustbin",
+        "Room Telephone",
+        "Safe Box",
+        "Shoe Horn",
+        "Spring Mattress",
+        "Steam Iron",
+        "Tea Kettle",
+        "Tea Kettle Tray",
+        "Wooden Hanger"
+      ]
+    },
+    "Spare Parts": {
+      "item_count": 4,
+      "items": [
+        "MiniBar Door",
+        "MiniBar Fan",
+        "MiniBar PCB Board",
+        "MiniBar Spare Elements Parts"
+      ]
+    }
+  },
+  "total_categories": 6,
+  "total_items": 53,
+  "total_skus": 293
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import catalogData from '@/data/catalog.json';
+import masterData from '@/data/inventory-master.json';
 import type { Product } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const PRODUCTS = catalogData as Product[];
+const PRODUCTS = masterData as Product[];
 
 const tierColors: Record<Product['tier'], string> = {
   Essential: 'bg-emerald-100 text-emerald-700 border-emerald-200',

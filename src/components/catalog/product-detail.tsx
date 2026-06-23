@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { useAppStore } from '@/store/use-app';
-import catalogData from '@/data/catalog.json';
+import masterData from '@/data/inventory-master.json';
 import type { Product } from '@/lib/types';
 import { getStockDisplay, findAlternatives, getStockStatus } from '@/lib/types';
 import { Button } from '@/components/ui/button';
@@ -29,7 +29,7 @@ import {
 import { cn } from '@/lib/utils';
 import { getRoleConfig } from '@/lib/auth';
 
-const PRODUCTS = catalogData as Product[];
+const PRODUCTS = masterData as Product[];
 
 const tierColors: Record<Product['tier'], string> = {
   Essential: 'bg-emerald-100 text-emerald-700 border-emerald-200',
@@ -113,12 +113,14 @@ export function ProductDetailScreen() {
       <div className="grid md:grid-cols-2 gap-6 px-4 py-4">
         {/* Left: Image */}
         <div className="space-y-3">
-          <div className="aspect-square bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden flex items-center justify-center">
+          <div className="aspect-square bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden flex items-center justify-center relative">
             {product.image_url ? (
               <img
                 src={product.image_url}
                 alt={product.name}
                 className="w-full h-full object-contain p-4"
+                loading="eager"
+                decoding="async"
               />
             ) : (
               <Package className="w-20 h-20 text-slate-300" />
@@ -157,14 +159,19 @@ export function ProductDetailScreen() {
         <div className="space-y-4">
           {/* Title block */}
           <div>
-            <h1 className="text-xl font-bold text-slate-900 leading-tight">{product.name}</h1>
+            <div className="text-[11px] text-slate-500 uppercase tracking-wide font-medium">
+              {product.category} › {product.item || product.name}
+            </div>
+            <h1 className="text-xl font-bold text-slate-900 leading-tight mt-0.5">{product.model_no}</h1>
             <div className="flex flex-wrap items-center gap-2 mt-1.5">
               {product.model_no && (
                 <Badge variant="outline" className="text-[11px] font-mono">
                   {product.model_no}
                 </Badge>
               )}
-              {product.color && (
+              {product.colour ? (
+                <span className="text-xs text-slate-500">Colour: <strong className="text-slate-700">{product.colour}</strong></span>
+              ) : product.color && (
                 <span className="text-xs text-slate-500">Color: <strong className="text-slate-700">{product.color}</strong></span>
               )}
             </div>
@@ -388,7 +395,7 @@ export function ProductDetailScreen() {
                   >
                     <div className="w-16 h-16 bg-slate-50 rounded-lg overflow-hidden flex items-center justify-center shrink-0">
                       {alt.image_url ? (
-                        <img src={alt.image_url} alt={alt.name} className="w-full h-full object-contain p-1" />
+                        <img src={alt.image_url} alt={alt.name} className="w-full h-full object-contain p-1" loading="eager" decoding="async" />
                       ) : (
                         <Package className="w-6 h-6 text-slate-300" />
                       )}
