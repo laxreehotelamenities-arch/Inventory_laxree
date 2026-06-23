@@ -211,7 +211,7 @@ export function QuickOrderScreen() {
             </Label>
             <Select value={category} onValueChange={handleCategoryChange}>
               <SelectTrigger className="h-11">
-                <SelectValue placeholder="Select a category (Room Amenities, Lobby Items, Bathroom Amenities…)" />
+                <SelectValue placeholder="Select a category" />
               </SelectTrigger>
               <SelectContent className="max-h-72">
                 <SelectGroup>
@@ -244,7 +244,7 @@ export function QuickOrderScreen() {
             </Label>
             <Select value={item} onValueChange={handleItemChange} disabled={!category}>
               <SelectTrigger className="h-11">
-                <SelectValue placeholder={category ? 'Select an item (Hair Dryer, Tea Kettle, Room Dustbin…)' : 'Select category first'} />
+                <SelectValue placeholder={category ? 'Select an item' : 'Select category first'} />
               </SelectTrigger>
               <SelectContent className="max-h-72">
                 <SelectGroup>
@@ -277,7 +277,7 @@ export function QuickOrderScreen() {
             </Label>
             <Select value={productId} onValueChange={handleModelChange} disabled={!item}>
               <SelectTrigger className="h-11">
-                <SelectValue placeholder={item ? 'Select a model (e.g. LRWT-145, LRHD-277)' : 'Select item first'} />
+                <SelectValue placeholder={item ? 'Select a model' : 'Select item first'} />
               </SelectTrigger>
               <SelectContent className="max-h-80">
                 <SelectGroup>

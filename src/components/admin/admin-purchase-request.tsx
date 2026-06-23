@@ -283,7 +283,7 @@ export function AdminPurchaseRequestScreen() {
                     <Label className="text-xs font-semibold text-slate-700">Product to Purchase</Label>
                     <Select value={selectedProductId} onValueChange={setSelectedProductId}>
                       <SelectTrigger className="h-11">
-                        <SelectValue placeholder="Select product (search by category / item / model)" />
+                        <SelectValue placeholder="Select a product" />
                       </SelectTrigger>
                       <SelectContent className="max-h-80">
                         <SelectGroup>
