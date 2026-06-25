@@ -288,13 +288,13 @@ export function AdminOutwardScreen() {
                             {m.colour && <span className="text-slate-400 font-sans">· {m.colour}</span>}
                             <span className={cn(
                               'ml-auto text-[10px] font-sans font-semibold px-1.5 py-0 rounded-full',
-                              m.stock_qty === 0
+                              m.stock_qty <= 0
                                 ? 'bg-rose-100 text-rose-700'
                                 : m.stock_qty <= 10
                                   ? 'bg-amber-100 text-amber-700'
                                   : 'bg-emerald-100 text-emerald-700'
                             )}>
-                              Balance: {m.stock_qty}
+                              Balance: {Math.max(0, m.stock_qty)}
                             </span>
                           </span>
                         </SelectItem>
@@ -308,7 +308,7 @@ export function AdminOutwardScreen() {
               {selectedProduct && (
                 <div className={cn(
                   'rounded-lg p-3 border',
-                  selectedProduct.stock_qty === 0
+                  selectedProduct.stock_qty <= 0
                     ? 'bg-rose-50 border-rose-200'
                     : selectedProduct.stock_qty < qty
                       ? 'bg-amber-50 border-amber-200'
@@ -328,13 +328,13 @@ export function AdminOutwardScreen() {
                     </div>
                     <Badge className={cn(
                       'text-sm',
-                      selectedProduct.stock_qty === 0
+                      selectedProduct.stock_qty <= 0
                         ? 'bg-rose-100 text-rose-700'
                         : selectedProduct.stock_qty < qty
                           ? 'bg-amber-100 text-amber-700'
                           : 'bg-rose-100 text-rose-700'
                     )} variant="secondary">
-                      {selectedProduct.stock_qty} units
+                      {Math.max(0, selectedProduct.stock_qty)} units
                     </Badge>
                   </div>
                   <div className="grid grid-cols-3 gap-2 pt-2 mt-2 border-t border-rose-200">
@@ -352,17 +352,17 @@ export function AdminOutwardScreen() {
                         'text-xs font-bold',
                         selectedProduct.stock_qty - qty < 0 ? 'text-rose-700' : 'text-rose-900'
                       )}>
-                        {selectedProduct.stock_qty - qty}
+                        {Math.max(0, selectedProduct.stock_qty) - qty}
                       </div>
                     </div>
                   </div>
                   {selectedProduct.stock_qty < qty && selectedProduct.stock_qty > 0 && (
                     <div className="mt-2 flex items-center gap-1.5 text-[11px] text-amber-800 bg-amber-100 rounded p-1.5">
                       <AlertTriangle className="w-3 h-3" />
-                      Insufficient stock — only {selectedProduct.stock_qty} units available
+                      Insufficient stock — only {Math.max(0, selectedProduct.stock_qty)} units available
                     </div>
                   )}
-                  {selectedProduct.stock_qty === 0 && (
+                  {selectedProduct.stock_qty <= 0 && (
                     <div className="mt-2 flex items-center gap-1.5 text-[11px] text-rose-800 bg-rose-100 rounded p-1.5">
                       <AlertTriangle className="w-3 h-3" />
                       Out of stock — cannot dispatch
@@ -480,8 +480,8 @@ export function AdminOutwardScreen() {
           </div>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="max-h-96 overflow-y-auto">
-            <table className="w-full text-xs">
+          <div className="max-h-96 overflow-auto">
+            <table className="w-full min-w-[500px] text-xs">
               <thead className="bg-slate-50 sticky top-0">
                 <tr className="text-left">
                   <th className="p-2 font-semibold text-slate-600">Date</th>
@@ -521,8 +521,8 @@ export function AdminOutwardScreen() {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="max-h-64 overflow-y-auto">
-            <table className="w-full text-xs">
+          <div className="max-h-64 overflow-auto">
+            <table className="w-full min-w-[500px] text-xs">
               <thead className="bg-slate-50 sticky top-0">
                 <tr className="text-left">
                   <th className="p-2 font-semibold text-slate-600">#</th>

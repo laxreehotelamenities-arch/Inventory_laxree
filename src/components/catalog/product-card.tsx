@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useAppStore } from '@/store/use-app';
 import type { Product } from '@/lib/types';
-import { getStockDisplay } from '@/lib/types';
+import { getStockDisplay, displayQty } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
 import { Package } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -101,7 +101,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           statusBg[stock.color]
         )}>
           <span className={cn('w-1.5 h-1.5 rounded-full', statusRing[stock.color])} />
-          {isAdmin ? `${product.stock_qty} units` : stock.label}
+          {isAdmin ? `${displayQty(product.stock_qty)} units` : stock.label}
         </div>
       </div>
 

@@ -281,7 +281,7 @@ export function AdminInwardScreen() {
                                   ? 'bg-amber-100 text-amber-700'
                                   : 'bg-emerald-100 text-emerald-700'
                             )}>
-                              Balance: {m.stock_qty}
+                              Balance: {Math.max(0, m.stock_qty)}
                             </span>
                           </span>
                         </SelectItem>
@@ -307,7 +307,7 @@ export function AdminInwardScreen() {
                       </div>
                     </div>
                     <Badge className="bg-emerald-100 text-emerald-700 text-sm" variant="secondary">
-                      {selectedProduct.stock_qty} units
+                      {Math.max(0, selectedProduct.stock_qty)} units
                     </Badge>
                   </div>
                   <div className="grid grid-cols-3 gap-2 pt-2 mt-2 border-t border-emerald-200">
@@ -321,7 +321,7 @@ export function AdminInwardScreen() {
                     </div>
                     <div>
                       <div className="text-[9px] uppercase text-emerald-700 font-semibold">After Adding</div>
-                      <div className="text-xs font-bold text-emerald-900">{selectedProduct.stock_qty + qty}</div>
+                      <div className="text-xs font-bold text-emerald-900">{Math.max(0, selectedProduct.stock_qty) + qty}</div>
                     </div>
                   </div>
                 </div>
@@ -413,8 +413,8 @@ export function AdminInwardScreen() {
           </div>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="max-h-96 overflow-y-auto">
-            <table className="w-full text-xs">
+          <div className="max-h-96 overflow-auto">
+            <table className="w-full min-w-[500px] text-xs">
               <thead className="bg-slate-50 sticky top-0">
                 <tr className="text-left">
                   <th className="p-2 font-semibold text-slate-600">Date</th>

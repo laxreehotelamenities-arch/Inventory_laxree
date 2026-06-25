@@ -89,8 +89,10 @@ export function CatalogScreen() {
       {/* Search bar + filter button */}
       <div className="flex gap-2 mb-3 sticky top-14 bg-white/95 backdrop-blur z-30 -mx-4 px-4 py-2 border-b border-slate-100">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" aria-hidden="true" />
           <Input
+            type="search"
+            aria-label="Search products"
             value={filters.search}
             onChange={(e) => setFilters({ search: e.target.value })}
             placeholder="Search by name, model, category…"
@@ -98,7 +100,9 @@ export function CatalogScreen() {
           />
           {filters.search && (
             <button
+              type="button"
               onClick={() => setFilters({ search: '' })}
+              aria-label="Clear search"
               className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
             >
               <X className="w-3.5 h-3.5" />
@@ -127,7 +131,7 @@ export function CatalogScreen() {
           {filters.tier !== 'all' && (
             <Badge variant="outline" className={cn('text-xs gap-1', tierColors[filters.tier as Tier])}>
               Tier: {filters.tier}
-              <button onClick={() => setFilters({ tier: 'all' })} className="ml-0.5">
+              <button onClick={() => setFilters({ tier: 'all' })} aria-label="Remove tier filter" className="ml-0.5">
                 <X className="w-3 h-3" />
               </button>
             </Badge>
@@ -135,7 +139,7 @@ export function CatalogScreen() {
           {filters.category !== 'all' && (
             <Badge variant="outline" className="text-xs gap-1 bg-slate-100">
               {filters.category}
-              <button onClick={() => setFilters({ category: 'all' })} className="ml-0.5">
+              <button onClick={() => setFilters({ category: 'all' })} aria-label="Remove category filter" className="ml-0.5">
                 <X className="w-3 h-3" />
               </button>
             </Badge>
@@ -143,7 +147,7 @@ export function CatalogScreen() {
           {filters.stockStatus !== 'all' && (
             <Badge variant="outline" className="text-xs gap-1 bg-slate-100 capitalize">
               {filters.stockStatus.replace('-', ' ')}
-              <button onClick={() => setFilters({ stockStatus: 'all' })} className="ml-0.5">
+              <button onClick={() => setFilters({ stockStatus: 'all' })} aria-label="Remove stock status filter" className="ml-0.5">
                 <X className="w-3 h-3" />
               </button>
             </Badge>
@@ -151,7 +155,7 @@ export function CatalogScreen() {
           {filters.sortBy !== 'name' && (
             <Badge variant="outline" className="text-xs gap-1 bg-slate-100">
               Sort: {filters.sortBy.replace('-', ' ')}
-              <button onClick={() => setFilters({ sortBy: 'name' })} className="ml-0.5">
+              <button onClick={() => setFilters({ sortBy: 'name' })} aria-label="Remove sort filter" className="ml-0.5">
                 <X className="w-3 h-3" />
               </button>
             </Badge>

@@ -31,8 +31,8 @@ export function AdminDashboard() {
     const totalProducts = PRODUCTS.length;
     const inStock = PRODUCTS.filter((p) => p.stock_qty > 10).length;
     const lowStock = PRODUCTS.filter((p) => p.stock_qty > 0 && p.stock_qty <= 10).length;
-    const outOfStock = PRODUCTS.filter((p) => p.stock_qty === 0).length;
-    const totalUnits = PRODUCTS.reduce((sum, p) => sum + p.stock_qty, 0);
+    const outOfStock = PRODUCTS.filter((p) => p.stock_qty <= 0).length;
+    const totalUnits = PRODUCTS.reduce((sum, p) => sum + Math.max(0, p.stock_qty), 0);
     const totalInward = PRODUCTS.reduce((sum, p) => sum + p.inward, 0);
     const totalDispatched = PRODUCTS.reduce((sum, p) => sum + p.dispatched, 0);
 
@@ -44,8 +44,8 @@ export function AdminDashboard() {
         count: items.length,
         inStock: items.filter((p) => p.stock_qty > 10).length,
         lowStock: items.filter((p) => p.stock_qty > 0 && p.stock_qty <= 10).length,
-        outOfStock: items.filter((p) => p.stock_qty === 0).length,
-        units: items.reduce((s, p) => s + p.stock_qty, 0),
+        outOfStock: items.filter((p) => p.stock_qty <= 0).length,
+        units: items.reduce((s, p) => s + Math.max(0, p.stock_qty), 0),
       };
     });
 
@@ -55,7 +55,7 @@ export function AdminDashboard() {
       const c = p.category || 'Uncategorized';
       const cur = byCategoryMap.get(c) || { count: 0, units: 0 };
       cur.count += 1;
-      cur.units += p.stock_qty;
+      cur.units += Math.max(0, p.stock_qty);
       byCategoryMap.set(c, cur);
     }
     const byCategory = Array.from(byCategoryMap.entries())
@@ -63,8 +63,8 @@ export function AdminDashboard() {
       .sort((a, b) => b.units - a.units)
       .slice(0, 8);
 
-    // Low stock alerts (top 10)
-    const lowStockAlerts = PRODUCTS.filter((p) => p.stock_qty <= 10)
+    // Low stock alerts (top 10) — exclude items that are out of stock
+    const lowStockAlerts = PRODUCTS.filter((p) => p.stock_qty > 0 && p.stock_qty <= 10)
       .sort((a, b) => a.stock_qty - b.stock_qty)
       .slice(0, 10);
 
@@ -278,11 +278,11 @@ export function AdminDashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="max-h-72 overflow-y-auto pr-1 -mr-1 space-y-1.5">
+            <div className="max-h-72 overflow-auto pr-1 -mr-1 space-y-1.5">
               {stats.lowStockAlerts.map((p) => (
                 <div key={p.id} className="flex items-center gap-2 text-xs">
                   <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{
-                    backgroundColor: p.stock_qty === 0 ? '#e11d48' : '#f59e0b'
+                    backgroundColor: p.stock_qty <= 0 ? '#e11d48' : '#f59e0b'
                   }} />
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-slate-900 truncate">{p.item || p.name}</div>
@@ -294,12 +294,12 @@ export function AdminDashboard() {
                     variant="outline"
                     className={cn(
                       'text-[10px] font-bold shrink-0',
-                      p.stock_qty === 0
+                      p.stock_qty <= 0
                         ? 'bg-rose-50 text-rose-700 border-rose-200'
                         : 'bg-amber-50 text-amber-700 border-amber-200'
                     )}
                   >
-                    {p.stock_qty === 0 ? 'Out of Stock' : 'Low Stock'}
+                    {p.stock_qty <= 0 ? 'Out of Stock' : 'Low Stock'}
                   </Badge>
                 </div>
               ))}

@@ -164,7 +164,7 @@ export function AdminFastMovingScreen() {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="max-h-[600px] overflow-y-auto">
+          <div className="max-h-[600px] overflow-auto">
             {filteredItems.map((item, idx) => {
               const isUrgent = item.current_balance <= 10 && item.total_dispatched > 20;
               const isLow = item.current_balance <= 10;
@@ -216,24 +216,24 @@ export function AdminFastMovingScreen() {
                       </div>
 
                       {/* Stats row */}
-                      <div className="flex items-center gap-4 mt-2">
+                      <div className="flex items-center gap-3 mt-2 flex-wrap">
                         <div className="flex items-center gap-1 text-xs">
-                          <ArrowUpRight className="w-3 h-3 text-rose-500" />
+                          <ArrowUpRight className="w-3 h-3 text-rose-500 shrink-0" />
                           <span className="font-bold text-rose-600">{item.total_dispatched}</span>
                           <span className="text-slate-500">dispatched</span>
                         </div>
                         <div className="flex items-center gap-1 text-xs">
-                          <Activity className="w-3 h-3 text-blue-500" />
+                          <Activity className="w-3 h-3 text-blue-500 shrink-0" />
                           <span className="font-bold text-blue-600">{item.dispatch_count}</span>
-                          <span className="text-slate-500">transactions</span>
+                          <span className="text-slate-500">txns</span>
                         </div>
                         <div className="flex items-center gap-1 text-xs">
-                          <Package className="w-3 h-3 text-slate-500" />
+                          <Package className="w-3 h-3 text-slate-500 shrink-0" />
                           <span className={cn(
                             'font-bold',
                             isLow ? 'text-rose-600' : 'text-emerald-600'
                           )}>
-                            {item.current_balance}
+                            {Math.max(0, item.current_balance)}
                           </span>
                           <span className="text-slate-500">in stock</span>
                         </div>

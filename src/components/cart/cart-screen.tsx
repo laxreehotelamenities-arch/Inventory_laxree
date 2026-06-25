@@ -259,7 +259,7 @@ export function CartScreen() {
                               stock.color === 'red' && 'text-rose-600'
                             )}
                           >
-                            {isAdmin ? `${product.stock_qty} units` : stock.label}
+                            {isAdmin ? `${Math.max(0, product.stock_qty)} units` : stock.label}
                           </div>
                         </div>
                       </div>

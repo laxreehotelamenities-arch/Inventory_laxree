@@ -24,25 +24,26 @@ export type SortBy = 'name' | 'price-low' | 'price-high' | 'stock-high' | 'stock
 export interface Product {
   id: string;
   model_no: string;
-  model_no_raw: string;
+  model_no_raw?: string;
   name: string;
   item?: string; // For inventory-master: the item name from HTML
   category: string;
   tier: Tier;
-  description: string;
-  color: string;
+  description?: string;
+  color?: string;
   colour?: string; // alias for inventory-master
-  size: string;
-  ssp: number | null;
-  mrp: number | null;
-  discount_pct: number | null;
+  size?: string;
+  ssp?: number | null;
+  mrp?: number | null;
+  discount_pct?: number | null;
   stock_qty: number;
   balance?: number; // alias for inventory-master
   inward: number;
   dispatched: number;
   image_url: string | null;
   in_stock: boolean;
-  source: 'pdf' | 'inventory' | 'xlsx' | 'master';
+  source?: 'pdf' | 'inventory' | 'xlsx' | 'master';
+  model_norm?: string;
 }
 
 export interface AppUser {
@@ -73,11 +74,19 @@ export interface CatalogFilters {
   sortBy: SortBy;
 }
 
-// Stock status helper
+// Stock status helper — treats negative balances as out-of-stock
+// (data integrity safeguard: some source records have negative balances
+// due to over-dispatch in source data; we clamp to 0 for display purposes)
 export function getStockStatus(product: Product): 'in-stock' | 'out-of-stock' | 'low-stock' {
-  if (product.stock_qty <= 0) return 'out-of-stock';
-  if (product.stock_qty <= 10) return 'low-stock';
+  const qty = Math.max(0, product.stock_qty);
+  if (qty <= 0) return 'out-of-stock';
+  if (qty <= 10) return 'low-stock';
   return 'in-stock';
+}
+
+// Display-safe quantity — clamps to 0 for UI rendering
+export function displayQty(qty: number): number {
+  return Math.max(0, qty);
 }
 
 // Stock display helper (role-aware)

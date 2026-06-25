@@ -7,23 +7,28 @@
 import usersData from '@/data/users.json';
 import type { AppUser, Role, RoleConfig } from './types';
 
+interface UserRecord extends AppUser {
+  password: string; // only present in the JSON file, stripped before returning
+}
+
 interface UsersFile {
-  users: Array<Omit<AppUser, 'role'> & { role: Role }>;
+  users: UserRecord[];
   roleConfig: Record<Role, RoleConfig>;
 }
 
 const data = usersData as unknown as UsersFile;
 
-export const USERS: AppUser[] = data.users;
+// Public list of users — passwords stripped for safety.
+export const USERS: AppUser[] = data.users.map(({ password: _pw, ...safe }) => safe);
 export const ROLE_CONFIG: Record<Role, RoleConfig> = data.roleConfig;
 
 export function authenticate(username: string, password: string): AppUser | null {
-  const user = USERS.find(
+  const user = data.users.find(
     (u) => u.username.toLowerCase() === username.toLowerCase() && u.password === password
   );
   if (!user) return null;
-  // Strip password before returning (password isn't on AppUser type anyway)
-  const { ...safeUser } = user;
+  // Strip password before returning
+  const { password: _pw, ...safeUser } = user;
   return safeUser;
 }
 
@@ -32,5 +37,4 @@ export function getRoleConfig(role: Role): RoleConfig {
 }
 
 // Demo credentials display helper — REMOVED for security.
-// Admin will receive credentials directly from the system administrator.
 export const DEMO_CREDENTIALS: { role: Role; username: string; password: string }[] = [];

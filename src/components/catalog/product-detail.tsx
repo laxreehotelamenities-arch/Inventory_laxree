@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { useAppStore } from '@/store/use-app';
 import masterData from '@/data/inventory-master.json';
 import type { Product } from '@/lib/types';
-import { getStockDisplay, findAlternatives, getStockStatus } from '@/lib/types';
+import { getStockDisplay, findAlternatives, getStockStatus, displayQty } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -73,7 +73,7 @@ export function ProductDetailScreen() {
 
   // Whether the request exceeds stock
   const exceedsStock = !isAdmin && product.stock_qty > 0 && requestedQty > product.stock_qty;
-  const insufficientStock = product.stock_qty === 0 || requestedQty > product.stock_qty;
+  const insufficientStock = product.stock_qty <= 0 || requestedQty > product.stock_qty;
 
   const handleAddToCart = () => {
     if (insufficientStock && !isAdmin) {
@@ -194,7 +194,7 @@ export function ProductDetailScreen() {
               {stock.color === 'slate' && <Info className="w-5 h-5 text-slate-500 shrink-0 mt-0.5" />}
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-bold text-slate-900">
-                  {isAdmin ? `${product.stock_qty} units available` : stock.label}
+                  {isAdmin ? `${displayQty(product.stock_qty)} units available` : stock.label}
                 </div>
                 <div className="text-xs text-slate-600 mt-0.5">
                   {isAdmin ? 'Current balance in inventory' : stock.sublabel}
@@ -213,7 +213,7 @@ export function ProductDetailScreen() {
                     </div>
                     <div>
                       <div className="text-[9px] uppercase text-slate-500 font-semibold">Balance</div>
-                      <div className="text-sm font-bold text-slate-900">{product.stock_qty.toLocaleString('en-IN')}</div>
+                      <div className="text-sm font-bold text-slate-900">{displayQty(product.stock_qty).toLocaleString('en-IN')}</div>
                     </div>
                   </div>
                 )}
@@ -322,12 +322,12 @@ export function ProductDetailScreen() {
 
             <Button
               onClick={handleAddToCart}
-              disabled={product.stock_qty === 0 && !isAdmin}
+              disabled={product.stock_qty <= 0 && !isAdmin}
               className="w-full h-11 text-sm font-semibold"
               size="lg"
             >
               <ShoppingCart className="w-4 h-4 mr-1.5" />
-              {product.stock_qty === 0 ? 'Out of Stock' : 'Add to Request List'}
+              {product.stock_qty <= 0 ? 'Out of Stock' : 'Add to Request List'}
             </Button>
           </div>
         </div>

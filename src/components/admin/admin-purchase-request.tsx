@@ -84,10 +84,10 @@ export function AdminPurchaseRequestScreen() {
   const [expectedDelivery, setExpectedDelivery] = useState('');
   const [notes, setNotes] = useState('');
 
-  // Low stock items (suggested for purchase)
+  // Low stock items (suggested for purchase) — include items with 0 or low stock, sorted by stock asc
   const suggestedItems = useMemo(() => {
     return PRODUCTS.filter((p) => p.stock_qty <= 10)
-      .sort((a, b) => a.stock_qty - b.stock_qty)
+      .sort((a, b) => Math.max(0, a.stock_qty) - Math.max(0, b.stock_qty))
       .slice(0, 20);
   }, []);
 
@@ -296,13 +296,13 @@ export function AdminPurchaseRequestScreen() {
                                 <span className="text-slate-500">· {p.item}</span>
                                 <span className={cn(
                                   'ml-auto text-[9px] font-sans font-semibold px-1.5 py-0 rounded-full',
-                                  p.stock_qty === 0
+                                  p.stock_qty <= 0
                                     ? 'bg-rose-100 text-rose-700'
                                     : p.stock_qty <= 10
                                       ? 'bg-amber-100 text-amber-700'
                                       : 'bg-slate-100 text-slate-600'
                                 )}>
-                                  stock: {p.stock_qty}
+                                  stock: {Math.max(0, p.stock_qty)}
                                 </span>
                               </span>
                             </SelectItem>
@@ -386,9 +386,9 @@ export function AdminPurchaseRequestScreen() {
                       </div>
                       <Badge className={cn(
                         'ml-auto text-[9px]',
-                        selectedProduct.stock_qty === 0 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'
+                        selectedProduct.stock_qty <= 0 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'
                       )} variant="secondary">
-                        Current Stock: {selectedProduct.stock_qty}
+                        Current Stock: {Math.max(0, selectedProduct.stock_qty)}
                       </Badge>
                     </div>
                     <div className="text-[11px] text-indigo-700">
@@ -434,7 +434,7 @@ export function AdminPurchaseRequestScreen() {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="max-h-48 overflow-y-auto">
+            <div className="max-h-48 overflow-auto">
               {suggestedItems.slice(0, 8).map((item) => (
                 <div
                   key={item.id}
@@ -448,11 +448,11 @@ export function AdminPurchaseRequestScreen() {
                   <Badge
                     className={cn(
                       'text-[9px] shrink-0',
-                      item.stock_qty === 0 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'
+                      item.stock_qty <= 0 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'
                     )}
                     variant="secondary"
                   >
-                    {item.stock_qty} left
+                    {Math.max(0, item.stock_qty)} left
                   </Badge>
                   <Button
                     size="sm"
@@ -525,7 +525,7 @@ export function AdminPurchaseRequestScreen() {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="max-h-[600px] overflow-y-auto">
+          <div className="max-h-[600px] overflow-auto">
             {filteredPRs.length === 0 ? (
               <div className="p-8 text-center text-sm text-slate-500">
                 <ShoppingCart className="w-10 h-10 text-slate-300 mx-auto mb-2" />
@@ -583,9 +583,9 @@ export function AdminPurchaseRequestScreen() {
                             <span className="text-slate-500">Current:</span>
                             <span className={cn(
                               'font-bold',
-                              pr.current_stock === 0 ? 'text-rose-600' : 'text-amber-600'
+                              pr.current_stock <= 0 ? 'text-rose-600' : 'text-amber-600'
                             )}>
-                              {pr.current_stock}
+                              {Math.max(0, pr.current_stock)}
                             </span>
                           </div>
                           {pr.vendor && (

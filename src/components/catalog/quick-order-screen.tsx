@@ -43,7 +43,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getRoleConfig } from '@/lib/auth';
-import { findAlternatives, getStockStatus } from '@/lib/types';
+import { findAlternatives, getStockStatus, displayQty } from '@/lib/types';
 
 const INVENTORY = getInventory();
 
@@ -129,7 +129,7 @@ export function QuickOrderScreen() {
   const handleAddToCart = () => {
     if (!selectedProduct) return;
     if (insufficientStock && !isAdmin) {
-      showToast(`Only ${selectedProduct.stock_qty} units in stock — see alternatives`, 'error');
+      showToast(`Insufficient stock — see alternatives below`, 'error');
       return;
     }
     addToCart(selectedProduct, qty);
@@ -307,8 +307,8 @@ export function QuickOrderScreen() {
                               : 'bg-emerald-100 text-emerald-700'
                         )}>
                           {isAdmin
-                            ? `${m.stock_qty} units`
-                            : (m.stock_qty === 0 ? 'Out of Stock' : m.stock_qty <= 10 ? 'Limited' : 'Available')}
+                            ? `${displayQty(m.stock_qty)} units`
+                            : (m.stock_qty <= 0 ? 'Out of Stock' : m.stock_qty <= 10 ? 'Limited' : 'Available')}
                         </span>
                       </span>
                     </SelectItem>
@@ -386,7 +386,7 @@ export function QuickOrderScreen() {
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-bold text-slate-900">
                       {isAdmin
-                        ? `${selectedProduct.stock_qty} units available`
+                        ? `${displayQty(selectedProduct.stock_qty)} units available`
                         : stockStatus === 'in-stock' ? 'Available'
                         : stockStatus === 'low-stock' ? 'Limited Stock'
                         : 'Out of Stock'}
@@ -470,11 +470,11 @@ export function QuickOrderScreen() {
                 </Button>
                 <Button
                   onClick={handleAddToCart}
-                  disabled={selectedProduct.stock_qty === 0 && !isAdmin}
+                  disabled={selectedProduct.stock_qty <= 0 && !isAdmin}
                   className="flex-[2] h-11"
                 >
                   <ShoppingCart className="w-4 h-4 mr-1.5" />
-                  {selectedProduct.stock_qty === 0 ? 'Out of Stock' : 'Add to Request List'}
+                  {selectedProduct.stock_qty <= 0 ? 'Out of Stock' : 'Add to Request List'}
                 </Button>
               </div>
             </div>

@@ -146,7 +146,7 @@ export function FilterSheet({ open, onClose, categories }: FilterSheetProps) {
             <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
               Category
             </Label>
-            <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-lg p-1">
+            <div className="max-h-48 overflow-auto border border-slate-200 rounded-lg p-1">
               <RadioGroup
                 value={filters.category}
                 onValueChange={(v) => setFilters({ category: v })}
