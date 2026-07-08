@@ -133,7 +133,7 @@
     "discount_pct": null,
     "description": "Bath Tub made in acrylic with drainer, without accessories. Size: 1400*750*580 mm/ 1500*750*580 mm/ 1600*750*580 mm/ 1700*750*580 mm",
     "size": "1400*750*580 mm",
-    "image_url": null,
+    "image_url": "/product-images/LRBT-6602_row384.jpg",
     "name": "Bath Tub - Free Standing",
     "source_key": "LRBT-6602__WHITE"
   },
@@ -156,7 +156,7 @@
     "discount_pct": null,
     "description": "Bath Tub made in acrylic with drainer, without accessories. Size: 1400*700*580 mm/ 1500*750*580 mm/ 1600*750*580 mm/ 1700*750*580 mm",
     "size": "1400*700*580 mm",
-    "image_url": null,
+    "image_url": "/product-images/LRBT-6605_row349.jpg",
     "name": "Bath Tub - Free Standing",
     "source_key": "LRBT-6605__WHITE"
   },
@@ -202,7 +202,7 @@
     "discount_pct": null,
     "description": "Bath Tub made in acrylic with drainer, without accessories. Size: 1400*750*580 mm/ 1500*750*580 mm/ 1600*800*580 mm/ 1700*800*580 mm",
     "size": "1400*750*580 mm",
-    "image_url": null,
+    "image_url": "/product-images/LRBT-6613_row396.jpg",
     "name": "Bath Tub - Free Standing",
     "source_key": "LRBT-6613 C__WHITE"
   },
@@ -800,7 +800,7 @@
     "discount_pct": 20.0,
     "description": "MANUAL SOAP / SHAMPOO DISPENSER MADE IN ABS OUTER BODY AND PE INSIDE BOTTLES. CAPACITY: 380 ML X 2 BOTTLES",
     "size": "",
-    "image_url": null,
+    "image_url": "/product-images/LRWA-361_row189.jpg",
     "name": "In-Room Soap Dispenser",
     "source_key": "LRWA-361__SS"
   },
@@ -1007,7 +1007,7 @@
     "discount_pct": 10.0,
     "description": "MANUAL SOAP / SHAMPOO DISPENSER SET MADE IN ABS BODY, 350 ML X 2 COMPARTMENTS CAPACITY.",
     "size": "",
-    "image_url": null,
+    "image_url": "/product-images/LRWA-386_row248.jpg",
     "name": "In-Room Soap Dispenser",
     "source_key": "LRWA-386__WHITE"
   },
@@ -2226,7 +2226,7 @@
     "discount_pct": 25.0,
     "description": "AUTOMATIC SOAP DISPENSER MADE IN 304 SS OUTER BODY WITH ANTI THEFT LOCK CAPACITY; 800 ML",
     "size": "",
-    "image_url": null,
+    "image_url": "/product-images/LRWA-374_row250.jpg",
     "name": "Lobby Soap Dispenser",
     "source_key": "LRWA-374 (Auto SS)__SS"
   },
